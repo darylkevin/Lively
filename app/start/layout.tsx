@@ -83,7 +83,7 @@ export default function Layout({ children }: {
               <div className="flex">
 
                 {navs.map((nav, i) => (
-                  <Link key={nav.href} href={nav.href} className={`${pathname === nav.href && 'scale-110 -translate-y-2 translate-x-2'} -mx-2 hover:scale-110 hover:-translate-y-2 hover:translate-x-2 hover:cursor-pointer transition-all relative`}>
+                  <Link key={nav.href} href={nav.href} className={`${pathname === nav.href && 'scale-110 -translate-y-2 translate-x-2'} -mx-3 hover:scale-110 hover:-translate-y-2 hover:translate-x-2 hover:cursor-pointer transition-all relative`}>
                     <img alt={nav.alt} src={nav.imageSrc} width={150}/>
                     <span className="z-10 absolute bottom-1 right-10 text-lg font-light text-white">
                       {nav.label}
