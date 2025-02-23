@@ -28,9 +28,9 @@ export default function Layout({ children }: {
       <ThemeProvider>
 
         {/* Mobile View */}
-        <div className="pt-8 px-4 mx-auto grid h-[90vh] max-w-screen-md place-items-center md:hidden">
+        <div className="pt-8 px-8 grid h-[90vh] md:hidden">
           <div className="grid place-items-center h-full">
-            <div className="flex flex-col justify-between h-full gap-8">
+            <div className="flex flex-col justify-between h-full gap-8 w-full">
               <header className="flex flex-col justify-between gap-8">
                 <Link href={"/"} className="flex relative gap-2 hover:scale-105 transition-all">
                   <span className="text-3xl text-blue-400 font-extrabold">
@@ -39,12 +39,12 @@ export default function Layout({ children }: {
                   <img alt="quote-logo" src="/logo/quote.png" width={25} className="scale-80 object-scale-down"/>
                 </Link>
 
-                <div className="flex">
+                <div className="flex justify-center">
 
                   {navs.map((nav, i) => (
                     <Link key={nav.href} href={nav.href} className="-mx-3 relative">
-                      <img alt={nav.alt} src={nav.imageSrc} width={125} className={`${pathname === nav.href && 'scale-110 -translate-y-1 translate-x-1 transition-all'}`}/>
-                      <span className="z-10 absolute bottom-1 right-7 text-md font-light text-white">
+                      <img alt={nav.alt} src={nav.imageSrc} width={150} className={`${pathname === nav.href && 'scale-110 -translate-y-1 translate-x-1 transition-all duration-500'}`}/>
+                      <span className="z-10 absolute bottom-1 right-9 text-md font-light text-white">
                         {nav.label}
                       </span>                  
                     </Link>
