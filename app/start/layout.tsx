@@ -28,7 +28,7 @@ export default function Layout({ children }: {
       <ThemeProvider>
 
         {/* Mobile View */}
-        <div className="pt-8 px-4 mx-auto grid h-[100vh] max-w-screen-md place-items-center md:hidden">
+        <div className="pt-8 px-4 mx-auto grid h-[90vh] max-w-screen-md place-items-center md:hidden">
           <div className="grid place-items-center h-full">
             <div className="flex flex-col justify-between h-full gap-8">
               <header className="flex flex-col justify-between gap-8">
@@ -53,7 +53,7 @@ export default function Layout({ children }: {
                 </div>
               </header>
 
-              <main className="h-[50vh]">
+              <main className="h-[60vh]">
                 {children}
               </main>
 
