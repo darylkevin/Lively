@@ -45,7 +45,7 @@ export default function Page() {
     <section className="h-full">
       {/* Mobile View */}
       <div className="flex flex-col gap-2 md:hidden">
-        <div className="flex justify-between gap-4">
+        <div className="flex gap-4">
           <div className="mb-12 flex flex-col gap-1 w-full">
               <Select
                 value={sourceLanguage}
@@ -70,7 +70,27 @@ export default function Page() {
               </div>
           </div>
 
+          <div className="flex flex-col justify-center">
+          <svg width="125" viewBox="0 0 196 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.157475 107.238C0.0705038 87.9087 15.6699 72.1683 34.9996 72.0814L160.385 71.5172C179.715 71.4302 195.455 87.0296 195.542 106.359L195.843 173.148C195.929 192.478 180.33 208.219 161 208.306L35.6151 208.87C16.2853 208.957 0.544951 193.357 0.45798 174.028L0.157475 107.238Z" fill="url(#paint0_linear_33_24)"/>
+          <circle cx="98.6891" cy="75.9147" r="73.4147" fill="url(#paint1_linear_33_24)" stroke="white" stroke-width="5"/>
+          <defs>
+          <linearGradient id="paint0_linear_33_24" x1="97.6923" y1="71.7993" x2="98.3077" y2="208.588" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#2FBFEC"/>
+          <stop offset="1" stop-color="#2E85EC"/>
+          </linearGradient>
+          <linearGradient id="paint1_linear_33_24" x1="98.6891" y1="0" x2="98.6891" y2="151.829" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1678EA"/>
+          <stop offset="1" stop-color="#3EE7FE"/>
+          </linearGradient>
+          </defs>
+          </svg>
+          </div>
 
+
+
+
+{/* 
           <div className="flex flex-col justify-end items-center relative min-w-36 bottom-7">
               <img src="/icons/mic-unmute.png" width={75} className="z-20 absolute bottom-[70px]" onClick={() =>
                 console.log(123)
@@ -83,7 +103,7 @@ export default function Page() {
               }/>
               <img src="/shapes/solo-eclipse.png" width={110} className="z-10 absolute top-[110px]"/>
               <img src="/shapes/solo-rectangle.png" width={135} className="absolute bottom-5"/>
-          </div>
+          </div> */}
         </div>
 
 
