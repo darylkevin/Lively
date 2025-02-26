@@ -18,9 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${merriweatherSans.className} antialiased`}
-      >
+      <body className={`${merriweatherSans.className} antialiased`}>
         {children}
       </body>
     </html>

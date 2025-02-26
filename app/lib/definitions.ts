@@ -13,21 +13,21 @@ export const navs = [
     href: "/start/solo",
     imageSrc: "/shapes/nav-blue.png",
     alt: "solo",
-    label: "Solo"
+    label: "Solo",
   },
   {
     href: "/start/converse",
     imageSrc: "/shapes/nav-lightblue.png",
     alt: "converse",
-    label: "Converse"
+    label: "Converse",
   },
   {
     href: "/start/present",
     imageSrc: "/shapes/nav-lime.png",
     alt: "present",
-    label: "Present"
+    label: "Present",
   },
-]
+];
 
 export const links = [
   {
@@ -45,4 +45,4 @@ export const links = [
     imageSrc: "/links/email.png",
     alt: "Email",
   },
-]
+];

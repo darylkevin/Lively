@@ -14,9 +14,5 @@ import { useEffect, useState } from "react";
 // monitors: 1440px-2560px
 
 export default function Page() {
-  return (
-    <div>
-      Converse Page
-    </div>
-  );
+  return <div>Converse Page</div>;
 }

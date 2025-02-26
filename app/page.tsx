@@ -18,26 +18,18 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-      <ThemeProvider>
-        <div className="mx-auto grid h-[100vh] max-w-screen-md place-items-center md:hidden">
-          <div className="grid place-items-center h-fu;;">
-
-            <Link href="/start/solo">
-              Hero Mobile View
-            </Link>
-
-          </div>
+    <ThemeProvider>
+      <div className="mx-auto grid h-[100vh] max-w-screen-md place-items-center md:hidden">
+        <div className="h-fu;; grid place-items-center">
+          <Link href="/start/solo">Hero Mobile View</Link>
         </div>
+      </div>
 
-        <div className="mx-auto grid h-[100vh] place-items-center max-md:hidden md:block md:max-w-screen-sm lg:max-w-screen-md">
-          <div className="grid place-items-center h-full">
-
-          <Link href="/start/solo">
-              Hero Desktop View
-          </Link>
-
-          </div>
+      <div className="mx-auto grid h-[100vh] place-items-center max-md:hidden md:block md:max-w-screen-sm lg:max-w-screen-md">
+        <div className="grid h-full place-items-center">
+          <Link href="/start/solo">Hero Desktop View</Link>
         </div>
-      </ThemeProvider>
+      </div>
+    </ThemeProvider>
   );
 }
