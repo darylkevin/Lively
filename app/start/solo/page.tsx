@@ -45,29 +45,47 @@ export default function Page() {
     <section className="h-full">
       {/* Mobile View */}
       <div className="flex flex-col gap-2 md:hidden">
-        <div className="mb-12 flex flex-col gap-1">
-          <Select
-            value={sourceLanguage}
-            onValueChange={(value) => {
-              setSourceLanguage(value);
-            }}
-          >
-            <SelectTrigger className="w-[250px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {languages.map((lang, i) => (
-                <SelectItem key={i} value={lang}>
-                  {lang}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        <div className="flex justify-between gap-4">
+          <div className="mb-12 flex flex-col gap-1 w-full">
+              <Select
+                value={sourceLanguage}
+                onValueChange={(value) => {
+                  setSourceLanguage(value);
+                }}
+              >
+                <SelectTrigger className="w-[250px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {languages.map((lang, i) => (
+                    <SelectItem key={i} value={lang}>
+                      {lang}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
 
-          <div className="h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
-            Source Language: {sourceLanguage}
+              <div className="h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
+                Source Language: {sourceLanguage}
+              </div>
+          </div>
+
+
+          <div className="flex flex-col justify-end items-center relative min-w-36 bottom-7">
+              <img src="/icons/mic-unmute.png" width={75} className="z-20 absolute bottom-[70px]" onClick={() =>
+                console.log(123)
+              }/>
+              <img src="/icons/mic-mute.png" width={40} className="z-20 absolute right-[95px] bottom-7" onClick={() =>
+                console.log(456)
+              }/>
+              <img src="/icons/mic-reboot.png" width={40} className="z-20 absolute left-[95px] bottom-7" onClick={()=>
+                console.log(789)
+              }/>
+              <img src="/shapes/solo-eclipse.png" width={110} className="z-10 absolute top-[110px]"/>
+              <img src="/shapes/solo-rectangle.png" width={135} className="absolute bottom-5"/>
           </div>
         </div>
+
 
         <div className="flex flex-col gap-2">
           {targetLanguages.map((language, i) => (
@@ -98,13 +116,13 @@ export default function Page() {
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
-                    class="size-5"
+                    className="size-5"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M6 18 18 6M6 6l12 12"
                     />
                   </svg>
@@ -119,12 +137,22 @@ export default function Page() {
         </div>
 
         <div
-          className="w-fit p-2 text-blue-400"
+          className="text-blue-400"
           onClick={() => handleAddMoreLanguage()}
         >
           <div className="flex items-center gap-2">
-            <span className="text-xl">+</span>
-            <p>Add More</p>
+            {
+              targetLanguages.length === 0 ? (
+                  <div className="w-full text-center p-2">
+                    <span className="font-extralight">Click here to add a target language.</span>
+                  </div>
+              ) : (
+                <div className="w-full p-2 flex gap-2 items-center">
+                    <span className="text-xl">+</span>
+                    <p>Add More</p>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
