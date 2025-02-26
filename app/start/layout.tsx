@@ -32,7 +32,7 @@ export default function Layout({ children }: {
           <div className="grid place-items-center h-full">
             <div className="flex flex-col justify-between h-full gap-8 w-full">
               <header className="flex flex-col justify-between gap-8">
-                <Link href={"/"} className="flex relative gap-2 hover:scale-105 transition-all">
+                <Link href={"/"} className="flex relative gap-2">
                   <span className="text-3xl text-blue-400 font-extrabold">
                     Lively
                   </span>
@@ -53,7 +53,7 @@ export default function Layout({ children }: {
                 </div>
               </header>
 
-              <main className="h-[60vh]">
+              <main>
                 {children}
               </main>
 
