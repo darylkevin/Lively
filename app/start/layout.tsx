@@ -24,8 +24,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider>
       {/* Mobile View */}
-      <div className="grid h-[90vh] px-8 pt-8 md:hidden">
-        <div className="grid h-full place-items-center">
+      <div className="mx-auto grid h-[90vh] px-8 pt-8 md:hidden max-w-screen-md">
+        <div className="grid place-items-center">
           <div className="flex h-full w-full flex-col justify-between gap-8">
             <header className="flex flex-col justify-between gap-8">
               <Link href={"/"} className="relative flex gap-2">
