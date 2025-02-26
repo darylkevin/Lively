@@ -70,8 +70,8 @@ export default function Page() {
               </div>
           </div>
 
-          <div className="grid place-items-center">
-            <img src="/icons/mic-all.png" width={200} />
+          <div className="flex flex-col justify-center">
+            fill
           </div>
         </div>
 
