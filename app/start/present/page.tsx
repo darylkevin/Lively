@@ -54,7 +54,7 @@ export default function Page() {
       {/* Mobile View */}
       <div className="flex flex-col justify-between gap-8 md:hidden">
         <div className="h-[20vh] overflow-auto rounded-3xl border-2 border-dashed border-blue-300 bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
-          Drop Files Here
+          Drop or Upload Files Here
         </div>
 
         <div className="flex gap-4">
@@ -192,7 +192,7 @@ export default function Page() {
       <div className="max-md:hidden md:block">
         <div className="flex justify-between gap-8">
           <div className="grid h-[70vh] w-[60vw] place-items-center overflow-auto rounded-3xl border-4 border-dashed border-blue-300 bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400">
-            Drop Files Here
+            Drop or Upload Files Here
           </div>
           <div className="flex h-[70vh] w-[30vw] flex-col justify-between gap-8">
             <div className="flex gap-4">
