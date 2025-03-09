@@ -18,7 +18,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <ThemeProvider>
+    <>
       <div className="mx-auto grid h-[100vh] max-w-screen-md place-items-center md:hidden">
         <div className="h-fu;; grid place-items-center">
           <Link href="/start/solo">Hero Mobile View</Link>
@@ -30,6 +30,6 @@ export default function Home() {
           <Link href="/start/solo">Hero Desktop View</Link>
         </div>
       </div>
-    </ThemeProvider>
+    </>
   );
 }

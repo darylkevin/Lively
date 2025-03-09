@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Merriweather_Sans, Inter } from "next/font/google";
+
+import { ThemeProvider } from "./ui/contexts/ThemeContext";
+import { RecordingProvider } from "./ui/contexts/RecordingContext";
 import { metas } from "./lib/definitions";
 import "./globals.css";
 
@@ -19,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${merriweatherSans.className} antialiased`}>
-        {children}
+        <ThemeProvider>
+          <RecordingProvider>{children}</RecordingProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
