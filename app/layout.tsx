@@ -4,7 +4,9 @@ import { Merriweather_Sans, Inter } from "next/font/google";
 import { ThemeProvider } from "./ui/contexts/ThemeContext";
 import { RecordingProvider } from "./ui/contexts/RecordingContext";
 import { metas } from "./lib/definitions";
+
 import "./globals.css";
+import { UsageProvider } from "./ui/contexts/UsageContext";
 
 const merriweatherSans = Merriweather_Sans({ subsets: ["latin"] });
 const inter = Inter({ subsets: ["latin"] });
@@ -21,9 +23,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${merriweatherSans.className} antialiased`}>
+      <body className={`${inter.className} antialiased`}>
         <ThemeProvider>
-          <RecordingProvider>{children}</RecordingProvider>
+          <RecordingProvider>
+            <UsageProvider>{children}</UsageProvider>
+          </RecordingProvider>
         </ThemeProvider>
       </body>
     </html>

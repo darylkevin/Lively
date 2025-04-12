@@ -19,10 +19,19 @@ import { RecordingProvider } from "../ui/contexts/RecordingContext";
 import { navs, links } from "../lib/definitions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UsageContext from "../ui/contexts/UsageContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const MAX_LOCAL_CHARS_PER_DAY = Number(
+    process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY,
+  );
+  const MAX_GLOBAL_CHARS_PER_DAY = Number(
+    process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY,
+  );
+
   const pathname = usePathname();
   const { setActiveTab } = useContext(RecordingContext);
+  const { localUsageQuota, globalUsageQuota } = useContext(UsageContext);
 
   return (
     <>
@@ -66,7 +75,41 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </header>
           <div className="flex h-full w-full flex-col justify-between">
-            <main className="h-fit">{children}</main>
+            <main className="h-fit">
+              <div className="mb-4 p-2">
+                <div className="flex justify-between text-sm">
+                  <span>Local Quota</span>
+                  <p>
+                    {localUsageQuota} out of {MAX_LOCAL_CHARS_PER_DAY}
+                  </p>
+                </div>
+                <div className="mb-2 h-0.5 w-full bg-gray-200">
+                  <div
+                    className="h-0.5 bg-gradient-to-r from-blue-200 to-blue-400"
+                    style={{
+                      width: `${(localUsageQuota / (MAX_LOCAL_CHARS_PER_DAY || 1)) * 100}%`,
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span>Global Quota</span>
+                  <p>
+                    {globalUsageQuota} out of {MAX_GLOBAL_CHARS_PER_DAY}
+                  </p>
+                </div>
+                <div className="mb-2 h-0.5 w-full bg-gray-200">
+                  <div
+                    className="h-0.5 bg-gradient-to-r from-cyan-100 to-cyan-300"
+                    style={{
+                      width: `${(globalUsageQuota / (MAX_GLOBAL_CHARS_PER_DAY || 1)) * 100}%`,
+                    }}
+                  />
+                </div>
+                <div className="text-xs">*Quota are replenished daily.</div>
+              </div>
+
+              {children}
+            </main>
 
             <footer className="flex h-[10vh] items-center justify-center gap-2">
               {links.map((link, i) => (
@@ -114,7 +157,41 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
         <div className="flex h-full w-full flex-col justify-between gap-8">
-          <main className="h-fit">{children}</main>
+          <main className="h-fit">
+            <div className="mb-4 flex flex-col gap-1 p-2">
+              <div className="flex justify-between">
+                <span>Local Quota</span>
+                <p>
+                  {localUsageQuota} out of {MAX_LOCAL_CHARS_PER_DAY}
+                </p>
+              </div>
+              <div className="mb-2 h-1 w-full rounded-lg bg-gray-200">
+                <div
+                  className="h-1 rounded-lg bg-gradient-to-r from-blue-500 to-blue-300"
+                  style={{
+                    width: `${(localUsageQuota / (MAX_LOCAL_CHARS_PER_DAY || 1)) * 100}%`,
+                  }}
+                />
+              </div>
+              <div className="flex justify-between">
+                <span>Global Quota</span>
+                <p>
+                  {globalUsageQuota} out of {MAX_GLOBAL_CHARS_PER_DAY}
+                </p>
+              </div>
+              <div className="mb-2 h-1 w-full rounded-lg bg-gray-200">
+                <div
+                  className="h-1 rounded-lg bg-gradient-to-r from-cyan-400 to-cyan-200"
+                  style={{
+                    width: `${(globalUsageQuota / (MAX_GLOBAL_CHARS_PER_DAY || 1)) * 100}%`,
+                  }}
+                />
+              </div>
+              <div className="text-xs">*Quota are replenished daily.</div>
+            </div>
+
+            {children}
+          </main>
 
           <footer className="flex h-[10vh] items-center justify-center gap-2 py-16">
             {links.map((link, i) => (

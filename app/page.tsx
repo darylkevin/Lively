@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <>
       <div className="mx-auto grid h-[100vh] max-w-screen-md place-items-center md:hidden">
-        <div className="h-fu;; grid place-items-center">
+        <div className="grid h-full place-items-center">
           <Link href="/start/solo">Hero Mobile View</Link>
         </div>
       </div>

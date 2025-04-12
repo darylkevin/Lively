@@ -12,11 +12,23 @@ export interface RecordingContextType {
   targetLanguages: string[];
   recording: boolean;
   speakerTurns: boolean;
+  translatedText: string;
+  error: string | null;
+  setError: Dispatch<SetStateAction<string | null>>;
   setActiveTab: Dispatch<SetStateAction<string>>;
   setSourceLanguage: Dispatch<SetStateAction<string>>;
   setTargetLanguages: Dispatch<SetStateAction<string[]>>;
   setRecording: Dispatch<SetStateAction<boolean>>;
   setSpeakerTurns: Dispatch<SetStateAction<boolean>>;
+  handleRecordSpeech: () => void;
+  handleResetAll: () => void;
+}
+
+export interface UsageContextType {
+  localUsageQuota: number;
+  globalUsageQuota: number;
+  setLocalUsageQuota: Dispatch<SetStateAction<number | null>>;
+  setGlobalUsageQuota: Dispatch<SetStateAction<number | null>>;
 }
 
 export interface ThemeProviderProps {
@@ -24,5 +36,9 @@ export interface ThemeProviderProps {
 }
 
 export interface RecordingProviderProps {
+  children: ReactNode;
+}
+
+export interface UsageProviderProps {
   children: ReactNode;
 }
