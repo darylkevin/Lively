@@ -7,7 +7,6 @@ import { metas } from "./lib/definitions";
 
 import "./globals.css";
 import { UsageProvider } from "./ui/contexts/UsageContext";
-import { UploadProvider } from "./ui/contexts/UploadContext";
 
 const merriweatherSans = Merriweather_Sans({ subsets: ["latin"] });
 const inter = Inter({ subsets: ["latin"] });
@@ -27,9 +26,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider>
           <RecordingProvider>
-            <UsageProvider>
-              <UploadProvider>{children}</UploadProvider>
-            </UsageProvider>
+            <UsageProvider>{children}</UsageProvider>
           </RecordingProvider>
         </ThemeProvider>
       </body>

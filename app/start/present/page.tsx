@@ -10,7 +10,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RecordingContext from "@/app/ui/contexts/RecordingContext";
-import UploadContext from "@/app/ui/contexts/UploadContext";
 
 // xs: 320
 // sm: 640
@@ -38,11 +37,18 @@ export default function Page() {
     handleResetAll,
   } = useContext(RecordingContext);
 
-  const { uploadFileToBackend, uploaded, setUploaded } =
-    useContext(UploadContext);
-
   const [dragDetected, setDragDetected] = useState(false);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [uploadedDocument, setUploadedDocument] = useState(null);
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Clean up the object URL when component unmounts
+    return () => {
+      if (fileUrl) {
+        URL.revokeObjectURL(fileUrl);
+      }
+    };
+  }, [fileUrl]);
 
   const handleTargetLanguageChange = (language, i) => {
     const currTargetLanguages = [...targetLanguages];
@@ -76,11 +82,18 @@ export default function Page() {
     e.stopPropagation();
   };
 
+  const handleFileUpload = (file: File) => {
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setFileUrl(url);
+      setUploadedDocument(file.name); // or any other identifier you want to use
+    }
+  };
+
   const handleManualUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setFileName(file.name);
-      uploadFileToBackend(file);
+      handleFileUpload(file);
     }
   };
 
@@ -88,11 +101,9 @@ export default function Page() {
     e.preventDefault();
     e.stopPropagation();
     setDragDetected(false);
-
     const file = e.dataTransfer.files[0];
     if (file) {
-      setFileName(file.name);
-      uploadFileToBackend(file);
+      handleFileUpload(file);
     }
   };
 
@@ -100,10 +111,10 @@ export default function Page() {
     <section className="h-full">
       {/* Mobile View */}
       <div className="flex flex-col justify-between gap-8 md:hidden">
-        {uploaded ? (
+        {uploadedDocument ? (
           <div className="flex flex-col gap-4">
             <button
-              onClick={() => setUploaded(false)}
+              onClick={() => setUploadedDocument(null)}
               className="w-fit text-blue-400 hover:text-blue-500"
             >
               <p className="flex items-center gap-2">
@@ -126,11 +137,8 @@ export default function Page() {
             </button>
 
             <div className="h-[30vh] rounded-md border border-gray-300 bg-gray-100">
-              {uploaded && (
-                <iframe
-                  src={`/uploads/${fileName}`}
-                  className="h-full w-full"
-                />
+              {fileUrl && (
+                  ???
               )}
             </div>
           </div>
@@ -308,10 +316,13 @@ export default function Page() {
       {/* Desktop View */}
       <div className="max-md:hidden md:block">
         <div className="flex justify-between gap-8">
-          {uploaded ? (
+          {uploadedDocument ? (
             <div className="flex flex-col gap-4">
               <button
-                onClick={() => setUploaded(false)}
+                onClick={() => {
+                  setUploadedDocument(null);
+                  setFileUrl(null);
+                }}
                 className="w-fit text-blue-400 hover:text-blue-500"
               >
                 <p className="flex items-center gap-2">
@@ -333,11 +344,25 @@ export default function Page() {
                 </p>
               </button>
               <div className="h-[70vh] w-[60vw] rounded-md border border-gray-300 bg-gray-100">
-                {uploaded && (
-                  <iframe
-                    src={`/uploads/${fileName}`}
-                    className="h-full w-full"
-                  />
+                {fileUrl && (
+                  <object
+                    data={fileUrl}
+                    type="application/pdf"
+                    width="100%"
+                    height="100%"
+                  >
+                    <p>
+                      Unable to display file.{" "}
+                      <a
+                        href={fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Download
+                      </a>{" "}
+                      instead.
+                    </p>
+                  </object>
                 )}
               </div>
             </div>
