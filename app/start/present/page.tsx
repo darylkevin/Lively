@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RecordingContext from "@/app/ui/contexts/RecordingContext";
+
 // xs: 320
 // sm: 640
 // md: 768
@@ -36,6 +37,19 @@ export default function Page() {
     handleResetAll,
   } = useContext(RecordingContext);
 
+  const [dragDetected, setDragDetected] = useState(false);
+  const [uploadedDocument, setUploadedDocument] = useState(null);
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Clean up the object URL when component unmounts
+    return () => {
+      if (fileUrl) {
+        URL.revokeObjectURL(fileUrl);
+      }
+    };
+  }, [fileUrl]);
+
   const handleTargetLanguageChange = (language, i) => {
     const currTargetLanguages = [...targetLanguages];
     currTargetLanguages[i] = language;
@@ -51,13 +65,113 @@ export default function Page() {
     setTargetLanguages(targetLanguages.filter((_, i) => i !== index));
   };
 
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    setDragDetected(true);
+    console.log("drag over detected");
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setDragDetected(false);
+    console.log("drag leave detected");
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleFileUpload = (file: File) => {
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setFileUrl(url);
+      setUploadedDocument(file.name); // or any other identifier you want to use
+    }
+  };
+
+  const handleManualUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFileUpload(file);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragDetected(false);
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      handleFileUpload(file);
+    }
+  };
+
   return (
     <section className="h-full">
       {/* Mobile View */}
       <div className="flex flex-col justify-between gap-8 md:hidden">
-        <div className="h-[20vh] overflow-auto rounded-3xl border-2 border-dashed border-blue-300 bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
-          Drop or Upload Files Here
-        </div>
+        {uploadedDocument ? (
+          <div className="flex flex-col gap-4">
+            <button
+              onClick={() => setUploadedDocument(null)}
+              className="w-fit text-blue-400 hover:text-blue-500"
+            >
+              <p className="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                  />
+                </svg>
+                Go Back
+              </p>
+            </button>
+
+            <div className="h-[30vh] rounded-md border border-gray-300 bg-gray-100">
+              {fileUrl && (
+                <object
+                  data={fileUrl}
+                  type="application/pdf"
+                  width="100%"
+                  height="100%"
+                >
+                  <p>
+                    Unable to display file.{" "}
+                    <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+                      Download
+                    </a>{" "}
+                    instead.
+                  </p>
+                </object>
+              )}
+            </div>
+          </div>
+        ) : (
+          <>
+            <label
+              htmlFor="uploadFile"
+              className="grid cursor-pointer place-items-center rounded-xl border-2 border-dashed border-blue-300 py-4 text-blue-400"
+            >
+              <div>Click to Upload File</div>
+            </label>
+            <input
+              id="uploadFile"
+              type="file"
+              accept="application/pdf"
+              onChange={handleManualUpload}
+              className="hidden"
+            />
+          </>
+        )}
 
         <div className="flex gap-4">
           <div className="flex w-full flex-col gap-1">
@@ -215,9 +329,84 @@ export default function Page() {
       {/* Desktop View */}
       <div className="max-md:hidden md:block">
         <div className="flex justify-between gap-8">
-          <div className="grid h-[70vh] w-[60vw] place-items-center overflow-auto rounded-3xl border-4 border-dashed border-blue-300 bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400">
-            Drop or Upload Files Here
-          </div>
+          {uploadedDocument ? (
+            <div className="flex flex-col gap-4">
+              <button
+                onClick={() => {
+                  setUploadedDocument(null);
+                  setFileUrl(null);
+                }}
+                className="w-fit text-blue-400 hover:text-blue-500"
+              >
+                <p className="flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                    />
+                  </svg>
+                  Go Back
+                </p>
+              </button>
+              <div className="h-[70vh] w-[60vw] rounded-md border border-gray-300 bg-gray-100">
+                {fileUrl && (
+                  <object
+                    data={fileUrl}
+                    type="application/pdf"
+                    width="100%"
+                    height="100%"
+                  >
+                    <p>
+                      Unable to display file.{" "}
+                      <a
+                        href={fileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Download
+                      </a>{" "}
+                      instead.
+                    </p>
+                  </object>
+                )}
+              </div>
+            </div>
+          ) : (
+            <>
+              <label
+                htmlFor="uploadFile"
+                className={`grid h-[70vh] w-[60vw] place-items-center overflow-auto rounded-3xl border-4 border-dashed bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl hover:cursor-pointer ${dragDetected ? "border-green-300 text-green-400" : "border-blue-300 text-blue-400"}`}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+              >
+                {dragDetected ? (
+                  <span className="text-3xl font-bold">
+                    Drop it like it's hot
+                  </span>
+                ) : (
+                  "Click or Drag to Upload A File"
+                )}
+              </label>
+              <input
+                id="uploadFile"
+                type="file"
+                accept="application/pdf"
+                onChange={handleManualUpload}
+                className="hidden"
+              />
+            </>
+          )}
+
           <div className="flex h-[70vh] w-[30vw] flex-col justify-between gap-8">
             <div className="flex gap-4">
               <div className="flex w-full flex-col gap-1 text-xl">
