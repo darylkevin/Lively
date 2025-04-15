@@ -133,7 +133,7 @@ export default function Page() {
             className={`${!fileUrl && "grid cursor-pointer place-items-center rounded-xl border-2 border-dashed border-blue-300 py-4 text-blue-400"}`}
           >
             {fileUrl ? (
-              <div className="h-[20vh] rounded-md border border-gray-300 bg-gray-100 p-4">
+              <div className="h-[40vh] rounded-md border border-gray-300 bg-gray-100">
                 <iframe
                   src={fileUrl}
                   title="Uploaded Document"
@@ -342,7 +342,7 @@ export default function Page() {
               className={`${!fileUrl ? `rounded-3xl border-4 border-dashed bg-gradient-to-b from-zinc-200 to-zinc-50 text-xl hover:cursor-pointer ${isDragging ? "border-green-300 text-green-400" : "border-blue-300 text-blue-400"}` : ""} grid h-[70vh] w-[60vw] place-items-center overflow-auto`}
             >
               {fileUrl ? (
-              <div className="h-[70vh] w-full rounded-md border border-gray-300 bg-gray-100 p-4">
+              <div className="h-[70vh] w-full rounded-md border border-gray-300 bg-gray-100">
                   <iframe
                     src={fileUrl}
                     title="Uploaded Document"
