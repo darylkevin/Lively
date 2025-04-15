@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { languages } from "@/app/lib/mock";
 import {
   Select,
@@ -37,18 +37,10 @@ export default function Page() {
     handleResetAll,
   } = useContext(RecordingContext);
 
-  const [dragDetected, setDragDetected] = useState(false);
-  const [uploadedDocument, setUploadedDocument] = useState(null);
-  const [fileUrl, setFileUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Clean up the object URL when component unmounts
-    return () => {
-      if (fileUrl) {
-        URL.revokeObjectURL(fileUrl);
-      }
-    };
-  }, [fileUrl]);
+  const [fileUrl, setFileUrl] = useState("");
+  const [isDragging, setIsDragging] = useState(false);
+  const dropRef = useRef(null);
+  const inputRef = useRef(null);
 
   const handleTargetLanguageChange = (language, i) => {
     const currTargetLanguages = [...targetLanguages];
@@ -65,16 +57,25 @@ export default function Page() {
     setTargetLanguages(targetLanguages.filter((_, i) => i !== index));
   };
 
+  const handleFile = (file) => {
+    if (file && file.type === "application/pdf") {
+      const url = URL.createObjectURL(file);
+      setFileUrl(url);
+    } else {
+      alert("Please upload a PDF file.");
+    }
+  };
+
   const handleDragEnter = (e) => {
     e.preventDefault();
-    setDragDetected(true);
-    console.log("drag over detected");
+    e.stopPropagation();
+    setIsDragging(true);
   };
 
   const handleDragLeave = (e) => {
     e.preventDefault();
-    setDragDetected(false);
-    console.log("drag leave detected");
+    e.stopPropagation();
+    setIsDragging(false);
   };
 
   const handleDragOver = (e) => {
@@ -82,83 +83,75 @@ export default function Page() {
     e.stopPropagation();
   };
 
-  const handleFileUpload = (file: File) => {
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setFileUrl(url);
-      setUploadedDocument(file.name); // or any other identifier you want to use
-    }
-  };
-
-  const handleManualUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handleFileUpload(file);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
+  const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setDragDetected(false);
+    setIsDragging(false);
+
     const file = e.dataTransfer.files[0];
-    if (file) {
-      handleFileUpload(file);
-    }
+    handleFile(file);
+  };
+
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    handleFile(file);
+  };
+
+  const handleClick = () => {
+    inputRef.current.click();
   };
 
   return (
     <section className="h-full">
       {/* Mobile View */}
       <div className="flex flex-col justify-between gap-8 md:hidden">
-        {uploadedDocument ? (
-          <div className="flex flex-col gap-4">
-            <button
-              onClick={() => setUploadedDocument(null)}
-              className="w-fit text-blue-400 hover:text-blue-500"
-            >
-              <p className="flex items-center gap-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="size-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-                  />
-                </svg>
-                Go Back
-              </p>
-            </button>
-
-            <div className="h-[30vh] rounded-md border border-gray-300 bg-gray-100">
-              {fileUrl && (
-                  ???
-              )}
-            </div>
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => setFileUrl("")}
+            className={`${!fileUrl && "hidden"} w-fit text-blue-400 hover:text-blue-500`}
+          >
+            <p className="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="size-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                />
+              </svg>
+              Go Back
+            </p>
+          </button>
+          <div
+            onClick={handleClick}
+            className={`${!fileUrl && "grid cursor-pointer place-items-center rounded-xl border-2 border-dashed border-blue-300 py-4 text-blue-400"}`}
+          >
+            {fileUrl ? (
+              <div className="h-[20vh] rounded-md border border-gray-300 bg-gray-100 p-4">
+                <iframe
+                  src={fileUrl}
+                  title="Uploaded Document"
+                  className="h-full w-full border-none"
+                />
+              </div>
+            ) : (
+              <p>Click to Upload PDF</p>
+            )}
           </div>
-        ) : (
-          <>
-            <label
-              htmlFor="uploadFile"
-              className="grid cursor-pointer place-items-center rounded-xl border-2 border-dashed border-blue-300 py-4 text-blue-400"
-            >
-              <div>Click to Upload File</div>
-            </label>
-            <input
-              id="uploadFile"
-              type="file"
-              accept="application/pdf"
-              onChange={handleManualUpload}
-              className="hidden"
-            />
-          </>
-        )}
+          <input
+            ref={inputRef}
+            type="file"
+            onChange={handleChange}
+            accept="application/pdf"
+            className="hidden"
+          />
+        </div>
 
         <div className="flex gap-4">
           <div className="flex w-full flex-col gap-1">
@@ -316,85 +309,63 @@ export default function Page() {
       {/* Desktop View */}
       <div className="max-md:hidden md:block">
         <div className="flex justify-between gap-8">
-          {uploadedDocument ? (
-            <div className="flex flex-col gap-4">
-              <button
-                onClick={() => {
-                  setUploadedDocument(null);
-                  setFileUrl(null);
-                }}
-                className="w-fit text-blue-400 hover:text-blue-500"
-              >
-                <p className="flex items-center gap-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-4"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
-                    />
-                  </svg>
-                  Go Back
+          <div className="flex w-full flex-col gap-4">
+            <button
+              onClick={() => setFileUrl("")}
+              className={`${!fileUrl && "hidden"} w-fit text-blue-400 hover:text-blue-500`}
+            >
+              <p className="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                  />
+                </svg>
+                Go Back
+              </p>
+            </button>
+            <div
+              ref={dropRef}
+              onClick={handleClick}
+              onDragEnter={handleDragEnter}
+              onDragLeave={handleDragLeave}
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+              className={`${!fileUrl ? `rounded-3xl border-4 border-dashed bg-gradient-to-b from-zinc-200 to-zinc-50 text-xl hover:cursor-pointer ${isDragging ? "border-green-300 text-green-400" : "border-blue-300 text-blue-400"}` : ""} grid h-[70vh] w-[60vw] place-items-center overflow-auto`}
+            >
+              {fileUrl ? (
+              <div className="h-[70vh] w-full rounded-md border border-gray-300 bg-gray-100 p-4">
+                  <iframe
+                    src={fileUrl}
+                    title="Uploaded Document"
+                    className="h-full w-full border-none"
+                  />
+                </div>
+              ) : (
+                <p className={`${isDragging && "text-3xl font-bold"}`}>
+                  {isDragging
+                    ? "Drop it like it's hot"
+                    : "Click or Drag to Upload PDF"}
                 </p>
-              </button>
-              <div className="h-[70vh] w-[60vw] rounded-md border border-gray-300 bg-gray-100">
-                {fileUrl && (
-                  <object
-                    data={fileUrl}
-                    type="application/pdf"
-                    width="100%"
-                    height="100%"
-                  >
-                    <p>
-                      Unable to display file.{" "}
-                      <a
-                        href={fileUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Download
-                      </a>{" "}
-                      instead.
-                    </p>
-                  </object>
-                )}
-              </div>
+              )}
             </div>
-          ) : (
-            <>
-              <label
-                htmlFor="uploadFile"
-                className={`grid h-[70vh] w-[60vw] place-items-center overflow-auto rounded-3xl border-4 border-dashed bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl hover:cursor-pointer ${dragDetected ? "border-green-300 text-green-400" : "border-blue-300 text-blue-400"}`}
-                onDragEnter={handleDragEnter}
-                onDragLeave={handleDragLeave}
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-              >
-                {dragDetected ? (
-                  <span className="text-3xl font-bold">
-                    Drop it like it's hot
-                  </span>
-                ) : (
-                  "Click or Drag to Upload A File"
-                )}
-              </label>
-              <input
-                id="uploadFile"
-                type="file"
-                accept="application/pdf"
-                onChange={handleManualUpload}
-                className="hidden"
-              />
-            </>
-          )}
-
-          <div className="flex h-[70vh] w-[30vw] flex-col justify-between gap-8">
+            <input
+              type="file"
+              ref={inputRef}
+              onChange={handleChange}
+              accept="application/pdf"
+              className="hidden"
+            />
+          </div>
+          <div className="flex h-[70vh] w-full flex-col justify-between gap-8">
             <div className="flex gap-4">
               <div className="flex w-full flex-col gap-1 text-xl">
                 <span className="pl-1 text-blue-400">Speaker's Language</span>
