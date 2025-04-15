@@ -58,11 +58,11 @@ export default function Page() {
   };
 
   const handleFile = (file) => {
-    if (file && file.type === "application/pdf") {
+    if (file) {
       const url = URL.createObjectURL(file);
       setFileUrl(url);
     } else {
-      alert("Please upload a PDF file.");
+      alert("Please upload a file.");
     }
   };
 
@@ -148,7 +148,7 @@ export default function Page() {
             ref={inputRef}
             type="file"
             onChange={handleChange}
-            accept="application/pdf"
+            // accept="application/pdf"
             className="hidden"
           />
         </div>
