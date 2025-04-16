@@ -30,6 +30,7 @@ export default function Page() {
     speakerTurns,
     error,
     recording,
+    translatedText,
     setSourceLanguage,
     setTargetLanguages,
     setSpeakerTurns,
@@ -71,7 +72,7 @@ export default function Page() {
             <div
               className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400 ${speakerTurns && "border-2 border-blue-300"} transition-colors`}
             >
-              Speaker 1: {sourceLanguage}
+              {recording}
               <div
                 className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                 onClick={() => handleResetAll()}
@@ -122,7 +123,7 @@ export default function Page() {
               <div
                 className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400 ${!speakerTurns && "border-2 border-blue-300"} transition-colors`}
               >
-                Speaker 2: {language}
+                {translatedText}
                 <div
                   className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                   onClick={() => handleResetAll()}
@@ -218,7 +219,7 @@ export default function Page() {
               <div
                 className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400 ${speakerTurns && "border-4 border-blue-300"} transition-colors`}
               >
-                Speaker 1: {sourceLanguage}
+                {recording}
                 <div
                   className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                   onClick={() => handleResetAll()}
@@ -271,7 +272,7 @@ export default function Page() {
                 <div
                   className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400 ${!speakerTurns && "border-4 border-blue-300"} transition-colors`}
                 >
-                  Speaker 2: {language}
+                  {translatedText}
                   <div
                     className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                     onClick={() => handleResetAll()}
