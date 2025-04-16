@@ -55,7 +55,12 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
       setTranslatedText(translated.data);
       setError(null);
     } catch (err) {
-      setError(err.message);
+      if (err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        setError(err.message);
+      }
+      setRecording(false);
     }
   }, 300);
 
@@ -109,6 +114,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   useEffect(() => {
     // Resetting Logic here
     setRecording(false);
+    setError(null);
     setSourceLanguage(languages[0]);
     setTargetLanguages(languages.length > 1 ? [languages[1]] : [languages[0]]);
     setSpeakerTurns(true);

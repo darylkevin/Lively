@@ -12,8 +12,8 @@ import axios from "axios";
 const UsageContext = createContext<UsageContextType | undefined>(undefined);
 
 export const UsageProvider = ({ children }: UsageProviderProps) => {
-  const [localUsageQuota, setLocalUsageQuota] = useState(0);
-  const [globalUsageQuota, setGlobalUsageQuota] = useState(0);
+  const [localUsageQuota, setLocalUsageQuota] = useState(null);
+  const [globalUsageQuota, setGlobalUsageQuota] = useState(null);
 
   useEffect(() => {
     const getClientIP = async () => {
@@ -31,7 +31,8 @@ export const UsageProvider = ({ children }: UsageProviderProps) => {
     };
 
     initialFetch();
-  }, []);
+    console.log(localUsageQuota, globalUsageQuota);
+  }, [localUsageQuota, globalUsageQuota]);
 
   return (
     <UsageContext.Provider

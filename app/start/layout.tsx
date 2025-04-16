@@ -80,7 +80,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="flex justify-between text-sm">
                   <span>Local Quota</span>
                   <p>
-                    {localUsageQuota} out of {MAX_LOCAL_CHARS_PER_DAY}
+                    {localUsageQuota
+                      ? `${localUsageQuota} out of ${MAX_LOCAL_CHARS_PER_DAY}`
+                      : "Loading..."}
                   </p>
                 </div>
                 <div className="mb-2 h-0.5 w-full bg-gray-200">
@@ -94,7 +96,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <div className="flex justify-between text-sm">
                   <span>Global Quota</span>
                   <p>
-                    {globalUsageQuota} out of {MAX_GLOBAL_CHARS_PER_DAY}
+                    {globalUsageQuota
+                      ? `${globalUsageQuota} out of ${MAX_GLOBAL_CHARS_PER_DAY}`
+                      : "Loading..."}
                   </p>
                 </div>
                 <div className="mb-2 h-0.5 w-full bg-gray-200">
@@ -162,7 +166,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="flex justify-between">
                 <span>Local Quota</span>
                 <p>
-                  {localUsageQuota} out of {MAX_LOCAL_CHARS_PER_DAY}
+                  {localUsageQuota
+                    ? `${localUsageQuota} out of ${MAX_LOCAL_CHARS_PER_DAY}`
+                    : "Loading..."}
                 </p>
               </div>
               <div className="mb-2 h-1 w-full rounded-lg bg-gray-200">
@@ -176,7 +182,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="flex justify-between">
                 <span>Global Quota</span>
                 <p>
-                  {globalUsageQuota} out of {MAX_GLOBAL_CHARS_PER_DAY}
+                  {globalUsageQuota
+                    ? `${globalUsageQuota} out of ${MAX_GLOBAL_CHARS_PER_DAY}`
+                    : "Loading..."}
                 </p>
               </div>
               <div className="mb-2 h-1 w-full rounded-lg bg-gray-200">

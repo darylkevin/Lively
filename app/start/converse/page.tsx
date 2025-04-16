@@ -165,7 +165,9 @@ export default function Page() {
             <span className={`${!recording && "hidden"}`}>
               Press the mic to stop.
             </span>
-            <span className={`${!(!recording && error) && "hidden"}`}>
+            <span
+              className={`${!(!recording && error) && "hidden"} text-red-400`}
+            >
               {error}
             </span>
           </div>
@@ -314,7 +316,9 @@ export default function Page() {
               <span className={`${!recording && "hidden"}`}>
                 Press the mic to stop.
               </span>
-              <span className={`${!(!recording && error) && "hidden"}`}>
+              <span
+                className={`${!(!recording && error) && "hidden"} text-red-400`}
+              >
                 {error}
               </span>
             </div>
