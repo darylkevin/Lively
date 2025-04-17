@@ -17,7 +17,7 @@ export const getRemainingGlobalChars = async () => {
     if (data) {
       return MAX_GLOBAL_CHARS_PER_DAY - data.total_chars;
     } else {
-      // No entry found for today, return the full limit
+      // No data found, return the maximum allowed characters
       return MAX_GLOBAL_CHARS_PER_DAY;
     }
 }
@@ -25,7 +25,7 @@ export const getRemainingGlobalChars = async () => {
 export const getRemainingLocalChars = async (ip: string) => {
     const today = new Date().toISOString().split("T")[0];
     const { data, error } = await supabase.from("ip_api_usage").select("*").eq("ip", ip).eq("last_request_day", today).maybeSingle();
-
+    
     if (error) {
       new BackendLogger("ERROR", "N/A", "N/A", "N/A", "N/A", "N/A");
       return;
@@ -34,7 +34,7 @@ export const getRemainingLocalChars = async (ip: string) => {
     if (data) {
       return MAX_LOCAL_CHARS_PER_DAY - data.total_chars;
     } else {
-      // No entry found for today, return the full limit
+      // No data found for this IP, return the maximum allowed characters
       return MAX_LOCAL_CHARS_PER_DAY;
     }
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useContext, useRef } from "react";
-import { languages } from "@/app/lib/mock";
+import { languages } from "@/app/lib/languages";
 import {
   Select,
   SelectContent,
@@ -247,8 +247,8 @@ export default function Page() {
                 </SelectTrigger>
                 <SelectContent>
                   {languages.map((lang, i) => (
-                    <SelectItem key={i} value={lang}>
-                      {lang}
+                    <SelectItem key={i} value={lang.short}>
+                      {lang.language}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -276,9 +276,9 @@ export default function Page() {
                     <SelectValue placeholder="Choose a target language" />
                   </SelectTrigger>
                   <SelectContent>
-                    {languages.map((language, i) => (
-                      <SelectItem key={i} value={language}>
-                        {language}
+                    {languages.map((lang, i) => (
+                      <SelectItem key={i} value={lang.short}>
+                        {lang.language}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -309,7 +309,7 @@ export default function Page() {
               </div>
 
               <div className="relative h-[10vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
-                {translatedText}
+                {translatedText?.[0]?.translations?.[i]?.text ?? ""}
                 <div
                   className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                   onClick={() => handleResetAll()}
@@ -524,8 +524,8 @@ export default function Page() {
                     </SelectTrigger>
                     <SelectContent>
                       {languages.map((lang, i) => (
-                        <SelectItem key={i} value={lang}>
-                          {lang}
+                        <SelectItem key={i} value={lang.short}>
+                          {lang.language}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -554,9 +554,9 @@ export default function Page() {
                           <SelectValue placeholder="Choose a target language" />
                         </SelectTrigger>
                         <SelectContent>
-                          {languages.map((language, i) => (
-                            <SelectItem key={i} value={language}>
-                              {language}
+                          {languages.map((lang, i) => (
+                            <SelectItem key={i} value={lang.short}>
+                              {lang.language}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -587,7 +587,7 @@ export default function Page() {
                     </div>
 
                     <div className="relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
-                      {translatedText}
+                      {translatedText?.[0]?.translations?.[i]?.text ?? ""}
                       <div
                         className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                         onClick={() => handleResetAll()}

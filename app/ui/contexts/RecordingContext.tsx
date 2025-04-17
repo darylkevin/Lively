@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState, useCallback } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { languages } from "@/app/lib/mock";
+import { languages } from "@/app/lib/languages";
 
 import "regenerator-runtime/runtime";
 import SpeechRecognition, {
@@ -31,26 +31,26 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   } = useSpeechRecognition();
 
   const [activeTab, setActiveTab] = useState("");
-  const [sourceLanguage, setSourceLanguage] = useState(languages[0]);
+  const [sourceLanguage, setSourceLanguage] = useState(languages[0].short);
   const [targetLanguages, setTargetLanguages] = useState(
-    languages.length > 1 ? [languages[1]] : [languages[0]],
+    languages.length > 1 ? [languages[1].short] : [languages[0].short],
   );
   const [recording, setRecording] = useState(false);
   const [speakerTurns, setSpeakerTurns] = useState(true);
-  const [translatedText, setTranslatedText] = useState("");
+  const [translatedText, setTranslatedText] = useState([]);
   const [error, setError] = useState<string | null>(null);
 
-  // useEffect(() => {
-  //   console.log(targetLanguages);
-  //   fetchTranslation();
-  // }, [targetLanguages]);
+  useEffect(() => {
+    console.log(targetLanguages);
+    // fetchTranslation();
+  }, [targetLanguages]);
 
   const fetchTranslation = useDebouncedCallback(async () => {
     try {
       const translated = await axios.post("/api", {
         transcript: transcript,
         sourceLanguage: sourceLanguage,
-        targetLanguage: targetLanguages[1],
+        targetLanguages: targetLanguages,
       });
       setTranslatedText(translated.data);
       setError(null);
@@ -65,7 +65,10 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   }, 300);
 
   const beginListening = () => {
-    SpeechRecognition.startListening({ continuous: true });
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: sourceLanguage,
+    });
   };
 
   const stopListening = () => {
@@ -108,24 +111,27 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
 
   const handleResetAll = () => {
     resetTranscript();
-    setTranslatedText("");
+    setTranslatedText([]);
   };
 
   useEffect(() => {
     // Resetting Logic here
     setRecording(false);
     setError(null);
-    setSourceLanguage(languages[0]);
-    setTargetLanguages(languages.length > 1 ? [languages[1]] : [languages[0]]);
+    setSourceLanguage(languages[0].short);
+    setTargetLanguages(
+      languages.length > 1 ? [languages[1].short] : [languages[0].short],
+    );
     setSpeakerTurns(true);
 
     handleResetAll();
   }, [activeTab]);
 
   useEffect(() => {
-    fetchTranslation();
-    console.log(transcript);
-    // console.log(translatedText);
+    if (transcript) {
+      fetchTranslation();
+      console.log(transcript);
+    }
   }, [transcript]);
 
   return (

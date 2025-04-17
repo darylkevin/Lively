@@ -44,7 +44,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
     try {
 
-        const { transcript, sourceLanguage, targetLanguage } = await request.json();
+        const { transcript, sourceLanguage, targetLanguages } = await request.json();
         const requestedChars = transcript.length;
 
         const clientIP = await getClientIP(request);
@@ -76,13 +76,13 @@ export async function POST(request: Request) {
                     new BackendLogger("INFO", "UPDATE token", clientIP, requestedChars, await getRemainingGlobalChars(), await getRemainingLocalChars(clientIP));
                     await updateToSupabaseLocal(clientIP, total_local_chars + requestedChars);
                     await updateToSupabaseGlobal(total_global_chars + requestedChars);
-                    translation = await azureTranslationApi(transcript, sourceLanguage, targetLanguage);                    
+                    translation = await azureTranslationApi(transcript, sourceLanguage, targetLanguages);                    
                 }
             } else {
                 new BackendLogger("INFO", "CREATE token", clientIP, requestedChars, await getRemainingGlobalChars(), await getRemainingLocalChars(clientIP));
                 await addToSupabaseLocal(clientIP, requestedChars);
                 await addToSupabaseGlobal(requestedChars);
-                translation = await azureTranslationApi(transcript, sourceLanguage, targetLanguage);
+                translation = await azureTranslationApi(transcript, sourceLanguage, targetLanguages);
             }
         }
         return new Response(JSON.stringify(translation), { status: 200 });
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
     }
 }
 
-export const azureTranslationApi = async (transcript, sourceLanguage, targetLanguage) => {
+export const azureTranslationApi = async (transcript, sourceLanguage, targetLanguages) => {
     try {
         // const response = await axios.post(
         //     BASE_URL + '/translate',
@@ -108,14 +108,26 @@ export const azureTranslationApi = async (transcript, sourceLanguage, targetLang
         //         params: {
         //         'api-version': '3.0',
         //         'from': sourceLanguage,
-        //         'to': targetLanguage
+        //         'to': targetLanguages.join(','),
         //         },
         //         responseType: 'json'
         //     })
     
-        // return response.data[0].translations[0].text;
+        // return response.data[0].translations;
+        let response = [{
+            "translations": []
+        }]
 
-        return 'It works! - ' + transcript + 'Source: ' + sourceLanguage + ' - Target: ' + targetLanguage;
+        targetLanguages.forEach((lang) => {
+            response[0].translations.push({
+                text: `${lang}_${transcript}`,
+                to: lang
+            });
+        });
+        
+        console.log(response)
+        return response;
+
     } catch (err) {
         console.log(err)
         throw err;

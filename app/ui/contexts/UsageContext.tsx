@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useEffect, useState, useCallback } from "react";
+import {
+  createContext,
+  useEffect,
+  useState,
+  useCallback,
+  useContext,
+} from "react";
 
 import { UsageContextType, UsageProviderProps } from "../interfaces/interfaces";
 import {
@@ -8,12 +14,14 @@ import {
   getRemainingLocalChars,
 } from "@/app/api/(crud-supabase)/definitions";
 import axios from "axios";
+import RecordingContext from "./RecordingContext";
 
 const UsageContext = createContext<UsageContextType | undefined>(undefined);
 
 export const UsageProvider = ({ children }: UsageProviderProps) => {
   const [localUsageQuota, setLocalUsageQuota] = useState(null);
   const [globalUsageQuota, setGlobalUsageQuota] = useState(null);
+  const { activeTab } = useContext(RecordingContext);
 
   useEffect(() => {
     const getClientIP = async () => {
@@ -32,7 +40,7 @@ export const UsageProvider = ({ children }: UsageProviderProps) => {
 
     initialFetch();
     console.log(localUsageQuota, globalUsageQuota);
-  }, [localUsageQuota, globalUsageQuota]);
+  }, [activeTab, localUsageQuota, globalUsageQuota]);
 
   return (
     <UsageContext.Provider
