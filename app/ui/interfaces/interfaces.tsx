@@ -12,6 +12,7 @@ export interface RecordingContextType {
   targetLanguages: string[];
   recording: boolean;
   speakerTurns: boolean;
+  transcript: string;
   translatedText: string;
   error: string | null;
   setError: Dispatch<SetStateAction<string | null>>;

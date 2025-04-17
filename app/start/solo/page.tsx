@@ -29,6 +29,7 @@ export default function Page() {
     targetLanguages,
     error,
     recording,
+    transcript,
     translatedText,
     setSourceLanguage,
     setTargetLanguages,
@@ -78,7 +79,7 @@ export default function Page() {
 
             <div className="flex justify-between gap-4">
               <div className="relative h-[20vh] w-[80%] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
-                {recording}
+                {transcript}
                 <div
                   className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                   onClick={() => handleResetAll()}
@@ -264,7 +265,7 @@ export default function Page() {
 
               <div className="flex justify-between gap-8">
                 <div className="relative h-[20vh] w-full overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400">
-                  {recording}
+                  {transcript}
                   <div
                     className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                     onClick={() => handleResetAll()}

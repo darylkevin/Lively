@@ -143,6 +143,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
         setRecording,
         speakerTurns,
         setSpeakerTurns,
+        transcript,
         translatedText,
         handleRecordSpeech,
         handleResetAll,

@@ -8,13 +8,17 @@ const MAX_GLOBAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DA
 export const getRemainingGlobalChars = async () => {
     const today = new Date().toISOString().split("T")[0];
     const { data, error } = await supabase.from("global_api_usage").select("*").eq("last_request_day", today).maybeSingle();
-    if (data) {
-      return MAX_GLOBAL_CHARS_PER_DAY - data.total_chars;
-    }
-
+    
     if (error) {
       new BackendLogger("ERROR", "N/A", "N/A", "N/A", "N/A", "N/A");
       return;
+    }
+
+    if (data) {
+      return MAX_GLOBAL_CHARS_PER_DAY - data.total_chars;
+    } else {
+      // No entry found for today, return the full limit
+      return MAX_GLOBAL_CHARS_PER_DAY;
     }
 }
 
@@ -22,13 +26,16 @@ export const getRemainingLocalChars = async (ip: string) => {
     const today = new Date().toISOString().split("T")[0];
     const { data, error } = await supabase.from("ip_api_usage").select("*").eq("ip", ip).eq("last_request_day", today).maybeSingle();
 
-    if (data) {
-      return MAX_LOCAL_CHARS_PER_DAY - data.total_chars;
-    }
-
     if (error) {
       new BackendLogger("ERROR", "N/A", "N/A", "N/A", "N/A", "N/A");
       return;
+    }
+
+    if (data) {
+      return MAX_LOCAL_CHARS_PER_DAY - data.total_chars;
+    } else {
+      // No entry found for today, return the full limit
+      return MAX_LOCAL_CHARS_PER_DAY;
     }
 };
 
