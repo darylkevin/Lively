@@ -45,6 +45,7 @@ export default function Page() {
   const [pdfScale, setPdfScale] = useState(1);
   const [numPages, setNumPages] = useState();
   const [isDragging, setIsDragging] = useState(false);
+  const [disableButton, setDisableButton] = useState(false);
   const dropRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -113,6 +114,17 @@ export default function Page() {
     setPdfScale(1);
     setNumPages(undefined);
   };
+
+  useEffect(() => {
+    console.log("use effect called");
+    if (targetLanguages.length === 0 || targetLanguages.includes("")) {
+      setDisableButton(true);
+    } else {
+      setDisableButton(false);
+    }
+
+    handleResetAll();
+  }, [sourceLanguage, targetLanguages]);
 
   return (
     <section className="h-full">
@@ -643,15 +655,12 @@ export default function Page() {
 
             <div className="flex justify-center">
               <div
-                onClick={() => {
-                  if (
-                    targetLanguages.length === 0 ||
-                    targetLanguages.includes("")
-                  )
-                    return;
-                  handleRecordSpeech();
-                }}
-                className={`${(targetLanguages.length === 0 || targetLanguages.includes("")) && "opacity-50 hover:scale-100 hover:cursor-default"} ${recording ? "animate-pulse" : "transition-all hover:scale-105"} ${!recording && error ? "bg-gradient-to-r from-red-500 to-red-700" : "bg-gradient-to-r from-blue-500 to-cyan-300"} w-fit rounded-lg p-4 text-center text-xl font-extralight text-white hover:cursor-pointer`}
+                onClick={disableButton ? () => {} : handleRecordSpeech}
+                className={
+                  disableButton
+                    ? "opacity-50 hover:cursor-default"
+                    : "transition-all hover:scale-110 hover:cursor-pointer"
+                }
               >
                 <div>
                   <div className={`${!recording && "hidden"}`}>
