@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { languages } from "@/app/lib/languages";
 import {
   Select,
@@ -39,11 +39,48 @@ export default function Page() {
     handleResetAll,
   } = useContext(RecordingContext);
 
-  const handleTargetLanguageChange = (language, i) => {
-    const currTargetLanguages = [...targetLanguages];
-    currTargetLanguages[i] = language;
-    setTargetLanguages(currTargetLanguages);
-  };
+  const [speaker1, setSpeaker1] = useState(languages[0].short);
+  const [speaker2, setSpeaker2] = useState(
+    languages.length > 1 ? languages[1].short : languages[0].short,
+  );
+
+  const handleSpeakerSwitch = useCallback(() => {
+    setSpeakerTurns((prevTurns) => {
+      const newTurns = !prevTurns;
+      // Ensure state updates are synchronous
+      if (newTurns) {
+        setSourceLanguage(speaker1);
+        setTargetLanguages([speaker2]);
+      } else {
+        setSourceLanguage(speaker2);
+        setTargetLanguages([speaker1]);
+      }
+
+      return newTurns;
+    });
+
+    handleResetAll();
+  }, [speaker1, speaker2]);
+
+  useEffect(() => {
+    if (speakerTurns) {
+      setSourceLanguage(speaker1);
+      setTargetLanguages([speaker2]);
+    } else {
+      setSourceLanguage(speaker2);
+      setTargetLanguages([speaker1]);
+    }
+  }, [speaker1, speaker2]);
+
+  // For debugging only
+  // useEffect(() => {
+  //   console.log(
+  //     "sourceLanguage:",
+  //     sourceLanguage,
+  //     "targetLanguages:",
+  //     targetLanguages,
+  //   );
+  // }, [sourceLanguage, targetLanguages]);
 
   return (
     <section className="h-full">
@@ -52,9 +89,10 @@ export default function Page() {
         <div className="flex gap-4">
           <div className="flex w-full flex-col gap-1">
             <Select
-              value={sourceLanguage}
+              value={speaker1}
               onValueChange={(value) => {
-                setSourceLanguage(value);
+                setSpeaker1(value);
+                handleResetAll();
               }}
               disabled={recording}
             >
@@ -73,7 +111,9 @@ export default function Page() {
             <div
               className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400 ${speakerTurns && "border-2 border-blue-300"} transition-colors`}
             >
-              {transcript}
+              {speakerTurns
+                ? transcript
+                : translatedText?.[0]?.translations?.[0]?.text || ""}
               <div
                 className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                 onClick={() => handleResetAll()}
@@ -102,9 +142,10 @@ export default function Page() {
             <div key={i} className="flex flex-col gap-1">
               <div className="flex items-center justify-between">
                 <Select
-                  value={language}
+                  value={speaker2}
                   onValueChange={(value) => {
-                    handleTargetLanguageChange(value, i);
+                    setSpeaker2(value);
+                    handleResetAll();
                   }}
                   disabled={recording}
                 >
@@ -124,7 +165,9 @@ export default function Page() {
               <div
                 className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400 ${!speakerTurns && "border-2 border-blue-300"} transition-colors`}
               >
-                {translatedText?.[0]?.translations?.[i]?.text ?? ""}
+                {!speakerTurns
+                  ? transcript
+                  : translatedText?.[0]?.translations?.[0]?.text || ""}
                 <div
                   className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                   onClick={() => handleResetAll()}
@@ -188,7 +231,7 @@ export default function Page() {
               width={100}
               onClick={() => {
                 if (recording) return;
-                setSpeakerTurns(!speakerTurns);
+                handleSpeakerSwitch();
               }}
             />
           </div>
@@ -201,9 +244,10 @@ export default function Page() {
           <div className="flex gap-4">
             <div className="flex w-full flex-col gap-4 text-xl">
               <Select
-                value={sourceLanguage}
+                value={speaker1}
                 onValueChange={(value) => {
-                  setSourceLanguage(value);
+                  setSpeaker1(value);
+                  handleResetAll();
                 }}
                 disabled={recording}
               >
@@ -222,7 +266,9 @@ export default function Page() {
               <div
                 className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400 ${speakerTurns && "border-4 border-blue-300"} transition-colors`}
               >
-                {transcript}
+                {speakerTurns
+                  ? transcript
+                  : translatedText?.[0]?.translations?.[0]?.text || ""}
                 <div
                   className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                   onClick={() => handleResetAll()}
@@ -253,9 +299,10 @@ export default function Page() {
               <div key={i} className="flex flex-col gap-1">
                 <div className="flex items-center justify-between">
                   <Select
-                    value={language}
+                    value={speaker2}
                     onValueChange={(value) => {
-                      handleTargetLanguageChange(value, i);
+                      setSpeaker2(value);
+                      handleResetAll();
                     }}
                     disabled={recording}
                   >
@@ -275,7 +322,9 @@ export default function Page() {
                 <div
                   className={`relative h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400 ${!speakerTurns && "border-4 border-blue-300"} transition-colors`}
                 >
-                  {translatedText?.[0]?.translations?.[i]?.text ?? ""}
+                  {!speakerTurns
+                    ? transcript
+                    : translatedText?.[0]?.translations?.[0]?.text || ""}
                   <div
                     className="absolute bottom-2 right-4 z-10 hover:scale-105 hover:cursor-pointer"
                     onClick={() => handleResetAll()}
@@ -339,7 +388,7 @@ export default function Page() {
                 width={100}
                 onClick={() => {
                   if (recording) return;
-                  setSpeakerTurns(!speakerTurns);
+                  handleSpeakerSwitch();
                 }}
               />
             </div>

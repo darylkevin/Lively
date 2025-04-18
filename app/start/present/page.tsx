@@ -651,7 +651,7 @@ export default function Page() {
                     return;
                   handleRecordSpeech();
                 }}
-                className={`${(targetLanguages.length === 0 || targetLanguages.includes("")) && "opacity-50"} ${recording ? "animate-pulse" : "transition-all hover:scale-105"} ${!recording && error ? "bg-gradient-to-r from-red-500 to-red-700" : "bg-gradient-to-r from-blue-500 to-cyan-300"} w-fit rounded-lg p-4 text-center text-xl font-extralight text-white hover:cursor-pointer`}
+                className={`${(targetLanguages.length === 0 || targetLanguages.includes("")) && "opacity-50 hover:scale-100 hover:cursor-default"} ${recording ? "animate-pulse" : "transition-all hover:scale-105"} ${!recording && error ? "bg-gradient-to-r from-red-500 to-red-700" : "bg-gradient-to-r from-blue-500 to-cyan-300"} w-fit rounded-lg p-4 text-center text-xl font-extralight text-white hover:cursor-pointer`}
               >
                 <div>
                   <div className={`${!recording && "hidden"}`}>
