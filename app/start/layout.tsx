@@ -36,7 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* Mobile View */}
-      <div className="mx-auto grid h-[100vh] max-w-screen-md px-8 pt-8 md:hidden">
+      <div className="mx-auto grid max-w-screen-md p-8 md:hidden">
         <div>
           <header className="mb-8 flex flex-col justify-between gap-8">
             <Link href={"/"} className="relative flex gap-2">
@@ -66,7 +66,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     className={`${pathname === nav.href && "-translate-y-1 translate-x-1 scale-110 transition-all duration-500"}`}
                   />
                   <span
-                    className={`${pathname === nav.href ? "text-md" : "text-sm"} absolute bottom-1 right-8 z-10 font-extralight text-white`}
+                    className={`${pathname === nav.href ? "text-lg" : "text-md"} absolute bottom-1 right-8 z-10 font-extralight text-white`}
                   >
                     {nav.label}
                   </span>
@@ -127,7 +127,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Desktop View */}
-      <div className="mx-auto h-[100vh] px-8 pt-8 max-md:hidden md:block md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+      <div className="mx-auto p-8 max-md:hidden md:block md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <header className="mb-20 flex justify-between">
           <Link
             href={"/"}
@@ -201,7 +201,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {children}
           </main>
 
-          <footer className="flex h-[10vh] items-center justify-center gap-2 py-16">
+          <footer className="flex h-[10vh] items-center justify-center gap-2 py-8">
             {links.map((link, i) => (
               <Link key={i} href={link.href} className="hover:scale-110">
                 <img alt={link.alt} src={link.imageSrc} width={25} />
