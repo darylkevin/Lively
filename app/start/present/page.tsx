@@ -118,7 +118,7 @@ export default function Page() {
     <section className="h-full">
       {/* Mobile View */}
       <div className="flex flex-col justify-between gap-8 md:hidden">
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
           <div className="flex justify-between">
             <button
               onClick={() => handlePDFReset()}
@@ -391,7 +391,7 @@ export default function Page() {
       {/* Desktop View */}
       <div className="max-md:hidden md:block">
         <div className="flex justify-between gap-8">
-          <div className="flex w-full flex-col gap-4">
+          <div className="flex w-full flex-col">
             <div className="flex justify-between">
               <button
                 onClick={() => handlePDFReset()}
@@ -512,7 +512,9 @@ export default function Page() {
             />
           </div>
           <div className="flex h-[70vh] w-full flex-col justify-between gap-8">
-            <div className="flex flex-col justify-start gap-8">
+            <div
+              className={`flex flex-col justify-start gap-8 ${targetLanguages.length === 2 && "overflow-auto pr-4"}`}
+            >
               <div className="flex w-full flex-col gap-1 text-xl">
                 <span className="pl-1 text-blue-400">Speaker's Language</span>
                 <div className="">
