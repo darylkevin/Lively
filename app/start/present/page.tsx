@@ -200,7 +200,7 @@ export default function Page() {
           >
             <div className="flex justify-center">
               {pdfFile ? (
-                <div className="h-[40vh] w-[75vw] overflow-auto rounded-md border border-gray-300 bg-gray-100">
+                <div className="h-[40vh] w-[80vw] overflow-auto rounded-md border border-gray-300 bg-gray-100">
                   <Document
                     file={pdfFile}
                     onLoadSuccess={(n) => setNumPages(n.numPages)}
