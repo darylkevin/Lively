@@ -239,6 +239,7 @@ export default function Page() {
                 value={sourceLanguage}
                 onValueChange={(value) => {
                   setSourceLanguage(value);
+                  handleResetAll();
                 }}
                 disabled={recording}
               >
@@ -522,6 +523,7 @@ export default function Page() {
                     value={sourceLanguage}
                     onValueChange={(value) => {
                       setSourceLanguage(value);
+                      handleResetAll();
                     }}
                     disabled={recording}
                   >

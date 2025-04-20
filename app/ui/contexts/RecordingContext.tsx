@@ -45,7 +45,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
       const translated = await axios.post("/api", {
         transcript: transcript,
         sourceLanguage: sourceLanguage,
-        targetLanguages: targetLanguages,
+        targetLanguages: targetLanguages.filter((lang) => lang !== ""),
       });
       setTranslatedText(translated.data);
       setError(null);
@@ -126,7 +126,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
     if (transcript) {
       fetchTranslation();
     }
-  }, [transcript]);
+  }, [transcript, targetLanguages]);
 
   return (
     <RecordingContext.Provider
