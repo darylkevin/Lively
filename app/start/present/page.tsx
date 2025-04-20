@@ -118,7 +118,7 @@ export default function Page() {
     <section className="h-full">
       {/* Mobile View */}
       <div className="flex flex-col justify-between gap-8 md:hidden">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-4">
           <div className="flex justify-between">
             <button
               onClick={() => handlePDFReset()}
@@ -332,7 +332,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className="h-[10vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
+              <div className="h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
                 {translatedText?.[i]?.text ?? ""}
               </div>
             </div>
