@@ -391,11 +391,11 @@ export default function Page() {
       {/* Desktop View */}
       <div className="max-md:hidden md:block">
         <div className="flex justify-between gap-8">
-          <div className="flex w-full flex-col">
-            <div className="flex justify-between">
+          <div className="flex h-[70vh] w-full flex-col gap-4">
+            <div className={`${!pdfFile && "hidden"} flex justify-between`}>
               <button
                 onClick={() => handlePDFReset()}
-                className={`${!pdfFile && "hidden"} w-fit text-blue-400 hover:text-blue-500`}
+                className="w-fit text-blue-400 hover:text-blue-500"
               >
                 <p className="flex items-center gap-2">
                   <svg
@@ -475,10 +475,10 @@ export default function Page() {
               onDragLeave={handleDragLeave}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
-              className={`${!pdfFile ? `rounded-3xl border-4 border-dashed bg-gradient-to-b from-zinc-200 to-zinc-50 text-xl hover:cursor-pointer ${isDragging ? "border-green-300 text-green-400" : "border-blue-300 text-blue-400"}` : ""} grid h-[70vh] w-[50vw] place-items-center overflow-auto`}
+              className={`${!pdfFile ? `rounded-3xl border-4 border-dashed bg-gradient-to-b from-zinc-200 to-zinc-50 text-xl hover:cursor-pointer ${isDragging ? "border-green-300 text-green-400" : "border-blue-300 text-blue-400"}` : ""} grid h-full w-full place-items-center overflow-auto`}
             >
               {pdfFile ? (
-                <div className="h-[70vh] w-full overflow-auto rounded-md border border-gray-300 bg-gray-100">
+                <div className="h-full w-full overflow-auto rounded-md border border-gray-300 bg-gray-100">
                   <Document
                     file={pdfFile}
                     onLoadSuccess={(n) => setNumPages(n.numPages)}
