@@ -39,7 +39,6 @@ export const UsageProvider = ({ children }: UsageProviderProps) => {
     };
 
     initialFetch();
-    console.log(localUsageQuota, globalUsageQuota);
   }, [activeTab, localUsageQuota, globalUsageQuota]);
 
   return (

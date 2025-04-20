@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
 // xs: 320
 // sm: 640
 // md: 768
@@ -13,7 +10,6 @@ import { useEffect, useState } from "react";
 // laptops: 1024px-1440px
 // monitors: 1440px-2560px
 
-import { ThemeProvider } from "./ui/contexts/ThemeContext";
 import Link from "next/link";
 
 export default function Home() {

@@ -136,9 +136,7 @@ export default function Page() {
             <div
               className={`h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400 ${speakerTurns && "border-2 border-blue-300"} transition-colors`}
             >
-              {speakerTurns
-                ? transcript
-                : translatedText?.[0]?.translations?.[0]?.text || ""}
+              {speakerTurns ? transcript : (translatedText?.[0]?.text ?? "")}
             </div>
           </div>
         </div>
@@ -194,9 +192,7 @@ export default function Page() {
               <div
                 className={`h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400 ${!speakerTurns && "border-2 border-blue-300"} transition-colors`}
               >
-                {!speakerTurns
-                  ? transcript
-                  : translatedText?.[0]?.translations?.[0]?.text || ""}
+                {!speakerTurns ? transcript : (translatedText?.[0]?.text ?? "")}
               </div>
             </div>
           ))}
@@ -301,9 +297,7 @@ export default function Page() {
               <div
                 className={`h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400 ${speakerTurns && "border-4 border-blue-300"} transition-colors`}
               >
-                {speakerTurns
-                  ? transcript
-                  : translatedText?.[0]?.translations?.[0]?.text || ""}
+                {speakerTurns ? transcript : (translatedText?.[0]?.text ?? "")}
               </div>
             </div>
           </div>
@@ -363,7 +357,7 @@ export default function Page() {
                 >
                   {!speakerTurns
                     ? transcript
-                    : translatedText?.[0]?.translations?.[0]?.text || ""}
+                    : (translatedText?.[0]?.text ?? "")}
                 </div>
               </div>
             ))}

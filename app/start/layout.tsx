@@ -14,8 +14,6 @@ import RecordingContext from "../ui/contexts/RecordingContext";
 // laptops: 1024px-1440px
 // monitors: 1440px-2560px
 
-import { ThemeProvider } from "../ui/contexts/ThemeContext";
-import { RecordingProvider } from "../ui/contexts/RecordingContext";
 import { navs, links } from "../lib/definitions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

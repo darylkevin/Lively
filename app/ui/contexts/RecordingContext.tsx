@@ -40,11 +40,6 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   const [translatedText, setTranslatedText] = useState([]);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    console.log(targetLanguages);
-    // fetchTranslation();
-  }, [targetLanguages]);
-
   const fetchTranslation = useDebouncedCallback(async () => {
     try {
       const translated = await axios.post("/api", {
@@ -130,7 +125,6 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   useEffect(() => {
     if (transcript) {
       fetchTranslation();
-      console.log(transcript);
     }
   }, [transcript]);
 

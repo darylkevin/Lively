@@ -217,7 +217,7 @@ export default function Page() {
               </div>
 
               <div className="h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-blue-400">
-                {translatedText?.[0]?.translations?.[i]?.text ?? ""}
+                {translatedText?.[i]?.text ?? ""}
               </div>
             </div>
           ))}
@@ -416,7 +416,7 @@ export default function Page() {
                 </div>
 
                 <div className="h-[20vh] overflow-auto rounded-3xl bg-gradient-to-b from-zinc-200 to-zinc-50 p-4 text-xl text-blue-400">
-                  {translatedText?.[0]?.translations?.[i]?.text ?? ""}
+                  {translatedText?.[i]?.text ?? ""}
                 </div>
               </div>
             ))}

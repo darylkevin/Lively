@@ -1,14 +1,14 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { supabase } from "@/app/utils/supabase";
+import { supabase } from "@/app/api/(crud-supabase)/supabase";
 import { getClientIP } from "./(crud-services)/definitions";
 import { getRemainingGlobalChars, getRemainingLocalChars, getFromSupabaseGlobal, getFromSupabaseLocal, addToSupabaseGlobal, addToSupabaseLocal, updateToSupabaseGlobal, updateToSupabaseLocal } from "./(crud-supabase)/definitions";
 import { BackendLogger } from "./(logging)/definitions";
 import { violations } from "./(violations)/definitions";
 
-const BASE_URL = process.env.NEXT_AZURE_ENDPOINT
-const LOCATION = process.env.NEXT_AZURE_LOCATION
-const API_KEY = process.env.NEXT_AZURE_API_KEY
+const BASE_URL = process.env.AZURE_ENDPOINT
+const LOCATION = process.env.AZURE_LOCATION
+const API_KEY = process.env.AZURE_API_KEY
 
 const MAX_LOCAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY
 const MAX_GLOBAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY
@@ -93,40 +93,27 @@ export async function POST(request: Request) {
 
 export const azureTranslationApi = async (transcript, sourceLanguage, targetLanguages) => {
     try {
-        // const response = await axios.post(
-        //     BASE_URL + '/translate',
-        //     [{
-        //         'text': transcript
-        //     }],
-        //     {
-        //         headers: {
-        //         'Ocp-Apim-Subscription-Key': API_KEY,
-        //         'Ocp-Apim-Subscription-Region': LOCATION,
-        //         'Content-type': 'application/json',
-        //         'X-ClientTraceId': uuidv4().toString()
-        //         },
-        //         params: {
-        //         'api-version': '3.0',
-        //         'from': sourceLanguage,
-        //         'to': targetLanguages.join(','),
-        //         },
-        //         responseType: 'json'
-        //     })
-    
-        // return response.data[0].translations;
-        let response = [{
-            "translations": []
-        }]
-
-        targetLanguages.forEach((lang) => {
-            response[0].translations.push({
-                text: `${lang}_${transcript}`,
-                to: lang
-            });
-        });
+        const response = await axios.post(
+            BASE_URL + '/translate',
+            [{
+                'text': transcript
+            }],
+            {
+                headers: {
+                'Ocp-Apim-Subscription-Key': API_KEY,
+                'Ocp-Apim-Subscription-Region': LOCATION,
+                'Content-type': 'application/json',
+                'X-ClientTraceId': uuidv4().toString()
+                },
+                params: {
+                'api-version': '3.0',
+                'from': sourceLanguage,
+                'to': targetLanguages.join(','),
+                },
+                responseType: 'json'
+            })
         
-        console.log(response)
-        return response;
+        return response.data[0].translations;
 
     } catch (err) {
         console.log(err)

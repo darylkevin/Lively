@@ -32,10 +32,6 @@ export interface UsageContextType {
   setGlobalUsageQuota: Dispatch<SetStateAction<number | null>>;
 }
 
-export interface ThemeProviderProps {
-  children: ReactNode;
-}
-
 export interface RecordingProviderProps {
   children: ReactNode;
 }

@@ -1,6 +1,6 @@
 import { getClientIP } from "../(crud-services)/definitions";
 import { BackendLogger } from "../(logging)/definitions";
-import { supabase } from "@/app/utils/supabase";
+import { supabase } from "@/app/api/(crud-supabase)/supabase";
 
 const MAX_LOCAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY
 const MAX_GLOBAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY
