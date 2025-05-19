@@ -15,5 +15,18 @@ CREATE TABLE global_api_usage (
     CONSTRAINT unique_date_constraint UNIQUE (last_request_day)
 );
 
+CREATE TABLE logs (
+    id SERIAL PRIMARY KEY,
+    time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_request_day DATE NOT NULL,
+    level VARCHAR(10) NOT NULL,
+    message TEXT NOT NULL,
+    ip VARCHAR(45) NOT NULL,
+    requested_chars INT NOT NULL,
+    remaining_global INT NOT NULL,
+    remaining_local INT NOT NULL
+);
+
 CREATE INDEX idx_ip_last_request_day ON ip_api_usage (ip, last_request_day);
 CREATE INDEX idx_global_last_request_day ON global_api_usage (last_request_day);
+
