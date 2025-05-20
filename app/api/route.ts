@@ -154,7 +154,6 @@ export const azureTranslationApi = async (transcript, sourceLanguage, targetLang
                 responseType: 'json'
             })
         
-        console.log(response.data[0].translations)
         return response.data[0].translations;
 
     } catch (err) {
