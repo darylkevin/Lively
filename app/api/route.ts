@@ -95,7 +95,7 @@ export async function POST(request: Request) {
     }
 }
 
-export const azureTranslationApi = async (transcript, sourceLanguage, targetLanguages) => {
+export const deepLTranslationApi = async (transcript, sourceLanguage, targetLanguages) => {
     try {
 
         const responses = []
@@ -132,7 +132,7 @@ export const azureTranslationApi = async (transcript, sourceLanguage, targetLang
     }
 }
 
-export const azureTranslationApia = async (transcript, sourceLanguage, targetLanguages) => {
+export const azureTranslationApi = async (transcript, sourceLanguage, targetLanguages) => {
     try {
         const response = await axios.post(
             BASE_URL + '/translate',
@@ -158,7 +158,7 @@ export const azureTranslationApia = async (transcript, sourceLanguage, targetLan
         return response.data[0].translations;
 
     } catch (err) {
-        console.log(err)
-        throw err;
+        console.error('Error during Azure Translation API call:', err.message, err.stack);
+        throw new Error(`Translation API Error: ${err.message}`);
     }
 } 
