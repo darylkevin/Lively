@@ -1,6 +1,7 @@
 export const languages = [
   { language: "English", short: "en-US" },
   { language: "Chinese", short: "zh-CN" },
+  { language: "Cantonese", short: "zh-HK" },
   { language: "Bahasa Indonesia", short: "id" },
   { language: "Russian", short: "ru" },
   { language: "Japanese", short: "ja" },

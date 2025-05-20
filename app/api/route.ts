@@ -6,9 +6,13 @@ import { getRemainingGlobalChars, getRemainingLocalChars, getFromSupabaseGlobal,
 import { BackendLogger } from "./(logging)/definitions";
 import { violations } from "./(violations)/definitions";
 
+import * as deepl from 'deepl-node';
+
+
 const BASE_URL = process.env.AZURE_ENDPOINT
 const LOCATION = process.env.AZURE_LOCATION
-const API_KEY = process.env.AZURE_API_KEY
+const AZURE_API_KEY = process.env.AZURE_API_KEY
+const DEEPL_API_KEY = process.env.DEEPL_API_KEY
 
 const MAX_LOCAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY
 const MAX_GLOBAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY
@@ -93,6 +97,43 @@ export async function POST(request: Request) {
 
 export const azureTranslationApi = async (transcript, sourceLanguage, targetLanguages) => {
     try {
+
+        const responses = []
+
+        const authKey = DEEPL_API_KEY
+        const translator = new deepl.Translator(authKey);
+
+        for (const targetLanguage of targetLanguages) {
+            const result = await translator.translateText(
+                transcript,
+                'en',
+                'de',
+            )
+
+            responses.push({
+                text: result.text,
+                billedCharacters: result.billedCharacters,
+            })
+        }
+
+        // Result:
+        // [
+        //     {
+        //         text: "Hey Mann, wie geht's dir? Ich teste gerade die Deep L, äh, Übersetzungen.",
+        //         billedCharacters: 82
+        //     }
+        // ]
+
+        return responses
+
+    } catch (err) {
+        console.log(err)
+        throw err;
+    }
+}
+
+export const azureTranslationApia = async (transcript, sourceLanguage, targetLanguages) => {
+    try {
         const response = await axios.post(
             BASE_URL + '/translate',
             [{
@@ -100,7 +141,7 @@ export const azureTranslationApi = async (transcript, sourceLanguage, targetLang
             }],
             {
                 headers: {
-                'Ocp-Apim-Subscription-Key': API_KEY,
+                'Ocp-Apim-Subscription-Key': AZURE_API_KEY,
                 'Ocp-Apim-Subscription-Region': LOCATION,
                 'Content-type': 'application/json',
                 'X-ClientTraceId': uuidv4().toString()
@@ -113,6 +154,7 @@ export const azureTranslationApi = async (transcript, sourceLanguage, targetLang
                 responseType: 'json'
             })
         
+        console.log(response.data[0].translations)
         return response.data[0].translations;
 
     } catch (err) {
