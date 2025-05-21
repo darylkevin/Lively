@@ -21,7 +21,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
+          dotnet-version: "8.x"
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -34,12 +34,20 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+        env:
+          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
+          AZURE_LOCATION: ${{ secrets.AZURE_LOCATION }}
+          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}
+          NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}
 
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
@@ -50,7 +58,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -62,7 +70,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'lively-daryl'
-          slot-name: 'Production'
+          app-name: "lively-daryl"
+          slot-name: "Production"
           package: .
-          
