@@ -28,6 +28,14 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+        env:
+          AZURE_API_KEY: ${{ vars.AZURE_API_KEY }}
+          AZURE_ENDPOINT: ${{ vars.AZURE_ENDPOINT }}
+          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
+          NEXT_PUBLIC_MAX_GLOBAL_TOKENS: ${{ vars.NEXT_PUBLIC_MAX_GLOBAL_TOKENS }}
+          NEXT_PUBLIC_MAX_LOCAL_TOKENS: ${{ vars.NEXT_PUBLIC_MAX_LOCAL_TOKENS }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -63,17 +71,6 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6350E8D8D3A542C1B4CF41CB299E1168 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F06455CAE4B24696A2FE60E665292C08 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3509A3DFC3DB488BAE4BFDED93225189 }}
-
-      - name: Set environment variables
-        run: |
-          echo "AZURE_ENDPOINT=${{ secrets.AZURE_ENDPOINT }}" >> $GITHUB_ENV
-          echo "AZURE_LOCATION=${{ secrets.AZURE_LOCATION }}" >> $GITHUB_ENV
-          echo "AZURE_API_KEY=${{ secrets.AZURE_API_KEY }}" >> $GITHUB_ENV
-          echo "DEEPL_API_KEY=${{ secrets.DEEPL_API_KEY }}" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY=${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY=${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}" >> $GITHUB_ENV
 
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
