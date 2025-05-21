@@ -32,6 +32,14 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
+        env:
+          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
+          AZURE_LOCATION: ${{ secrets.AZURE_LOCATION }}
+          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}
+          NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
