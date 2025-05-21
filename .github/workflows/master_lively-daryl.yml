@@ -29,6 +29,15 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
+        env:
+          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
+          AZURE_LOCATION: ${{ secrets.AZURE_LOCATION }}
+          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}
+          NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}
+
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
@@ -63,14 +72,6 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_05CB5651825A49B4908D0E33004602CD }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_196D90CC870C48A5BFAC2481707DA29E }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_F8F54AE46AD648CFA4CE187CC1F2F553 }}
-        env:
-          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
-          AZURE_LOCATION: ${{ secrets.AZURE_LOCATION }}
-          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}
-          NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}
 
       - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
