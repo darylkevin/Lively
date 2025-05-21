@@ -29,13 +29,13 @@ jobs:
           npm run build --if-present
           npm run test --if-present
         env:
-          AZURE_API_KEY: ${{ vars.AZURE_API_KEY }}
-          AZURE_ENDPOINT: ${{ vars.AZURE_ENDPOINT }}
-          AZURE_LOCATION: ${{ vars.AZURE_LOCATION }}
-          NEXT_PUBLIC_MAX_GLOBAL_TOKENS: ${{ vars.NEXT_PUBLIC_MAX_GLOBAL_TOKENS }}
-          NEXT_PUBLIC_MAX_LOCAL_TOKENS: ${{ vars.NEXT_PUBLIC_MAX_LOCAL_TOKENS }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
+          AZURE_LOCATION: ${{ secrets.AZURE_LOCATION }}
+          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}
+          NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
