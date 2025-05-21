@@ -1,8 +1,0 @@
-{
-    "appService.defaultWebAppToDeploy": "/subscriptions/361e6e57-dba3-4952-ba30-443e0999c762/resourceGroups/Lively/providers/Microsoft.Web/sites/lively-daryl",
-    "appService.deploySubpath": ".",
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ]
-}
