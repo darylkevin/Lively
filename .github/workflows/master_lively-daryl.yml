@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x'
+          node-version: "22.x"
 
       - name: npm install, build, and test
         run: |
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
@@ -56,7 +56,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -64,11 +64,21 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_F06455CAE4B24696A2FE60E665292C08 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3509A3DFC3DB488BAE4BFDED93225189 }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Set environment variables
+        run: |
+          echo "AZURE_ENDPOINT=${{ secrets.AZURE_ENDPOINT }}" >> $GITHUB_ENV
+          echo "AZURE_LOCATION=${{ secrets.AZURE_LOCATION }}" >> $GITHUB_ENV
+          echo "AZURE_API_KEY=${{ secrets.AZURE_API_KEY }}" >> $GITHUB_ENV
+          echo "DEEPL_API_KEY=${{ secrets.DEEPL_API_KEY }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY=${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY=${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}" >> $GITHUB_ENV
+
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'lively-daryl'
-          slot-name: 'Production'
+          app-name: "lively-daryl"
+          slot-name: "Production"
           package: .
-          
