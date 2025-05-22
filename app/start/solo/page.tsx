@@ -224,7 +224,7 @@ export default function Page() {
                   onClick={() => {
                     if (recording) return;
                     handleCopyToClipboard(
-                      transcript,
+                      translatedText?.[i]?.text ?? "",
                       "mobile-solo-target-" + i,
                     );
                   }}
