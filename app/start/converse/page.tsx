@@ -39,10 +39,21 @@ export default function Page() {
     handleResetAll,
   } = useContext(RecordingContext);
 
+  const [copied, setCopied] = useState(false);
+  const [copyId, setCopyId] = useState(null);
+
   const [speaker1, setSpeaker1] = useState(languages[0].short);
   const [speaker2, setSpeaker2] = useState(
     languages.length > 1 ? languages[1].short : languages[0].short,
   );
+
+  const handleCopyToClipboard = (text, id) => {
+    navigator.clipboard.writeText(text);
+    setCopyId(id);
+    setCopied(true);
+
+    setTimeout(() => setCopied(false), 1000);
+  };
 
   const handleSpeakerSwitch = useCallback(() => {
     setSpeakerTurns((prevTurns) => {
@@ -110,6 +121,52 @@ export default function Page() {
               </Select>
 
               <div
+                className={`${(recording || (copied && copyId === "mobile-converse-1")) && "hidden"} text-blue-400`}
+                onClick={() => {
+                  if (recording) return;
+                  handleCopyToClipboard(
+                    speakerTurns
+                      ? transcript
+                      : (translatedText?.[0]?.text ?? ""),
+                    "mobile-converse-1",
+                  );
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+                  />
+                </svg>
+              </div>
+              <div
+                className={`${copied && copyId === "mobile-converse-1" ? "block" : "hidden"} text-blue-400`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                  />
+                </svg>
+              </div>
+
+              <div
                 className={`${recording && "hidden"} text-blue-400`}
                 onClick={() => {
                   if (recording) return;
@@ -144,7 +201,7 @@ export default function Page() {
         <div className="flex flex-col gap-2">
           {targetLanguages.map((language, i) => (
             <div key={i} className="flex flex-col gap-1">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-1">
                 <Select
                   value={speaker2}
                   onValueChange={(value) => {
@@ -164,6 +221,52 @@ export default function Page() {
                     ))}
                   </SelectContent>
                 </Select>
+
+                <div
+                  className={`${(recording || (copied && copyId === "mobile-converse-2")) && "hidden"} text-blue-400`}
+                  onClick={() => {
+                    if (recording) return;
+                    handleCopyToClipboard(
+                      !speakerTurns
+                        ? transcript
+                        : (translatedText?.[0]?.text ?? ""),
+                      "mobile-converse-2",
+                    );
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+                    />
+                  </svg>
+                </div>
+                <div
+                  className={`${copied && copyId === "mobile-converse-2" ? "block" : "hidden"} text-blue-400`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                </div>
 
                 <div
                   className={`${recording && "hidden"} text-blue-400`}
@@ -271,6 +374,52 @@ export default function Page() {
                 </Select>
 
                 <div
+                  className={`${(recording || (copied && copyId === "desktop-converse-1")) && "hidden"} text-blue-400`}
+                  onClick={() => {
+                    if (recording) return;
+                    handleCopyToClipboard(
+                      speakerTurns
+                        ? transcript
+                        : (translatedText?.[0]?.text ?? ""),
+                      "desktop-converse-1",
+                    );
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+                    />
+                  </svg>
+                </div>
+                <div
+                  className={`${copied && copyId === "desktop-converse-1" ? "block" : "hidden"} text-blue-400`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                </div>
+
+                <div
                   className={`${recording && "hidden"} text-blue-400`}
                   onClick={() => {
                     if (recording) return;
@@ -307,7 +456,7 @@ export default function Page() {
           >
             {targetLanguages.map((language, i) => (
               <div key={i} className="flex flex-col gap-1">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-1">
                   <Select
                     value={speaker2}
                     onValueChange={(value) => {
@@ -327,6 +476,54 @@ export default function Page() {
                       ))}
                     </SelectContent>
                   </Select>
+
+                  <div
+                    id={"desktop-converse-target" + i}
+                    className={`${(recording || (copied && copyId === "desktop-converse-2")) && "hidden"} text-blue-400`}
+                    onClick={() => {
+                      if (recording) return;
+                      handleCopyToClipboard(
+                        !speakerTurns
+                          ? transcript
+                          : (translatedText?.[0]?.text ?? ""),
+                        "desktop-converse-2",
+                      );
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 0 0-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 0 1-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 0 0-3.375-3.375h-1.5a1.125 1.125 0 0 1-1.125-1.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H9.75"
+                      />
+                    </svg>
+                  </div>
+
+                  <div
+                    className={`${copied && copyId === "desktop-converse-2" ? "block" : "hidden"} text-blue-400`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                  </div>
 
                   <div
                     className={`${recording && "hidden"} text-blue-400`}
