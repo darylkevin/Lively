@@ -19,6 +19,18 @@ export const SpeechSynthesisProvider = ({
   const [activePanel, setActivePanel] = useState("");
   const { speak, speaking, cancel } = useSpeechSynthesis();
 
+  const utterance = new SpeechSynthesisUtterance();
+  utterance.lang = "en-US";
+  utterance.text = "";
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+  utterance.onend = () => {
+    setTimeout(() => {
+      setActivePanel("");
+    }, 5000);
+  };
+
   const handleSpeak = (text, language, panelComparator) => {
     cancel();
     setActivePanel(panelComparator);
@@ -50,7 +62,9 @@ export const SpeechSynthesisProvider = ({
     }
 
     if (selectedVoice) {
-      speak({ text: text, voice: selectedVoice });
+      utterance.voice = selectedVoice;
+      utterance.text = text;
+      window.speechSynthesis.speak(utterance);
     }
 
     return;
