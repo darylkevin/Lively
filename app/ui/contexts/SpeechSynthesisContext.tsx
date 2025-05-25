@@ -78,18 +78,13 @@ export const SpeechSynthesisProvider = ({
     let languageCode = speechSynthesisLanguages[language];
 
     const localVoices = voicesRef.current.filter(
-      (v) =>
-        v.lang === languageCode &&
-        v.localService &&
-        v.name.startsWith("Microsoft"),
+      (v) => v.lang === languageCode && v.localService,
     );
     if (localVoices.length > 0) {
       selectedVoice = localVoices[0];
     } else {
       selectedVoice =
-        voicesRef.current.find(
-          (v) => v.lang === languageCode && v.name.startsWith("Microsoft"),
-        ) || null;
+        voicesRef.current.find((v) => v.lang === languageCode) || null;
     }
 
     if (selectedVoice) {
