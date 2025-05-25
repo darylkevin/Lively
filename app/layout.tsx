@@ -6,6 +6,7 @@ import { metas } from "./lib/definitions";
 
 import "./globals.css";
 import { UsageProvider } from "./ui/contexts/UsageContext";
+import { SpeechSynthesisProvider } from "./ui/contexts/SpeechSynthesisContext";
 
 const merriweatherSans = Merriweather_Sans({ subsets: ["latin"] });
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +25,9 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`${inter.className} antialiased`}>
         <RecordingProvider>
-          <UsageProvider>{children}</UsageProvider>
+          <UsageProvider>
+            <SpeechSynthesisProvider>{children}</SpeechSynthesisProvider>
+          </UsageProvider>
         </RecordingProvider>
       </body>
     </html>

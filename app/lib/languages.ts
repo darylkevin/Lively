@@ -14,3 +14,20 @@ export const languages = [
   { language: "Dutch", short: "nl-NL" },
   { language: "Turkish", short: "tr" },
 ];
+
+export const speechSynthesisLanguages = {
+  "en-US": "en-US",
+  "zh-CN": "zh-CN",
+  "zh-HK": "zh-HK",
+  id: "id-ID",
+  ru: "ru-RU",
+  ja: "ja-JP",
+  ko: "ko-KR",
+  "fr-FR": "fr-FR",
+  "es-ES": "es-ES",
+  "ro-RO": "ro-RO",
+  "de-DE": "de-DE",
+  "it-IT": "it-IT",
+  "nl-NL": "nl-NL",
+  tr: "tr-TR",
+};

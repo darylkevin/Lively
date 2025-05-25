@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import RecordingContext from "@/app/ui/contexts/RecordingContext";
+import SpeechSynthesisContext from "@/app/ui/contexts/SpeechSynthesisContext";
 
 // xs: 320
 // sm: 640
@@ -38,6 +39,8 @@ export default function Page() {
     handleRecordSpeech,
     handleResetAll,
   } = useContext(RecordingContext);
+
+  const { handleSpeak } = useContext(SpeechSynthesisContext);
 
   const [copied, setCopied] = useState(false);
   const [copyId, setCopyId] = useState(null);
@@ -169,6 +172,34 @@ export default function Page() {
               <div
                 className={`${recording && "hidden"} text-blue-400`}
                 onClick={() => {
+                  handleSpeak(
+                    speakerTurns
+                      ? transcript
+                      : (translatedText?.[0]?.text ?? ""),
+                    sourceLanguage,
+                    "mobile-converse-1",
+                  );
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+                  />
+                </svg>
+              </div>
+
+              <div
+                className={`${recording && "hidden"} text-blue-400`}
+                onClick={() => {
                   if (recording) return;
                   handleResetAll();
                 }}
@@ -264,6 +295,34 @@ export default function Page() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                </div>
+
+                <div
+                  className={`${recording && "hidden"} text-blue-400`}
+                  onClick={() => {
+                    handleSpeak(
+                      !speakerTurns
+                        ? transcript
+                        : (translatedText?.[0]?.text ?? ""),
+                      targetLanguages[0],
+                      "mobile-converse-2",
+                    );
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
                     />
                   </svg>
                 </div>
@@ -422,6 +481,34 @@ export default function Page() {
                 <div
                   className={`${recording && "hidden"} text-blue-400`}
                   onClick={() => {
+                    handleSpeak(
+                      speakerTurns
+                        ? transcript
+                        : (translatedText?.[0]?.text ?? ""),
+                      sourceLanguage,
+                      "desktop-converse-1",
+                    );
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+                    />
+                  </svg>
+                </div>
+
+                <div
+                  className={`${recording && "hidden"} text-blue-400`}
+                  onClick={() => {
                     if (recording) return;
                     handleResetAll();
                   }}
@@ -525,6 +612,33 @@ export default function Page() {
                     </svg>
                   </div>
 
+                  <div
+                    className={`${recording && "hidden"} text-blue-400`}
+                    onClick={() => {
+                      handleSpeak(
+                        !speakerTurns
+                          ? transcript
+                          : (translatedText?.[0]?.text ?? ""),
+                        targetLanguages[0],
+                        "desktop-converse-2",
+                      );
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="size-4 transition-all hover:size-5 hover:cursor-pointer"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+                      />
+                    </svg>
+                  </div>
                   <div
                     className={`${recording && "hidden"} text-blue-400`}
                     onClick={() => {

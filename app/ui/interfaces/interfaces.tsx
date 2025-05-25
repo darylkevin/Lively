@@ -13,7 +13,7 @@ export interface RecordingContextType {
   recording: boolean;
   speakerTurns: boolean;
   transcript: string;
-  translatedText: string;
+  translatedText: string[];
   error: string | null;
   setError: Dispatch<SetStateAction<string | null>>;
   setActiveTab: Dispatch<SetStateAction<string>>;
@@ -32,10 +32,24 @@ export interface UsageContextType {
   setGlobalUsageQuota: Dispatch<SetStateAction<number | null>>;
 }
 
+export interface SpeechSynthesisContextType {
+  beginSpeaking: (text: string, language: string) => void;
+  isSpeaking: boolean;
+  setIsSpeaking: Dispatch<SetStateAction<boolean>>;
+}
+
+export interface ThemeProviderProps {
+  children: ReactNode;
+}
+
 export interface RecordingProviderProps {
   children: ReactNode;
 }
 
 export interface UsageProviderProps {
+  children: ReactNode;
+}
+
+export interface SpeechSynthesisContextProvider {
   children: ReactNode;
 }
