@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useSpeechSynthesis } from "react-speech-kit";
 
 import {
@@ -17,21 +17,56 @@ export const SpeechSynthesisProvider = ({
   children,
 }: SpeechSynthesisContextProvider) => {
   const [activePanel, setActivePanel] = useState("");
+  const [voicesReady, setVoicesReady] = useState(false);
+  const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
   const { speak, speaking, cancel } = useSpeechSynthesis();
 
-  const utterance = new SpeechSynthesisUtterance();
-  utterance.lang = "en-US";
-  utterance.text = "";
-  utterance.rate = 1;
-  utterance.pitch = 1;
-  utterance.volume = 1;
-  utterance.onend = () => {
-    setTimeout(() => {
-      setActivePanel("");
-    }, 5000);
-  };
+  // Ensure voices are loaded before allowing speak
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let handleVoicesChanged: (() => void) | null = null;
+
+    const loadVoices = () => {
+      voicesRef.current = window.speechSynthesis.getVoices();
+      if (voicesRef.current.length > 0) {
+        setVoicesReady(true);
+      }
+    };
+
+    // Try to load voices synchronously first
+    loadVoices();
+
+    // If not loaded, listen for the voiceschanged event
+    if (!voicesReady) {
+      handleVoicesChanged = () => {
+        loadVoices();
+      };
+      window.speechSynthesis.addEventListener(
+        "voiceschanged",
+        handleVoicesChanged,
+      );
+    }
+
+    // "Prime" voices as soon as possible (helps on Safari/iOS)
+    window.speechSynthesis.getVoices();
+
+    return () => {
+      if (handleVoicesChanged) {
+        window.speechSynthesis.removeEventListener(
+          "voiceschanged",
+          handleVoicesChanged,
+        );
+      }
+    };
+  }, []);
 
   const handleSpeak = (text, language, panelComparator) => {
+    if (!voicesReady) {
+      // Optionally: Notify user that voices aren't ready yet
+      return;
+    }
+
     cancel();
     setActivePanel(panelComparator);
 
@@ -42,29 +77,26 @@ export const SpeechSynthesisProvider = ({
     let selectedVoice;
     let languageCode = speechSynthesisLanguages[language];
 
-    const localVoices = window.speechSynthesis
-      .getVoices()
-      .filter(
-        (v) =>
-          v.lang === languageCode &&
-          v.localService &&
-          v.name.startsWith("Microsoft"),
-      );
+    const localVoices = voicesRef.current.filter(
+      (v) =>
+        v.lang === languageCode &&
+        v.localService &&
+        v.name.startsWith("Microsoft"),
+    );
     if (localVoices.length > 0) {
       selectedVoice = localVoices[0];
     } else {
       selectedVoice =
-        window.speechSynthesis
-          .getVoices()
-          .find(
-            (v) => v.lang === languageCode && v.name.startsWith("Microsoft"),
-          ) || null;
+        voicesRef.current.find(
+          (v) => v.lang === languageCode && v.name.startsWith("Microsoft"),
+        ) || null;
     }
 
     if (selectedVoice) {
-      utterance.voice = selectedVoice;
-      utterance.text = text;
-      window.speechSynthesis.speak(utterance);
+      speak({ text: text, voice: selectedVoice });
+    } else {
+      // Fallback: Use default voice
+      speak({ text: text });
     }
 
     return;
@@ -74,6 +106,7 @@ export const SpeechSynthesisProvider = ({
     <SpeechSynthesisContext.Provider
       value={{
         handleSpeak,
+        voicesReady, // You can use this to disable speak buttons until voices are ready
       }}
     >
       {children}
