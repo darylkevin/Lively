@@ -37,6 +37,15 @@ jobs:
           NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}
           NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}
 
+      - name: Package application for deployment
+        run: |
+          mkdir -p deploy
+          cp -r .next deploy/.next
+          cp -r node_modules deploy/node_modules
+          cp -r public deploy/public
+          cp next.config.js deploy/next.config.js
+          zip -r release.zip deploy/
+
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
@@ -63,7 +72,7 @@ jobs:
           name: node-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip
+        run: unzip release.zip -d .
 
       - name: Login to Azure
         uses: azure/login@v2
