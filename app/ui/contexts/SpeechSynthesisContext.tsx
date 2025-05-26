@@ -93,7 +93,7 @@ export const SpeechSynthesisProvider = ({
     <SpeechSynthesisContext.Provider
       value={{
         handleSpeak,
-        voicesReady,
+        voicesReady, // Can be used for UI feedback
       }}
     >
       {children}
