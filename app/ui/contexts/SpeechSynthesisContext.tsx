@@ -21,7 +21,6 @@ export const SpeechSynthesisProvider = ({
   const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
   const { speak, speaking, cancel } = useSpeechSynthesis();
 
-  // Ensure voices are loaded before allowing speak
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -34,10 +33,8 @@ export const SpeechSynthesisProvider = ({
       }
     };
 
-    // Try to load voices synchronously first
     loadVoices();
 
-    // If not loaded, listen for the voiceschanged event
     if (!voicesReady) {
       handleVoicesChanged = () => {
         loadVoices();
@@ -62,37 +59,33 @@ export const SpeechSynthesisProvider = ({
   }, []);
 
   const handleSpeak = (text, language, panelComparator) => {
-    if (!voicesReady) {
-      // Optionally: Notify user that voices aren't ready yet
-      return;
-    }
-
     cancel();
     setActivePanel(panelComparator);
 
-    if (speaking && activePanel === panelComparator) {
+    if (!voicesReady || (speaking && activePanel === panelComparator)) {
       return;
     }
 
-    let selectedVoice;
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
     let languageCode = speechSynthesisLanguages[language];
+    let localVoices;
 
-    const localVoices = voicesRef.current.filter(
-      (v) => v.lang === languageCode && v.localService,
-    );
-    if (localVoices.length > 0) {
-      selectedVoice = localVoices[0];
+    if (isMobile) {
+      localVoices = voicesRef.current.filter(
+        // (v) => v.lang === languageCode && v.localService,
+        (v) => v.lang === languageCode && v.name.includes("Microsoft"),
+      );
     } else {
-      selectedVoice =
-        voicesRef.current.find((v) => v.lang === languageCode) || null;
+      localVoices = voicesRef.current.filter(
+        (v) => v.lang === languageCode && v.name.includes("Microsoft"),
+      );
     }
 
-    if (selectedVoice) {
-      speak({ text: text, voice: selectedVoice });
-    } else {
-      // Fallback: Use default voice
-      speak({ text: text });
-    }
+    speak({
+      text: text,
+      voice: localVoices[0],
+    });
 
     return;
   };
@@ -101,7 +94,7 @@ export const SpeechSynthesisProvider = ({
     <SpeechSynthesisContext.Provider
       value={{
         handleSpeak,
-        voicesReady, // You can use this to disable speak buttons until voices are ready
+        voicesReady,
       }}
     >
       {children}
