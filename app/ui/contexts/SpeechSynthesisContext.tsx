@@ -62,6 +62,10 @@ export const SpeechSynthesisProvider = ({
     cancel();
     setActivePanel(panelComparator);
 
+    if (activePanel === panelComparator && speaking) {
+      return;
+    }
+
     let languageCode = speechSynthesisLanguages[language];
     let localVoices;
 
