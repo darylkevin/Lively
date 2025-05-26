@@ -62,22 +62,16 @@ export const SpeechSynthesisProvider = ({
     cancel();
     setActivePanel(panelComparator);
 
-    if (!voicesReady || (speaking && activePanel === panelComparator)) {
-      return;
-    }
-
-    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
     let languageCode = speechSynthesisLanguages[language];
     let localVoices;
 
-    if (isMobile) {
+    localVoices = voicesRef.current.filter(
+      (v) => v.lang === languageCode && v.name.includes("Microsoft"),
+    );
+
+    if (localVoices.length === 0) {
       localVoices = voicesRef.current.filter(
         (v) => v.lang === languageCode && v.localService,
-      );
-    } else {
-      localVoices = voicesRef.current.filter(
-        (v) => v.lang === languageCode && v.name.includes("Microsoft"),
       );
     }
 
