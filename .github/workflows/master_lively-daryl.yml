@@ -85,3 +85,4 @@ jobs:
           app-name: "lively-daryl"
           slot-name: "Production"
           package: .
+          respect-clean: true
