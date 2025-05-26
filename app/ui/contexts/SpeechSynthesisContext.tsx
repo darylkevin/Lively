@@ -73,8 +73,7 @@ export const SpeechSynthesisProvider = ({
 
     if (isMobile) {
       localVoices = voicesRef.current.filter(
-        // (v) => v.lang === languageCode && v.localService,
-        (v) => v.lang === languageCode && v.name.includes("Microsoft"),
+        (v) => v.lang === languageCode && v.localService,
       );
     } else {
       localVoices = voicesRef.current.filter(

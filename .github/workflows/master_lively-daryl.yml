@@ -21,13 +21,21 @@ jobs:
       - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x'
+          node-version: "22.x"
 
       - name: npm install, build, and test
         run: |
           npm install
           npm run build --if-present
           npm run test --if-present
+        env:
+          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
+          AZURE_LOCATION: ${{ secrets.AZURE_LOCATION }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY }}
+          NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY: ${{ secrets.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY }}
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -42,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: "Production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
@@ -56,7 +64,7 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -64,11 +72,10 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EDD461B542B244E3BB58336A12762549 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2506E17D5BBE4A4189AB034B04D73D09 }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: "Deploy to Azure Web App"
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'lively-daryl'
-          slot-name: 'Production'
+          app-name: "lively-daryl"
+          slot-name: "Production"
           package: .
-          
