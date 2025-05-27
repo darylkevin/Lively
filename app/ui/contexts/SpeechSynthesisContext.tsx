@@ -67,6 +67,7 @@ export const SpeechSynthesisProvider = ({
     }
 
     let languageCode = speechSynthesisLanguages[language];
+    let localVoices;
 
     localVoices = voicesRef.current.filter(
       (v) =>
