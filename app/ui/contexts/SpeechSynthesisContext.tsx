@@ -70,17 +70,15 @@ export const SpeechSynthesisProvider = ({
     let localVoices;
 
     localVoices = voicesRef.current.filter(
-      (v) =>
-        v.lang === languageCode &&
-        v.localService &&
-        v.name.includes("Microsoft"),
+      (v) => v.lang === languageCode && v.localService,
+      // v.name.includes("Microsoft"),
     );
 
-    if (localVoices.length === 0) {
-      localVoices = voicesRef.current.filter(
-        (v) => v.lang === languageCode && v.localService,
-      );
-    }
+    // if (localVoices.length === 0) {
+    //   localVoices = voicesRef.current.filter(
+    //     (v) => v.lang === languageCode && v.localService,
+    //   );
+    // }
 
     speak({
       text: text,
