@@ -69,6 +69,8 @@ export const SpeechSynthesisProvider = ({
     let languageCode = speechSynthesisLanguages[language];
     let localVoices;
 
+    console.log("Available voices:", voicesRef.current);
+
     localVoices = voicesRef.current.filter(
       (v) => v.lang === languageCode && v.localService,
       // v.name.includes("Microsoft"),
