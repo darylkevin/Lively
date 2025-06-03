@@ -10,22 +10,31 @@
 // laptops: 1024px-1440px
 // monitors: 1440px-2560px
 
-import Link from "next/link";
+"use client";
+
+import React, { useState } from "react";
+
+import Hero from "./ui/landing/Hero";
+import NavBar from "./ui/landing/NavBar";
+import SubHero from "./ui/landing/SubHero";
+import Features from "./ui/landing/Features";
+import Feedback from "./ui/landing/Feedback";
+import Footer from "./ui/landing/Footer";
 
 export default function Home() {
+  const [navOpen, setNavOpen] = useState(false);
+
   return (
     <>
-      <div className="mx-auto grid h-[100vh] max-w-screen-md place-items-center md:hidden">
-        <div className="grid h-full place-items-center">
-          <Link href="/start/solo">Hero Mobile View</Link>
-        </div>
-      </div>
+      <NavBar navOpen={navOpen} setNavOpen={setNavOpen} />
 
-      <div className="mx-auto grid h-[100vh] place-items-center max-md:hidden md:block md:max-w-screen-sm lg:max-w-screen-md">
-        <div className="grid h-full place-items-center">
-          <Link href="/start/solo">Hero Desktop View</Link>
-        </div>
-      </div>
+      <main className={`${navOpen && "hidden"}`}>
+        <Hero />
+        <SubHero />
+        <Features />
+        <Feedback />
+        <Footer />
+      </main>
     </>
   );
 }
