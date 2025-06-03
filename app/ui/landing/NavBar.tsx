@@ -12,13 +12,13 @@ const NavBar = ({
   setNavOpen: any;
 }) => {
   return (
-    <div className="mx-auto max-w-screen-xl">
+    <>
       <div
-        className={`${navOpen && "hidden"} sticky left-0 top-0 z-10 h-12 w-full bg-white px-4 py-2`}
+        className={`${navOpen && "hidden"} sticky left-0 top-0 z-10 h-16 w-full bg-white px-4 py-2`}
       >
         <header className="mx-auto mb-8 flex max-w-screen-xl items-center justify-between gap-8">
           <Link href={"/"} className="relative flex gap-2">
-            <span className="text-3xl font-extrabold text-blue-400">
+            <span className="text-3xl font-extrabold text-blue-400 xl:text-5xl">
               Lively
             </span>
             <img
@@ -96,7 +96,7 @@ const NavBar = ({
           </div>
         </header>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -2,9 +2,9 @@ import React from "react";
 
 const Hero = () => {
   return (
-    <div className="mx-auto h-[50vh] max-w-screen-xl px-4">
+    <div className="mx-auto h-[50vh] max-w-screen-xl">
       <section className="grid h-full grid-cols-4 md:grid-cols-3">
-        <div className="col-span-3 mx-auto flex max-w-screen-xl flex-col justify-center md:col-span-2">
+        <div className="col-span-3 mx-auto flex max-w-screen-xl flex-col justify-center max-xl:px-4 md:col-span-2">
           <h1 className="-ml-1 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text py-2 text-5xl text-transparent md:text-6xl xl:text-7xl">
             Break Language Barriers
           </h1>
