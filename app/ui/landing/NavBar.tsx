@@ -18,7 +18,7 @@ const NavBar = ({
       >
         <header className="mx-auto mb-8 flex max-w-screen-xl items-center justify-between gap-8">
           <Link href={"/"} className="relative flex gap-2">
-            <span className="text-3xl font-extrabold text-blue-400 xl:text-5xl">
+            <span className="text-3xl font-extrabold text-blue-400 md:text-4xl xl:text-5xl">
               Lively
             </span>
             <img
