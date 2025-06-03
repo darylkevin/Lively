@@ -61,7 +61,7 @@ const NavBar = ({
       </div>
 
       <div
-        className={`${!navOpen && "hidden"} sticky left-0 top-0 z-10 h-12 w-full border border-green-400 bg-white px-4 py-2`}
+        className={`${!navOpen && "hidden"} sticky left-0 top-0 z-10 h-12 w-full bg-white px-4 py-2`}
       >
         <header className="flex h-[100vh] w-full items-center justify-end gap-8">
           <div className="flex flex-col items-end gap-8 text-right">
@@ -71,7 +71,7 @@ const NavBar = ({
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="size-5 rounded-full bg-blue-400 p-1 text-white md:hidden"
+              className="size-5 rounded-full bg-blue-400 p-1 text-white hover:cursor-pointer hover:bg-white hover:text-blue-400 md:hidden"
               onClick={() => setNavOpen(!navOpen)}
             >
               <path
@@ -82,7 +82,7 @@ const NavBar = ({
             </svg>
             {navs.map((nav) => (
               <Link key={nav.href} href={nav.href}>
-                <span className="p-2 font-medium text-blue-400 hover:cursor-pointer hover:rounded-full hover:bg-blue-400 hover:text-white">
+                <span className="p-2 text-xl text-blue-400 hover:cursor-pointer hover:rounded-full hover:bg-blue-400 hover:text-white">
                   {nav.label}
                 </span>
               </Link>
