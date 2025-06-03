@@ -16,7 +16,7 @@ const NavBar = ({
       <div
         className={`${navOpen && "hidden"} sticky left-0 top-0 z-10 h-24 w-full bg-white`}
       >
-        <header className="mx-auto flex max-w-screen-xl items-center justify-between gap-8 py-8">
+        <header className="mx-auto flex max-w-screen-xl items-center justify-between gap-8 py-8 max-md:px-4">
           <Link href={"/"} className="relative flex gap-2">
             <span className="text-3xl font-extrabold text-blue-400 md:text-4xl xl:text-5xl">
               Lively
