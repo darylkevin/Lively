@@ -14,7 +14,7 @@ const NavBar = ({
   return (
     <>
       <div
-        className={`${navOpen && "hidden"} sticky left-0 top-0 z-10 h-24 w-full bg-white`}
+        className={`${navOpen && "hidden"} sticky left-0 top-0 z-10 h-16 w-full bg-white md:h-24`}
       >
         <header className="mx-auto flex items-center justify-between gap-8 max-md:p-4 md:max-w-screen-md md:pb-8 md:pt-6 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
           <Link href={"/"} className="relative flex gap-2">
