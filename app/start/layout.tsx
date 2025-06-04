@@ -34,7 +34,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       {/* Mobile View */}
-      <div className="mx-auto grid max-w-screen-md p-4 md:hidden">
+      <div className="mx-auto grid max-w-screen-md p-6 md:hidden">
         <div>
           <header className="mb-8 flex flex-col justify-between gap-8">
             <Link href={"/"} className="relative flex gap-2">

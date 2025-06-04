@@ -14,9 +14,9 @@ const NavBar = ({
   return (
     <>
       <div
-        className={`${navOpen && "hidden"} sticky left-0 top-0 z-10 h-16 w-full bg-white md:h-24`}
+        className={`${navOpen && "hidden"} sticky left-0 top-0 z-10 h-20 w-full bg-white md:h-24`}
       >
-        <header className="mx-auto flex items-center justify-between gap-8 max-md:p-4 md:max-w-screen-md md:pb-8 md:pt-6 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+        <header className="mx-auto flex items-center justify-between gap-8 max-md:p-6 md:max-w-screen-md md:pb-8 md:pt-6 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
           <Link href={"/"} className="relative flex gap-2">
             <span className="text-3xl font-extrabold text-blue-400 md:text-4xl xl:text-5xl">
               Lively
