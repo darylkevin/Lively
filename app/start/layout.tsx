@@ -125,20 +125,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* Desktop View */}
-      <div className="mx-auto p-8 max-md:hidden md:block md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+      <div className="mx-auto pb-8 pt-6 max-md:hidden md:block md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <header className="mb-20 flex justify-between">
-          <Link
-            href={"/"}
-            className="relative flex gap-2 transition-transform hover:translate-x-10"
-          >
-            <span className="text-5xl font-extrabold text-blue-400">
+          <Link href={"/"} className="relative flex gap-2">
+            <span className="gap-2 text-5xl font-extrabold text-blue-400">
               Lively
             </span>
             <img
               alt="quote-logo"
               src="/logo/quote.png"
-              width={50}
-              className="scale-80"
+              width={25}
+              className="scale-80 object-scale-down"
             />
           </Link>
 
