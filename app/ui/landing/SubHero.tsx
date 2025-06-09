@@ -3,9 +3,9 @@ import React from "react";
 
 const SubHero = () => {
   return (
-    <div className="h-full bg-blue-500">
-      <section className="mx-auto flex flex-col items-center justify-center gap-8 py-12 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-        <div className="">
+    <div className="h-full overflow-x-hidden bg-blue-500">
+      <section className="mx-auto flex flex-col items-center justify-center gap-8 py-12">
+        <div className="md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
           <h1 className="text-center text-3xl font-bold text-white md:text-4xl xl:text-5xl">
             Powered by Microsoft's Azure AI Translator
           </h1>
@@ -16,12 +16,12 @@ const SubHero = () => {
           </p>
         </div>
 
-        <div className="relative md:max-w-screen-md lg:w-full lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-          <div className="animate-marquee flex items-center gap-8 whitespace-nowrap">
+        <div className="relative">
+          <div className="animate-marquee flex items-center whitespace-nowrap">
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
+                className="mx-4 mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
               >
                 <img
                   src={card.imageSrc}
@@ -37,11 +37,11 @@ const SubHero = () => {
               </div>
             ))}
           </div>
-          <div className="animate-marquee2 absolute top-0 flex items-center gap-8 whitespace-nowrap">
+          <div className="animate-marquee2 absolute top-0 flex whitespace-nowrap">
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
+                className="mx-4 mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
               >
                 <img
                   src={card.imageSrc}
