@@ -16,30 +16,46 @@ const SubHero = () => {
           </p>
         </div>
 
-        <div className="overflow-x-hidden md:max-w-screen-md lg:w-full lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-          <div className="animate-marquee flex w-[100%] gap-8">
-            {[...cards, ...cards, ...cards, ...cards, ...cards].map(
-              (card, index) => (
-                <div
-                  key={index}
-                  className="mb-6 flex h-72 w-[30vw] flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96"
-                >
-                  <img
-                    src={card.imageSrc}
-                    alt={card.alt}
-                    className="mb-4 h-48 rounded-t-3xl object-cover lg:h-60"
-                  />
-                  <div className="px-2">
-                    <h2 className="text-md font-semibold lg:text-xl">
-                      {card.title}
-                    </h2>
-                    <p className="text-gray-600 lg:text-lg">
-                      {card.description}
-                    </p>
-                  </div>
+        <div className="relative md:max-w-screen-md lg:w-full lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+          <div className="animate-marquee flex items-center gap-8 whitespace-nowrap">
+            {cards.map((card, index) => (
+              <div
+                key={index}
+                className="mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
+              >
+                <img
+                  src={card.imageSrc}
+                  alt={card.alt}
+                  className="mb-4 h-48 rounded-t-3xl object-cover lg:h-60"
+                />
+                <div className="px-2">
+                  <h2 className="text-md font-semibold lg:text-xl">
+                    {card.title}
+                  </h2>
+                  <p className="text-gray-600 lg:text-lg">{card.description}</p>
                 </div>
-              ),
-            )}
+              </div>
+            ))}
+          </div>
+          <div className="animate-marquee2 absolute top-0 flex items-center gap-8 whitespace-nowrap">
+            {cards.map((card, index) => (
+              <div
+                key={index}
+                className="mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
+              >
+                <img
+                  src={card.imageSrc}
+                  alt={card.alt}
+                  className="mb-4 h-48 rounded-t-3xl object-cover lg:h-60"
+                />
+                <div className="px-2">
+                  <h2 className="text-md font-semibold lg:text-xl">
+                    {card.title}
+                  </h2>
+                  <p className="text-gray-600 lg:text-lg">{card.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
