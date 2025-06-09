@@ -28,3 +28,24 @@ export const links = [
     alt: "Email",
   },
 ];
+
+export const cards = [
+  {
+    title: "Solo Translate",
+    description: "Translate any language to any language.",
+    imageSrc: "/cards/placeholder.webp",
+    alt: "Solo Translate",
+  },
+  {
+    title: "Conversational",
+    description: "Speak with anyone in any language.",
+    imageSrc: "/cards/placeholder.webp",
+    alt: "Conversational",
+  },
+  {
+    title: "Live Presentation",
+    description: "Let all your audience understand you.",
+    imageSrc: "/cards/placeholder.webp",
+    alt: "Live Presentation",
+  }
+]
