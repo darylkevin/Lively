@@ -11,7 +11,7 @@ const Features = () => {
               <img
                 src={feature.imageSrc}
                 alt={feature.title}
-                className="mx-auto mb-4 h-96 w-96 rounded-lg object-cover shadow-lg"
+                className="mx-auto mb-4 h-[649px] w-[649px] rounded-lg object-cover shadow-lg"
               />
               <div className="flex flex-col justify-center gap-2 text-center">
                 <span className="text-xl font-semibold text-blue-400">
