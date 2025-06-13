@@ -383,7 +383,7 @@ export default function Page() {
               </div>
             ) : (
               <div
-                className={`flex w-full items-center gap-2 p-2 ${recording && "hidden"}`}
+                className={`flex w-full items-center gap-2 p-2 ${(recording || targetLanguages.length === 10) && "hidden"}`}
                 onClick={() => {
                   if (recording) return;
                   handleAddMoreLanguage();
@@ -720,7 +720,7 @@ export default function Page() {
                 </div>
               ) : (
                 <div
-                  className={`flex w-fit items-center gap-2 rounded-xl p-2 transition-transform ${!recording ? "hover:scale-105 hover:cursor-pointer" : "hidden"}`}
+                  className={`flex w-fit items-center gap-2 rounded-xl p-2 transition-transform ${!recording && targetLanguages.length < 10 ? "hover:scale-105 hover:cursor-pointer" : "hidden"}`}
                   onClick={() => {
                     if (recording) return;
                     handleAddMoreLanguage();

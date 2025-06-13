@@ -11,7 +11,7 @@ const Features = () => {
               <img
                 src={feature.imageSrc}
                 alt={feature.title}
-                className="mx-auto mb-4 h-[649px] w-[649px] rounded-lg object-cover shadow-lg"
+                className="mx-auto mb-4 h-[649px] w-[649px] rounded-3xl object-cover shadow-lg"
               />
               <div className="flex flex-col justify-center gap-2 text-center">
                 <span className="text-xl font-semibold text-blue-400">
@@ -34,7 +34,7 @@ const Features = () => {
                   <img
                     src={feature.imageSrc}
                     alt={feature.title}
-                    className="mx-auto mb-4 h-64 w-full rounded-lg object-cover shadow-lg lg:col-span-3 lg:h-full"
+                    className="mx-auto mb-4 h-64 w-full rounded-3xl object-cover shadow-lg lg:col-span-3 lg:h-full"
                   />
                   <div className="flex flex-col justify-center text-center lg:col-span-4 lg:text-left">
                     <span className="text-xl font-semibold text-blue-400">
@@ -70,7 +70,7 @@ const Features = () => {
                   <img
                     src={feature.imageSrc}
                     alt={feature.title}
-                    className="mx-auto mb-4 h-64 w-full rounded-lg object-cover shadow-lg lg:col-span-3 lg:h-full"
+                    className="mx-auto mb-4 h-64 w-full rounded-3xl object-cover shadow-lg lg:col-span-3 lg:h-full"
                   />
                 </>
               )}

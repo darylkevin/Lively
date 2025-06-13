@@ -52,27 +52,33 @@ export const cards = [
 
 export const features = [
   {
-    "imageSrc": "/features/placeholder.webp",
-    "alt": "Feature: Solo Translate",
-    "subtitle": "Swift Translation",
-    "title": "Solo",
-    "description1": "Effortlessly translate your voice into up to 10 languages at once. Whether you're traveling or in a multilingual setting, Solo Mode keeps communication smooth and instant.",
-    "description2": "Just speak and your words appear across multiple languages — no need to switch or repeat. All translations happen in real time with no data stored, keeping it fast and private."
+    imageSrc: "/features/placeholder.webp",
+    alt: "Feature: Solo Translate",
+    subtitle: "Swift Translation",
+    title: "Solo",
+    description1:
+      "Break the language barrier on the go. Instantly translate your voice into up to 10 languages at once — perfect for exploring, learning, or meeting new friends anywhere.",
+    description2:
+      "Just start talking and watch your words pop up in multiple languages, all at lightning speed. No need to repeat yourself or fiddle with settings.",
   },
   {
-    "imageSrc": "/features/placeholder.webp",
-    "alt": "Feature: Conversational",
-    "subtitle": "Real-time Conversation",
-    "title": "Converse",
-    "description1": "Converse Mode makes two-way conversations feel natural, even with a language barrier. Each person takes turns speaking, and switching is as easy as tapping a button.",
-    "description2": "Voice recognition and Azure AI Translate work together to deliver live translations with zero delay. And as always — nothing you say is recorded or saved."
+    imageSrc: "/features/placeholder.webp",
+    alt: "Feature: Conversational",
+    subtitle: "Real-time Conversation",
+    title: "Converse",
+    description1:
+      "Your personal interpreter, ready whenever you are. Chat easily with anyone — even if you don’t share a language.",
+    description2:
+      "Simply tap to switch speakers and enjoy smooth, live translations that keep your conversations going strong.",
   },
   {
-    "imageSrc": "/features/placeholder.webp",
-    "alt": "Feature: Live Presentation",
-    "subtitle": "Pitch Ideas, Internationally",
-    "title": "Present",
-    "description1": "Present Mode lets you upload a PDF and display your content alongside live voice translations — in up to two languages, side by side.",
-    "description2": "Just speak your part and your audience sees instant translations. It’s perfect for global presentations, and everything stays private with no data storage."
-  }
+    imageSrc: "/features/placeholder.webp",
+    alt: "Feature: Live Presentation",
+    subtitle: "Pitch Ideas, Internationally",
+    title: "Present",
+    description1:
+      "Captivate any crowd with Present Mode. Show off your pitch, teach, or tell your story while your words are translated live, side by side with your slides.",
+    description2:
+      "Just speak and your audience sees instant translations — perfect for making your ideas shine, anywhere in the world.",
+  },
 ];
