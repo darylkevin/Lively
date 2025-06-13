@@ -17,7 +17,7 @@ const SubHero = () => {
         </div>
 
         <div className="relative">
-          <div className="animate-marquee flex items-center whitespace-nowrap">
+          <div className="flex animate-marquee items-center whitespace-nowrap">
             {cards.map((card, index) => (
               <div
                 key={index}
@@ -37,7 +37,7 @@ const SubHero = () => {
               </div>
             ))}
           </div>
-          <div className="animate-marquee2 absolute top-0 flex whitespace-nowrap">
+          <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap">
             {cards.map((card, index) => (
               <div
                 key={index}
