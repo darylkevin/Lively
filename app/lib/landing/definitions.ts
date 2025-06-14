@@ -31,22 +31,23 @@ export const links = [
 
 export const cards = [
   {
-    title: "Solo Translate",
-    description: "Translate any language to any language.",
+    title: "Voice Recognition",
+    description:
+      "Speak naturally and get seamless, hands-free translations—just like having a conversation.",
     imageSrc: "/cards/placeholder.webp",
-    alt: "Solo Translate",
+    alt: "Voice Recognition",
   },
   {
-    title: "Conversational",
-    description: "Speak with anyone in any language.",
+    title: "Privacy First",
+    description: "Your words, your privacy. Nothing is ever stored—not even your translations.",
     imageSrc: "/cards/placeholder.webp",
-    alt: "Conversational",
+    alt: "Privacy First",
   },
   {
-    title: "Live Presentation",
-    description: "Let all your audience understand you.",
+    title: "Instant Feedback",
+    description: "See and hear your translations appear in real time. Instant responses keep the conversation flowing.",
     imageSrc: "/cards/placeholder.webp",
-    alt: "Live Presentation",
+    alt: "Instant Feedback",
   },
 ];
 

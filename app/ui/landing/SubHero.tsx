@@ -21,14 +21,14 @@ const SubHero = () => {
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="mx-4 mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
+                className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw] lg:max-w-[30vw]"
               >
                 <img
                   src={card.imageSrc}
                   alt={card.alt}
-                  className="mb-4 h-48 rounded-t-3xl object-cover lg:h-60"
+                  className="mb-4 h-64 rounded-t-3xl object-cover lg:h-48 xl:h-64"
                 />
-                <div className="px-2">
+                <div className="px-4 pb-2">
                   <h2 className="text-md font-semibold lg:text-xl">
                     {card.title}
                   </h2>
@@ -41,14 +41,14 @@ const SubHero = () => {
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="mx-4 mb-6 flex h-72 min-w-64 flex-shrink-0 flex-col rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw]"
+                className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw] lg:max-w-[30vw]"
               >
                 <img
                   src={card.imageSrc}
                   alt={card.alt}
-                  className="mb-4 h-48 rounded-t-3xl object-cover lg:h-60"
+                  className="mb-4 h-64 rounded-t-3xl object-cover lg:h-48 xl:h-64"
                 />
-                <div className="px-2">
+                <div className="px-4 pb-2">
                   <h2 className="text-md font-semibold lg:text-xl">
                     {card.title}
                   </h2>

@@ -55,6 +55,9 @@ const NavBar = ({
               src="/links/github.png"
               width={25}
               className="hover:scale-110 hover:cursor-pointer"
+              onClick={() =>
+                (window.location.href = "https://github.com/darylkevin/lively")
+              }
             />
           </div>
         </header>
@@ -92,6 +95,9 @@ const NavBar = ({
               src="/links/github.png"
               width={25}
               className="hover:scale-110 hover:cursor-pointer"
+              onClick={() =>
+                (window.location.href = "https://github.com/darylkevin/lively")
+              }
             />
           </div>
         </header>
