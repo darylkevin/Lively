@@ -1,4 +1,5 @@
 import React from "react";
+import {Accordion, AccordionItem} from "@heroui/accordion";
 
 const FAQ = () => {
   return (
@@ -6,6 +7,20 @@ const FAQ = () => {
       <div>
         <h1 className="text-4xl font-bold">FAQ</h1>
       </div>
+      <Accordion>
+        <AccordionItem>
+          <h2 className="text-lg font-semibold">What is Lively?</h2>
+          <p className="mt-2 text-justify text-blue-500">
+            Lively is a cutting-edge platform that leverages AI technology to provide real-time translation services.
+          </p>
+        </AccordionItem>
+        <AccordionItem>
+          <h2 className="text-lg font-semibold">How does it work?</h2>
+          <p className="mt-2 text-justify text-blue-500">
+            Lively uses advanced machine learning algorithms to understand and translate text across multiple languages.
+          </p>
+        </AccordionItem>
+      </Accordion>
     </div>
   );
 };
