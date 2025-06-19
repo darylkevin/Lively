@@ -39,13 +39,15 @@ export const cards = [
   },
   {
     title: "Privacy First",
-    description: "Your words, your privacy. Nothing is ever stored—not even your translations.",
+    description:
+      "Your words, your privacy. Nothing is ever stored—not even your translations.",
     imageSrc: "/cards/placeholder.webp",
     alt: "Privacy First",
   },
   {
     title: "Instant Feedback",
-    description: "See and hear your translations appear in real time. Instant responses keep the conversation flowing.",
+    description:
+      "See and hear your translations appear in real time. Instant responses keep the conversation flowing.",
     imageSrc: "/cards/placeholder.webp",
     alt: "Instant Feedback",
   },
@@ -82,4 +84,47 @@ export const features = [
     description2:
       "Just speak and your audience sees instant translations — perfect for making your ideas shine, anywhere in the world.",
   },
+];
+
+export const faq = [
+  {
+    question: "Which browser is best for using Lively?",
+    answer:
+      "On desktop: Edge (recommended for speech synthesis), Chrome, Firefox, and Safari. On mobile: Safari (iOS) or Chrome (Android, Low compatibility).",
+  },
+  {
+    question: "What are Local Quota and Global Quota?",
+    answer:
+      "Local quota refers to the amount of translation you can perform based on your network IP address. Global quota is the total translation capacity available across all users.",
+  },
+  {
+    question: "What should I do if my local or global quota is insufficient?",
+    answer:
+      "For local quota issues, try switching to a different network or IP address. Global quota is reset daily, so you can try again later.",
+  },
+  {
+    question: "Why are there quota limits?",
+    answer:
+      "The current limits are due to Azure's Translation AI character restrictions under the Free Tier (F0). You can remove these limits by cloning the project and using your own Azure Translator API key.",
+  },
+  {
+    question: "Why does translation speed vary?",
+    answer:
+      "The translation service is currently hosted in East Asia. Performance may vary depending on your geographic location.",
+  },
+  {
+    question: "How can I fix mic access error?",
+    answer:
+      "Ensure you have granted microphone permissions to your browser. Then, refresh the page and try again.",
+  },
+  {
+    question: "Is the codebase available on GitHub?",
+    answer:
+      "Yes! You can clone or contribute to the project on GitHub (links are available in the navbar and footer).",
+  },
+  {
+    question: "How to share a feedback or report a bug?",
+    answer:
+      "You can share feedback or report bugs through the feedback form available in the app or by clicking the feedback link or emailing me directly (see footer).",
+  }
 ];
