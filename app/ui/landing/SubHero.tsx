@@ -59,6 +59,10 @@ const SubHero = () => {
           </div>
         </div>
       </section>
+      <div className="h-6 bg-blue-400"></div>
+      <div className="h-6 bg-blue-300"></div>
+      <div className="h-6 bg-blue-200"></div>
+      <div className="h-6 bg-blue-100"></div>
     </div>
   );
 };
