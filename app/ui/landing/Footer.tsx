@@ -1,3 +1,4 @@
+import { footer } from "@/app/lib/landing/definitions";
 import React from "react";
 
 const Footer = () => {
@@ -11,24 +12,22 @@ const Footer = () => {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {/* Row 1, Column 1 */}
             <div>
-              <h3 className="text-md mb-2 font-bold lg:text-xl">Lively 1.0</h3>
-              <p> — Made with NextJS, Supabase and Azure.</p>
+              <h3 className="text-md mb-2 font-bold lg:text-xl">
+                {footer.appName}
+              </h3>
+              <p className="font-light italic">{footer.description}</p>
             </div>
             {/* Row 1, Column 2 */}
             <div>
               <h3 className="text-md mb-2 font-bold lg:text-xl">Contact</h3>
               <p>
-                <a href="mailto:mikael_daryl77@yahoo.com">
-                  Email: mikael_daryl77@yahoo.com
-                </a>
+                <a href={footer.emailHref}>Email: {footer.email}</a>
                 <br />
-                <a href="https://github.com/darylkevin/Lively">
-                  Github: github.com/darylkevin/Lively
-                </a>
+                <a href={footer.githubHref}>Github: {footer.github}</a>
               </p>
             </div>
-            <div className="mt-4 text-center md:col-span-2">
-              <p>© {new Date().getFullYear()} Daryl Kevin.</p>
+            <div className="mt-12 text-center md:col-span-2">
+              <p className="opacity-50">{footer.copyright}</p>
             </div>
           </div>
         </section>

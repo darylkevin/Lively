@@ -128,3 +128,13 @@ export const faq = [
       "You can share feedback or report bugs through the feedback form available in the app or by clicking the feedback link or emailing me directly (see footer).",
   }
 ];
+
+export const footer = {
+  appName: "Lively 1.0",
+  description: " — Made with NextJS, Supabase and Azure.",
+  emailHref: "mailto:mikael_daryl77@yahoo.com",
+  email: "mikael_daryl77@yahoo.com",
+  githubHref: "https://github.com/darylkevin/Lively",
+  github: "github.com/darylkevin/Lively",
+  copyright: `© ${new Date().getFullYear()} Daryl Kevin. All rights reserved.`,
+}
