@@ -9,7 +9,7 @@ const FAQ = () => {
         <h1 className="text-center text-2xl font-bold md:text-4xl xl:text-5xl">
           Frequently Asked Questions
         </h1>
-        <div className="text-md text-blue-500 max-md:px-4 md:text-xl">
+        <div className="text-md font-light text-blue-500 max-md:px-4 md:text-xl">
           <Accordion
             variant="shadow"
             selectionMode="multiple"
