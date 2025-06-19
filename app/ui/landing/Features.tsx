@@ -13,7 +13,7 @@ const Features = () => {
                 alt={feature.title}
                 className="mx-auto mb-4 aspect-square rounded-3xl object-cover shadow-lg"
               />
-              <div className="flex flex-col justify-center gap-2 text-center">
+              <div className="flex flex-col justify-center text-center">
                 <span className="text-xl font-semibold text-blue-400 opacity-50">
                   {feature.subtitle}
                 </span>
