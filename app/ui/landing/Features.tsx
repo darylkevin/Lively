@@ -14,7 +14,7 @@ const Features = () => {
                 className="mx-auto mb-4 aspect-square rounded-3xl object-cover shadow-lg"
               />
               <div className="flex flex-col justify-center gap-2 text-center">
-                <span className="text-xl font-semibold text-blue-400">
+                <span className="text-xl font-semibold text-blue-400 opacity-50">
                   {feature.subtitle}
                 </span>
                 <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl">
@@ -37,7 +37,7 @@ const Features = () => {
                     className="mx-auto mb-4 h-64 w-full rounded-3xl object-cover shadow-lg lg:col-span-3 lg:h-full"
                   />
                   <div className="flex flex-col justify-center text-center lg:col-span-4 lg:text-left">
-                    <span className="text-xl font-semibold text-blue-400">
+                    <span className="text-xl font-semibold text-blue-400 opacity-50">
                       {feature.subtitle}
                     </span>
                     <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl">
