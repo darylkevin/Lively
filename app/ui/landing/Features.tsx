@@ -20,10 +20,10 @@ const Features = () => {
                 <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl">
                   {feature.title}
                 </h2>
-                <p className="mt-4 text-justify text-lg text-blue-500 md:text-xl">
+                <p className="text-md mt-4 text-justify text-blue-500 md:text-xl">
                   {feature.description1}
                 </p>
-                <p className="mt-4 text-justify text-lg text-blue-500 md:text-xl">
+                <p className="text-md mt-4 text-justify text-blue-500 md:text-xl">
                   {feature.description2}
                 </p>
               </div>

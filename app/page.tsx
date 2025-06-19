@@ -18,7 +18,7 @@ import Hero from "./ui/landing/Hero";
 import NavBar from "./ui/landing/NavBar";
 import SubHero from "./ui/landing/SubHero";
 import Features from "./ui/landing/Features";
-import Feedback from "./ui/landing/Feedback";
+import FAQ from "./ui/landing/FAQ";
 import Footer from "./ui/landing/Footer";
 
 export default function Home() {
@@ -32,7 +32,7 @@ export default function Home() {
         <Hero />
         <SubHero />
         <Features />
-        <Feedback />
+        <FAQ />
         <Footer />
       </main>
     </>
