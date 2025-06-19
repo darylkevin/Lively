@@ -4,9 +4,9 @@ import React from "react";
 const Footer = () => {
   return (
     <>
-      <div className="h-16 bg-blue-600"></div>
-      <div className="h-16 bg-blue-700"></div>
-      <div className="h-16 bg-blue-800"></div>
+      <div className="h-12 bg-blue-600"></div>
+      <div className="h-12 bg-blue-700"></div>
+      <div className="h-12 bg-blue-800"></div>
       <footer className="h-full bg-blue-900 text-white">
         <section className="mx-auto h-full w-full px-4 py-8 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
