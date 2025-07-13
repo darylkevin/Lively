@@ -14,6 +14,6 @@ jobs:
       - name: Ping Supabase endpoint
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_API_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          curl -s -H "apikey: $SUPABASE_ANON_KEY" "$SUPABASE_URL/rest/v1/global_api_usage" > /dev/null
+          curl -s -H "apikey: $SUPABASE_ANON_KEY" "$SUPABASE_URL" > /dev/null
