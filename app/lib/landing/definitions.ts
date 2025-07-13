@@ -47,9 +47,16 @@ export const cards = [
   {
     title: "Instant Feedback",
     description:
-      "See and hear your translations appear in real time. Instant responses keep the conversation flowing.",
+      "See and hear your translations appear in real time. Keep your conversation flowing.",
     imageSrc: "/cards/placeholder.webp",
     alt: "Instant Feedback",
+  },
+  {
+    title: "Multi-Mode Support",
+    description:
+      "Whether you're chatting, presenting, or just exploring, Lively has you covered.",
+    imageSrc: "/cards/placeholder.webp",
+    alt: "Multi-Mode Support",
   },
 ];
 

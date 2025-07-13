@@ -21,18 +21,20 @@ const SubHero = () => {
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="mx-4 mb-6 flex h-72 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw] lg:max-w-[30vw]"
+                className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:min-w-[25vw] lg:max-w-[25vw]"
               >
                 <img
                   src={card.imageSrc}
                   alt={card.alt}
-                  className="mb-4 h-40 rounded-t-3xl object-cover lg:h-48 xl:h-64"
+                  className="mb-4 h-full rounded-t-3xl object-cover lg:h-56 xl:h-64"
                 />
                 <div className="px-4 pb-2">
-                  <h2 className="text-md font-semibold lg:text-xl">
+                  <h2 className="text-md font-semibold lg:text-lg xl:text-xl">
                     {card.title}
                   </h2>
-                  <p className="text-gray-600 lg:text-lg">{card.description}</p>
+                  <p className="lg:text-md text-gray-600 xl:text-lg">
+                    {card.description}
+                  </p>
                 </div>
               </div>
             ))}
@@ -41,18 +43,20 @@ const SubHero = () => {
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="mx-4 mb-6 flex h-72 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:h-96 lg:min-w-[30vw] lg:max-w-[30vw]"
+                className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:min-w-[25vw] lg:max-w-[25vw]"
               >
                 <img
                   src={card.imageSrc}
                   alt={card.alt}
-                  className="mb-4 h-40 rounded-t-3xl object-cover lg:h-48 xl:h-64"
+                  className="mb-4 h-full rounded-t-3xl object-cover lg:h-56 xl:h-64"
                 />
                 <div className="px-4 pb-2">
-                  <h2 className="text-md font-semibold lg:text-xl">
+                  <h2 className="text-md font-semibold lg:text-lg xl:text-xl">
                     {card.title}
                   </h2>
-                  <p className="text-gray-600 lg:text-lg">{card.description}</p>
+                  <p className="lg:text-md text-gray-600 xl:text-lg">
+                    {card.description}
+                  </p>
                 </div>
               </div>
             ))}
