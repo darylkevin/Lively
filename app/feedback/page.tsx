@@ -38,7 +38,7 @@ export default function Home() {
         <div className="mx-auto h-[70vh]">
           <section>
             <div className="mx-auto w-full max-md:p-6 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-              <h1 className="-ml-1 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text py-10 text-center text-2xl text-transparent md:text-3xl xl:text-4xl">
+              <h1 className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text py-8 text-center text-2xl text-transparent md:text-3xl xl:text-4xl">
                 Yes, I know it is <i>far</i> from perfect, but I will highly
                 appreciate your feedback :)
               </h1>
