@@ -1,3 +1,4 @@
+import { feedback } from "@/app/lib/definitions";
 import { getClientIP } from "../(crud-services)/definitions";
 import { BackendLogger } from "../(logging)/definitions";
 import { supabase } from "@/app/api/(crud-supabase)/supabase";
@@ -31,6 +32,24 @@ export const pushLogs = async (
       },
     ])
     .select();
+
+  if (error) {
+    console.log(error.message);
+  }
+
+  return;
+};
+
+export const pushFeedback = async (
+  feedback: string,
+) => {
+  const { data, error } = await supabase
+    .from("feedbacks")    
+    .insert([
+      {
+        feedback: feedback,
+      },
+    ]);
 
   if (error) {
     console.log(error.message);

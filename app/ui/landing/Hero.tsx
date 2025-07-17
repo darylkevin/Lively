@@ -10,9 +10,8 @@ const Hero = () => {
             Break Language Barriers
           </h1>
           <p className="text-md mt-4 text-blue-500 md:text-xl xl:text-2xl">
-            No more awkward <span className="italic">uhhs</span>, Lively
-            transforms your conversation with live translations to make it,
-            well, Lively!
+            No more awkward <i>uhhs</i>, Lively transforms your conversation
+            with live translations to make it, well, Lively!
           </p>
           <Link
             href="/start/solo"

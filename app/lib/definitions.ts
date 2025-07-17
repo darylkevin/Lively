@@ -46,3 +46,12 @@ export const links = [
     alt: "Email",
   },
 ];
+
+export const feedback = {
+  paragraph1:
+    "Whoever you are, I would like to sincerely thank you for trying out Lively. It all begins when I joined KubeCon earlier in 2024, where they had live translations for many of their sessions. I figured that this should not be too difficult to implement, but at the same time there are not a lot of open source projects that do this. Therefore, I decided to build a one-stop solution for live translations, focusing solely on translating conversations, whether it is for your own use, conversations, and presentations.",
+  paragraph2:
+    "If you have anything to share (your experiences, suggestions, bugs discovered), or simply want to say hi, please do not hesitate to type your message or email me below. Thanks, and I hope you have a great day!",
+  author: "Daryl",
+  email: "dkevin77@connect.hku.hk"
+};

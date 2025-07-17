@@ -5,7 +5,7 @@ export const navs = [
     label: "Main App",
   },
   {
-    href: "/start/about",
+    href: "/feedback",
     alt: "Feedback",
     label: "Feedback",
   },

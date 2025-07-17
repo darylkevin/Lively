@@ -27,6 +27,13 @@ CREATE TABLE logs (
     remaining_local INT NOT NULL
 );
 
+CREATE TABLE feedbacks (
+    id SERIAL PRIMARY KEY,
+    feedback TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE INDEX idx_ip_last_request_day ON ip_api_usage (ip, last_request_day);
 CREATE INDEX idx_global_last_request_day ON global_api_usage (last_request_day);
 
