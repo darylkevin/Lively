@@ -58,6 +58,9 @@ export default function Home() {
             <div className="h-full lg:grid lg:grid-cols-2">
               <div className="bg-blue-500 p-6 md:p-8 lg:p-12">
                 <div className={`${feedbackSent && "hidden"}`}>
+                  <p className="text-md md:text-md pb-4 text-white lg:text-lg xl:text-xl">
+                    Tell me what's on your mind
+                  </p>
                   <textarea
                     value={message}
                     className="w-full rounded-xl bg-white p-6 text-blue-500 shadow-2xl outline-none"
@@ -97,6 +100,9 @@ export default function Home() {
               </div>
               <div className="bg-blue-400 p-6 md:p-8 lg:p-12">
                 <div className="relative">
+                  <p className="text-md md:text-md pb-4 text-white lg:text-lg xl:text-xl">
+                    ... or email me directly
+                  </p>
                   <img
                     src="/feedbacks/placeholder.webp"
                     alt="placeholder"
@@ -108,7 +114,7 @@ export default function Home() {
                       (window.location.href = `mailto:${feedback.email}`)
                     }
                   >
-                    Email me :)
+                    Send me @
                   </button>
                 </div>
               </div>
