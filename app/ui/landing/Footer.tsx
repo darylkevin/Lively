@@ -24,7 +24,7 @@ const Footer = () => {
                 <a href={footer.githubHref}>Github: {footer.github}</a>
               </p>
             </div>
-            <div className="mt-12 text-center md:col-span-2">
+            <div className="mt-12 text-center text-sm md:col-span-2">
               <p className="opacity-50">{footer.copyright}</p>
             </div>
           </div>

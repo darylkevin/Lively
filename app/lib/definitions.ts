@@ -53,5 +53,5 @@ export const feedback = {
   paragraph2:
     "If you have anything to share (your experiences, suggestions, bugs discovered), or simply want to say hi, please do not hesitate to type your message or email me below. Thanks, and I hope you have a great day!",
   author: "Daryl",
-  email: "dkevin77@connect.hku.hk"
+  email: "mikael_daryl77@yahoo.com",
 };
