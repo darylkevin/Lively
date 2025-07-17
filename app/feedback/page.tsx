@@ -16,6 +16,7 @@ import React, { useState } from "react";
 import NavBar from "../ui/landing/NavBar";
 import { feedback } from "../lib/definitions";
 import { pushFeedback } from "../api/(crud-supabase)/definitions";
+import { footer } from "../lib/landing/definitions";
 
 export default function Home() {
   const [navOpen, setNavOpen] = useState(false);
@@ -119,6 +120,32 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            <footer className="h-full bg-blue-900 text-white">
+              <section className="mx-auto h-full w-full px-4 py-8 pt-12 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                  <div>
+                    <h3 className="text-md mb-2 font-bold lg:text-xl">
+                      {footer.appName}
+                    </h3>
+                    <p className="font-light italic">{footer.description}</p>
+                  </div>
+                  <div>
+                    <h3 className="text-md mb-2 font-bold lg:text-xl">
+                      Contact
+                    </h3>
+                    <p>
+                      <a href={footer.emailHref}>Email: {footer.email}</a>
+                      <br />
+                      <a href={footer.githubHref}>Github: {footer.github}</a>
+                    </p>
+                  </div>
+                  <div className="mt-12 text-center text-sm md:col-span-2">
+                    <p className="opacity-50">{footer.copyright}</p>
+                  </div>
+                </div>
+              </section>
+            </footer>
           </section>
         </div>
       </main>
