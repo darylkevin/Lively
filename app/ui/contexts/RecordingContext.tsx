@@ -80,16 +80,16 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
       }
     };
 
-    recognizer.canceled = (s, e) => {
+    recognizer.canceled = async (s, e) => {
       console.error(`CANCELED: Reason=${e.reason}`);
       if (e.reason === speechsdk.CancellationReason.Error) {
         setError(`Error: ${e.errorDetails}`);
       }
-      stopListening();
+      await stopListening();
     };
 
-    recognizer.sessionStopped = (s, e) => {
-      stopListening();
+    recognizer.sessionStopped = async (s, e) => {
+      await stopListening();
     };
 
     recognizer.startContinuousRecognitionAsync();
@@ -113,7 +113,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
 
   const handleRecordSpeech = useCallback(async () => {
     if (recording) {
-      stopListening();
+      await stopListening();
     } else {
       try {
         // Request microphone permission and immediately stop the track.
