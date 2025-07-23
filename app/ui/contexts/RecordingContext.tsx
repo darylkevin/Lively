@@ -60,7 +60,6 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
       token,
       region,
     );
-    console.log("this function is called");
     speechConfig.speechRecognitionLanguage = sourceLanguage;
     const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
     const recognizer = new speechsdk.SpeechRecognizer(
@@ -72,20 +71,16 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
     setRecording(true);
 
     recognizer.recognizing = (s, e) => {
-      console.log("recognizing is called");
-
       setTranscript(e.result.text);
     };
 
     recognizer.recognized = (s, e) => {
-      console.log("recognized is called");
       if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
         setTranscript(e.result.text);
       }
     };
 
     recognizer.canceled = (s, e) => {
-      console.log("canceled is called");
       console.error(`CANCELED: Reason=${e.reason}`);
       if (e.reason === speechsdk.CancellationReason.Error) {
         setError(`Error: ${e.errorDetails}`);
@@ -94,8 +89,6 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
     };
 
     recognizer.sessionStopped = (s, e) => {
-      console.log("sessionStopped is called");
-      console.log("Session stopped.");
       stopListening();
     };
 
