@@ -31,18 +31,18 @@ export const links = [
 
 export const cards = [
   {
-    title: "Voice Recognition",
+    title: "Platform Agnostic",
     description:
-      "Speak naturally and get seamless, hands-free translations—just like having a conversation.",
+      "Lively works on any browser, any devices. Internet connection is all you need.",
     imageSrc: "/cards/placeholder.webp",
-    alt: "Voice Recognition",
+    alt: "Platform Agnostic",
   },
   {
-    title: "Privacy First",
+    title: "Broad Language Coverage",
     description:
-      "Your words, your privacy. Nothing is ever stored—not even your translations.",
+      "With over 50 languages supported, Lively welcomes international interactions.",
     imageSrc: "/cards/placeholder.webp",
-    alt: "Privacy First",
+    alt: "Broad Language Coverage",
   },
   {
     title: "Instant Feedback",
@@ -52,11 +52,11 @@ export const cards = [
     alt: "Instant Feedback",
   },
   {
-    title: "Multi-Mode Support",
+    title: "All-in-One Solution",
     description:
-      "Whether you're chatting, presenting, or just exploring, Lively has you covered.",
+      "Whether you're chatting, presenting, or just exploring, Lively got you covered.",
     imageSrc: "/cards/placeholder.webp",
-    alt: "Multi-Mode Support",
+    alt: "All-in-One Solution",
   },
 ];
 
@@ -69,7 +69,7 @@ export const features = [
     description1:
       "Break the language barrier on the go. Instantly translate your voice into up to 10 languages at once — perfect for exploring, learning, or meeting new friends anywhere.",
     description2:
-      "Just start talking and watch your words pop up in multiple languages, all at lightning speed. No need to repeat yourself or fiddle with settings.",
+      "Just start talking and watch your words accurately transcribed and translated in multiple languages, all at a glimpse. No complicated setup required.",
   },
   {
     imageSrc: "/features/placeholder.webp",
@@ -95,9 +95,9 @@ export const features = [
 
 export const faq = [
   {
-    question: "Which browser is best for using Lively?",
+    question: "Which browser supports Lively?",
     answer:
-      "On desktop: Edge (recommended for speech synthesis), Chrome, Firefox, and Safari. On mobile: Safari (iOS) or Chrome (Android, Low compatibility).",
+      "All of them! Lively works on any modern browser, including Chrome, Firefox, Safari, and Edge.",
   },
   {
     question: "What are Local Quota and Global Quota?",
@@ -107,7 +107,7 @@ export const faq = [
   {
     question: "What should I do if my local or global quota is insufficient?",
     answer:
-      "For local quota issues, try switching to a different network or IP address. Global quota is reset daily, so you can try again later.",
+      "For local quota issues, try switching to a different network or IP address. Global quota is reset daily, so you can try again the next day.",
   },
   {
     question: "Why are there quota limits?",
@@ -127,7 +127,7 @@ export const faq = [
   {
     question: "Is the codebase available on GitHub?",
     answer:
-      "Yes! You can clone or contribute to the project on GitHub (links are available in the navbar and footer).",
+      "Yes! You can clone or contribute to the project on GitHub (links are available in the navbar and footer). If you wish to deploy locally, you will need to get your own API keys for Azure Translator, Speech Recognition and Supabase.",
   },
   {
     question: "How to share a feedback or report a bug?",

@@ -7,12 +7,13 @@ const SubHero = () => {
       <section className="mx-auto flex flex-col items-center justify-center gap-8 py-12">
         <div className="max-md:px-6 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
           <h1 className="text-center text-2xl font-bold text-white md:text-4xl xl:text-5xl">
-            Powered by Microsoft's Azure AI Translator
+            Powered by Microsoft's Azure AI Speech and Translator
           </h1>
           <p className="text-md mt-4 text-center text-blue-200 md:text-lg xl:text-xl">
-            Lively harnesses Azure's latest innovations in machine translation,
-            providing almost real-time translations over 100 languages with
-            focuses on translation accuracy and context understanding.
+            Lively harnesses Azure's latest generative AI in machine
+            transcription and translation, providing almost real-time feedback
+            for over 50 languages with focuses on translation accuracy and
+            context understanding.
           </p>
         </div>
 
