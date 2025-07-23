@@ -1,38 +1,43 @@
-export async function GET (req, res) {
-  const key = process.env.AZURE_SPEECH_KEY;
-  const region = process.env.AZURE_SPEECH_REGION;
+import axios from "axios";
 
-  if (!key || !region) {
-    return new Response(
-      JSON.stringify({ error: "Missing Azure Speech key or region" }),
-      { status: 401 }
-    );
-  }
+export async function GET() {
+  try {
+    const key = process.env.AZURE_SPEECH_KEY;
+    const region = process.env.AZURE_SPEECH_REGION;
 
-  const fetchRes = await fetch(
-    `https://${region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
-    {
-      method: "POST",
-      headers: {
-        "Ocp-Apim-Subscription-Key": key,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+    if (!key || !region) {
+      return new Response(
+        JSON.stringify({ error: "Missing Azure Speech key or region" }),
+        { status: 400 }
+      );
     }
-  );
 
-  if (!fetchRes.ok) {
+    const headers = {
+      "Ocp-Apim-Subscription-Key": key,
+      "Content-Type": "application/x-www-form-urlencoded",
+    };
+
+    const response = await axios.post(
+      `https://${region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
+      null,
+      { headers }
+    );
+
+    const token = response.data;
+
+    return new Response(
+      JSON.stringify({
+        token,
+        region,
+      }),
+      { status: 200 }
+    );
+  } catch (err) {
+    console.error("Error fetching Azure speech token:", err.response?.data || err.message);
+
     return new Response(
       JSON.stringify({ error: "Failed to fetch speech token" }),
-      { status: 400 }
+      { status: 500 }
     );
   }
-
-  const token = await fetchRes.text();
-  // The region and token are needed on the client to use Speech SDK
-  return new Response(
-    JSON.stringify({
-      token,
-      region,
-    }),
-  );
 }

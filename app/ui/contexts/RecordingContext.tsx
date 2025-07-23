@@ -1,15 +1,10 @@
 "use client";
 
-import { createContext, useEffect, useState, useCallback } from "react";
+import { createContext, useEffect, useState, useCallback, useRef } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { languages } from "@/app/lib/languages";
 
-import "regenerator-runtime/runtime";
-import SpeechRecognition, {
-  useSpeechRecognition,
-  isSpeechRecognitionSupported,
-} from "react-speech-recognition";
-
+import * as speechsdk from "microsoft-cognitiveservices-speech-sdk";
 import {
   RecordingContextType,
   RecordingProviderProps,
@@ -21,15 +16,6 @@ const RecordingContext = createContext<RecordingContextType | undefined>(
 );
 
 export const RecordingProvider = ({ children }: RecordingProviderProps) => {
-  const {
-    transcript,
-    finalTranscript,
-    listening,
-    resetTranscript,
-    isMicrophoneAvailable,
-    browserSupportsSpeechRecognition,
-  } = useSpeechRecognition();
-
   const [activeTab, setActiveTab] = useState("");
   const [sourceLanguage, setSourceLanguage] = useState(languages[0].short);
   const [targetLanguages, setTargetLanguages] = useState(
@@ -39,6 +25,9 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   const [speakerTurns, setSpeakerTurns] = useState(true);
   const [translatedText, setTranslatedText] = useState([]);
   const [error, setError] = useState<string | null>(null);
+
+  const [transcript, setTranscript] = useState("");
+  const recognizerRef = useRef<speechsdk.SpeechRecognizer | null>(null);
 
   const fetchTranslation = useDebouncedCallback(async () => {
     try {
@@ -59,53 +48,98 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
     }
   }, 300);
 
-  const beginListening = () => {
-    SpeechRecognition.startListening({
-      continuous: true,
-      language: sourceLanguage,
-    });
+  const getSpeechToken = async () => {
+    const res = await axios.get("/api/speech-token");
+    if (res.status !== 200) throw new Error("Failed to fetch speech token");
+    return res.data;
   };
 
-  const stopListening = () => {
-    SpeechRecognition.stopListening();
+  const beginListening = async () => {
+    const { token, region } = await getSpeechToken();
+    const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(
+      token,
+      region,
+    );
+    console.log("this function is called");
+    speechConfig.speechRecognitionLanguage = sourceLanguage;
+    const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
+    const recognizer = new speechsdk.SpeechRecognizer(
+      speechConfig,
+      audioConfig,
+    );
+
+    recognizerRef.current = recognizer;
+    setRecording(true);
+
+    recognizer.recognizing = (s, e) => {
+      console.log("recognizing is called");
+
+      setTranscript(e.result.text);
+    };
+
+    recognizer.recognized = (s, e) => {
+      console.log("recognized is called");
+      if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {
+        setTranscript(e.result.text);
+      }
+    };
+
+    recognizer.canceled = (s, e) => {
+      console.log("canceled is called");
+      console.error(`CANCELED: Reason=${e.reason}`);
+      if (e.reason === speechsdk.CancellationReason.Error) {
+        setError(`Error: ${e.errorDetails}`);
+      }
+      stopListening();
+    };
+
+    recognizer.sessionStopped = (s, e) => {
+      console.log("sessionStopped is called");
+      console.log("Session stopped.");
+      stopListening();
+    };
+
+    recognizer.startContinuousRecognitionAsync();
+  };
+
+  const stopListening = async () => {
+    if (recognizerRef.current) {
+      recognizerRef.current.stopContinuousRecognitionAsync(
+        () => {
+          recognizerRef.current?.close();
+          recognizerRef.current = null;
+          setRecording(false);
+        },
+        (err) => {
+          console.error("Error stopping recognizer:", err);
+          setRecording(false);
+        },
+      );
+    }
   };
 
   const handleRecordSpeech = useCallback(async () => {
     if (recording) {
       stopListening();
-      setRecording(false);
     } else {
       try {
+        // Request microphone permission and immediately stop the track.
         const stream = await navigator.mediaDevices.getUserMedia({
           audio: true,
-        }); // Explicitly request microphone permission
-        stream.getTracks().forEach((track) => track.stop()); // Stop the stream immediately
+        });
+        stream.getTracks().forEach((track) => track.stop());
 
-        if (!browserSupportsSpeechRecognition) {
-          setError(
-            "Speech recognition is not supported by this browser. Please use either Chrome, Safari, Edge or Samsung Internet.",
-          );
-          return;
-        }
-
-        beginListening();
-        setRecording(true);
+        setError(null);
+        await beginListening();
       } catch (err) {
         console.error("Error accessing microphone:", err);
-        setError("Mic access?");
+        setError("Mic Access?");
       }
     }
-  }, [
-    recording,
-    browserSupportsSpeechRecognition,
-    beginListening,
-    stopListening,
-    setRecording,
-    setError,
-  ]);
+  }, [recording, beginListening, stopListening]);
 
   const handleResetAll = () => {
-    resetTranscript();
+    setTranscript("");
     setTranslatedText([]);
   };
 
@@ -144,6 +178,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
         speakerTurns,
         setSpeakerTurns,
         transcript,
+        setTranscript,
         translatedText,
         handleRecordSpeech,
         handleResetAll,

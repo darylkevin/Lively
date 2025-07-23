@@ -16,6 +16,7 @@ export interface RecordingContextType {
   translatedText: string[];
   error: string | null;
   setError: Dispatch<SetStateAction<string | null>>;
+  setTranscript: Dispatch<SetStateAction<string>>;
   setActiveTab: Dispatch<SetStateAction<string>>;
   setSourceLanguage: Dispatch<SetStateAction<string>>;
   setTargetLanguages: Dispatch<SetStateAction<string[]>>;
