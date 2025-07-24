@@ -34,28 +34,28 @@ export const cards = [
     title: "Platform Agnostic",
     description:
       "Lively works on any browser, any devices. Internet connection is all you need.",
-    imageSrc: "/cards/placeholder.webp",
+    imageSrc: "/cards/platform-agnostic.jpg",
     alt: "Platform Agnostic",
   },
   {
     title: "Broad Language Coverage",
     description:
       "With over 50 languages supported, Lively welcomes international interactions.",
-    imageSrc: "/cards/placeholder.webp",
+    imageSrc: "/cards/broad-language.jpg",
     alt: "Broad Language Coverage",
   },
   {
     title: "Instant Feedback",
     description:
       "See and hear your translations appear in real time. Keep your conversation flowing.",
-    imageSrc: "/cards/placeholder.webp",
+    imageSrc: "/cards/instant-feedback.jpg",
     alt: "Instant Feedback",
   },
   {
     title: "All-in-One Solution",
     description:
       "Whether you're chatting, presenting, or just exploring, Lively got you covered.",
-    imageSrc: "/cards/placeholder.webp",
+    imageSrc: "/cards/all-in-one.jpg",
     alt: "All-in-One Solution",
   },
 ];

@@ -34,6 +34,12 @@ const Hero = () => {
             </svg>
           </Link>
         </div>
+        <div className="border border-red-500"></div>
+        {/* <img
+          alt="hero-animation"
+          src="/logo/hero.gif"
+          className="col-span-1 hidden md:block lg:hidden xl:block 2xl:block"
+        /> */}
       </section>
     </div>
   );

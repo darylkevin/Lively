@@ -22,7 +22,7 @@ const SubHero = () => {
             {cards.map((card, index) => (
               <div
                 key={index}
-                className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:min-w-[25vw] lg:max-w-[25vw]"
+                className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-2xl lg:min-w-[25vw] lg:max-w-[25vw]"
               >
                 <img
                   src={card.imageSrc}
