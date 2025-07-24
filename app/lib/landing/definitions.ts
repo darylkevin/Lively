@@ -62,7 +62,7 @@ export const cards = [
 
 export const features = [
   {
-    imageSrc: "/features/placeholder.webp",
+    imageSrc: "/features/solo.jpg",
     alt: "Feature: Solo Translate",
     subtitle: "Swift Translation",
     title: "Solo",
@@ -72,7 +72,7 @@ export const features = [
       "Just start talking and watch your words accurately transcribed and translated in multiple languages, all at a glimpse. No complicated setup required.",
   },
   {
-    imageSrc: "/features/placeholder.webp",
+    imageSrc: "/features/converse.jpg",
     alt: "Feature: Conversational",
     subtitle: "Real-time Conversation",
     title: "Converse",
@@ -82,7 +82,7 @@ export const features = [
       "Simply tap to switch speakers and enjoy smooth, live translations that keep your conversations going strong.",
   },
   {
-    imageSrc: "/features/placeholder.webp",
+    imageSrc: "/features/present.jpg",
     alt: "Feature: Live Presentation",
     subtitle: "Pitch Ideas, Internationally",
     title: "Present",
