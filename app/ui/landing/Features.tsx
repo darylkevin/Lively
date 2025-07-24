@@ -14,16 +14,16 @@ const Features = () => {
                 className="mx-auto mb-4 object-cover shadow-lg lg:rounded-br-3xl lg:rounded-tr-3xl"
               />
               <div className="mx-auto flex flex-col justify-center text-left max-md:px-4 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-                <span className="text-sm text-blue-400 opacity-50 md:text-lg lg:text-xl">
+                <span className="text-sm text-blue-400 md:text-lg lg:text-xl">
                   {feature.subtitle}
                 </span>
-                <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl">
+                <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-semibold text-transparent lg:text-5xl">
                   {feature.title}
                 </h2>
-                <p className="text-md mt-4 text-justify text-blue-500 md:text-xl">
+                <p className="mt-4 text-justify text-sm text-blue-500 md:text-xl">
                   {feature.description1}
                 </p>
-                <p className="text-md mt-4 text-justify text-blue-500 md:text-xl">
+                <p className="mt-4 text-justify text-sm text-blue-500 md:text-xl">
                   {feature.description2}
                 </p>
               </div>
@@ -37,16 +37,16 @@ const Features = () => {
                     className="mx-auto mb-4 h-64 w-full object-cover shadow-lg lg:col-span-3 lg:h-full lg:rounded-br-3xl lg:rounded-tr-3xl"
                   />
                   <div className="mx-auto flex flex-col justify-center text-left max-md:px-4 md:max-w-screen-md lg:col-span-4 lg:mr-36 lg:max-w-screen-lg xl:mr-48 xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-                    <span className="text-sm text-blue-400 opacity-50 md:text-lg lg:text-xl">
+                    <span className="text-sm text-blue-400 md:text-lg lg:text-xl">
                       {feature.subtitle}
                     </span>
-                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl">
+                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-semibold text-transparent lg:text-5xl">
                       {feature.title}
                     </h2>
-                    <p className="mt-4 text-lg text-blue-500 md:text-xl lg:text-xl">
+                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
                       {feature.description1}
                     </p>
-                    <p className="mt-4 text-lg text-blue-500 md:text-xl lg:text-xl">
+                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
                       {feature.description2}
                     </p>
                   </div>
@@ -54,16 +54,16 @@ const Features = () => {
               ) : (
                 <>
                   <div className="mx-auto flex flex-col justify-center text-center max-md:px-4 md:max-w-screen-md lg:col-span-4 lg:ml-36 lg:max-w-screen-lg lg:text-left xl:ml-48 xl:max-w-screen-xl 2xl:max-w-screen-2xl">
-                    <span className="text-sm text-blue-400 opacity-50 md:text-lg lg:text-xl">
+                    <span className="text-sm text-blue-400 md:text-lg lg:text-xl">
                       {feature.subtitle}
                     </span>
-                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-bold text-transparent lg:text-5xl">
+                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-semibold text-transparent lg:text-5xl">
                       {feature.title}
                     </h2>
-                    <p className="mt-4 text-lg text-blue-500 md:text-xl lg:text-xl">
+                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
                       {feature.description1}
                     </p>
-                    <p className="mt-4 text-lg text-blue-500 md:text-xl lg:text-xl">
+                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
                       {feature.description2}
                     </p>
                   </div>
