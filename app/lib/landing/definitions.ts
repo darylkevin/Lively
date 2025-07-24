@@ -64,8 +64,8 @@ export const features = [
   {
     imageSrc: "/features/solo.jpg",
     alt: "Feature: Solo Translate",
-    subtitle: "Swift Translation",
-    title: "Solo",
+    subtitle: "Solo Mode",
+    title: "Swift Translation",
     description1:
       "Break the language barrier on the go. Instantly translate your voice into up to 10 languages at once — perfect for exploring, learning, or meeting new friends anywhere.",
     description2:
@@ -74,8 +74,8 @@ export const features = [
   {
     imageSrc: "/features/converse.jpg",
     alt: "Feature: Conversational",
-    subtitle: "Real-time Conversation",
-    title: "Converse",
+    subtitle: "Converse Mode",
+    title: "Real-time Conversation",
     description1:
       "Your personal interpreter, ready whenever you are. Chat easily with anyone — even if you don’t share a language.",
     description2:
@@ -84,8 +84,8 @@ export const features = [
   {
     imageSrc: "/features/present.jpg",
     alt: "Feature: Live Presentation",
-    subtitle: "Pitch Ideas, Internationally",
-    title: "Present",
+    subtitle: "Present Mode",
+    title: "Pitch Without Borders",
     description1:
       "Captivate any crowd with Present Mode. Show off your pitch, teach, or tell your story while your words are translated live, side by side with your slides.",
     description2:
