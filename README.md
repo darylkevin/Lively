@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lively 1.0 🎤💬
 
-## Getting Started
+Thank you for checking out Lively! If you are interested to know more about this project, you have come to the right place.
+Below is a quick overview on how to run Lively locally. Contributions and feedback are welcome!
+See the project live here:
 
-First, run the development server:
+**[Live Demo](https://lively-one.vercel.app/)**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Real-time Speech Recognition and Translation**: Transcribe and translate audio accurately.
+- **All-in-One Solution**: Solo, Converse and Present. Lively supports them all.
+- **Broad Language Coverage**: Supports over 50 languages.
+- **Text-to-Speech**: Listen to translated text spoken aloud.
+- **Usage Tracking**: Optional backend integration with Supabase for logging and feedback.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Next.js, TypeScript
+- **AI Services**: Azure AI for Translation & Speech Recognition
+- **Backend (Optional)**: Supabase for usage calculation, logs, and feedback.
+- **Speech Synthesis**: `react-speech-kit` (utilizes browser-native capabilities)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Getting Started
 
-## Deploy on Vercel
+You can deploy Lively locally for development or personal use.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js (v18 or later)
+- `pnpm` (or `npm`/`yarn`)
+- **Azure Account**: API keys for Translation and Speech services.
+- **Supabase Account (Optional)**: A project for the database backend.
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone [https://github.com/your-username/lively.git](https://github.com/your-username/lively.git)
+    cd lively
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    pnpm install
+    ```
+
+3.  **Configure Environment Variables:**
+    Create a `.env.local` file in the root of the project and add the following keys.
+
+    ```env
+    # Azure AI Services for Translation & general AI
+    AZURE_ENDPOINT=YOUR_AZURE_ENDPOINT
+    AZURE_LOCATION=YOUR_AZURE_LOCATION
+    AZURE_API_KEY=YOUR_AZURE_TRANSLATOR_API_KEY
+
+    # Azure AI Services for Speech Recognition
+    AZURE_SPEECH_KEY=YOUR_AZURE_SPEECH_KEY
+    AZURE_SPEECH_REGION=YOUR_AZURE_SPEECH_REGION
+
+    # Supabase (Optional: for logging, feedback, and usage stats)
+    # You can opt-out of the backend if you don't need this functionality.
+    NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_PROJECT_URL
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+
+    # Usage Limits (Optional)
+    NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY=10000
+    NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY=100000
+    ```
+
+---
+
+## ⚙️ Usage
+
+- **Run the development server:**
+
+  ```bash
+  pnpm run dev
+  ```
+
+- **Build for production:**
+
+  ```bash
+  pnpm build
+  pnpm start
+  ```
+
+- **Format the code:**
+  ```bash
+  pnpm exec prettier --write .
+  ```
+
+---
+
+## 🔧 Customization
+
+- **Text & UI**: Most user-facing text descriptions are defined in `src/lib/definitions.ts`.
+- **Languages**: The list of supported languages is located in `src/lib/languages.ts`. You can find the full list of languages supported by Azure here:
+  - [Translator Language Support](https://learn.microsoft.com/en-us/azure/ai-services/translator/language-support)
+  - [Speech Service Language Support](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=stt)
+
+### A Note on Speech Synthesis
+
+The text-to-speech (TTS) functionality is currently handled by `react-speech-kit`, which relies on the Web Speech API. This means voice availability and quality depend on the user's browser. For the best experience, **Microsoft Edge** is recommended, followed by Chrome and Safari.
+
+---
+
+## 🙌 Contributing & Feedback
+
+Contributions are welcome! Please feel free to open an issue to report bugs or suggest features.
+
+If you have any specific feedback or wish to get in touch privately, you can reach me at **xx@xx.com**.
+
+Cheers!
