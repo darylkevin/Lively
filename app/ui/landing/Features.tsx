@@ -17,7 +17,7 @@ const Features = () => {
                 <span className="text-sm text-blue-400 md:text-lg lg:text-xl">
                   {feature.subtitle}
                 </span>
-                <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-semibold text-transparent lg:text-5xl">
+                <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-3xl font-semibold text-transparent lg:text-5xl">
                   {feature.title}
                 </h2>
                 <p className="mt-4 text-justify text-sm text-blue-500 md:text-xl">
@@ -40,7 +40,7 @@ const Features = () => {
                     <span className="text-sm text-blue-400 md:text-lg lg:text-xl">
                       {feature.subtitle}
                     </span>
-                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-semibold text-transparent lg:text-5xl">
+                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-3xl font-semibold text-transparent lg:text-5xl">
                       {feature.title}
                     </h2>
                     <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
@@ -57,7 +57,7 @@ const Features = () => {
                     <span className="text-sm text-blue-400 md:text-lg lg:text-xl">
                       {feature.subtitle}
                     </span>
-                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-4xl font-semibold text-transparent lg:text-5xl">
+                    <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-3xl font-semibold text-transparent lg:text-5xl">
                       {feature.title}
                     </h2>
                     <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
