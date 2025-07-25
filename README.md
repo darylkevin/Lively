@@ -1,3 +1,9 @@
+Created by Daryl Kevin \
+Sunday, February 16 2025 \
+Hong Kong
+
+---
+
 <img src="public/logo/lively-brand.png" alt="Lively Image" width="200" />
 
 Thank you for checking out Lively! If you are interested to know more about this project, you have come to the right place.
