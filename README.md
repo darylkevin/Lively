@@ -9,14 +9,8 @@ Below is a quick overview on how to run Lively locally. Contributions and feedba
 See the project live here:
 
 <div className="flex gap-4">
-  <video width="320" height="240" controls className="flex-1">
-    <source src="public/demo/landing-page.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-  <video width="320" height="240" controls className="flex-1">
-    <source src="public/demo/lively-demo.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/gg23RV2Gnu8?si=keL70_VnEuxR7Hib" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/cCJ2668QfYw?si=wzy_KGTGrJCRH9me" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 **[Live Demo](https://lively-one.vercel.app/)**
