@@ -43,3 +43,6 @@ next-env.d.ts
 # azure
 .vscode
 .deployment
+
+# demo
+/public/demo
