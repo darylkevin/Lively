@@ -1,13 +1,13 @@
-import { features } from "@/app/lib/landing/definitions";
+import { features } from "@/app/lib/definitions";
 import React from "react";
 
 const Features = () => {
   return (
     <div className="mx-auto h-full">
-      <section className="mx-auto py-12">
+      <section className="mx-auto flex flex-col gap-8 py-12">
         {features.map((feature, index) => (
           <div key={index}>
-            <div className="flex flex-col justify-center pt-8 lg:hidden">
+            <div className="flex flex-col justify-center lg:hidden">
               <img
                 src={feature.imageSrc}
                 alt={feature.title}
@@ -20,10 +20,10 @@ const Features = () => {
                 <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-3xl font-semibold text-transparent lg:text-5xl">
                   {feature.title}
                 </h2>
-                <p className="mt-4 text-justify text-sm text-blue-500 md:text-xl">
+                <p className="md:text-md mt-4 text-justify text-sm text-blue-500 lg:text-lg xl:text-xl">
                   {feature.description1}
                 </p>
-                <p className="mt-4 text-justify text-sm text-blue-500 md:text-xl">
+                <p className="md:text-md mt-4 text-justify text-sm text-blue-500 lg:text-lg xl:text-xl">
                   {feature.description2}
                 </p>
               </div>
@@ -43,10 +43,10 @@ const Features = () => {
                     <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-3xl font-semibold text-transparent lg:text-5xl">
                       {feature.title}
                     </h2>
-                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
+                    <p className="md:text-md mt-4 text-sm text-blue-500 lg:text-lg xl:text-xl">
                       {feature.description1}
                     </p>
-                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
+                    <p className="md:text-md mt-4 text-sm text-blue-500 lg:text-lg xl:text-xl">
                       {feature.description2}
                     </p>
                   </div>
@@ -60,10 +60,10 @@ const Features = () => {
                     <h2 className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-3xl font-semibold text-transparent lg:text-5xl">
                       {feature.title}
                     </h2>
-                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
+                    <p className="md:text-md mt-4 text-sm text-blue-500 lg:text-lg xl:text-xl">
                       {feature.description1}
                     </p>
-                    <p className="mt-4 text-sm text-blue-500 md:text-xl lg:text-xl">
+                    <p className="md:text-md mt-4 text-sm text-blue-500 lg:text-lg xl:text-xl">
                       {feature.description2}
                     </p>
                   </div>

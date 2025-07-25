@@ -8,7 +8,7 @@ export async function GET() {
     if (!key || !region) {
       return new Response(
         JSON.stringify({ error: "Missing Azure Speech key or region" }),
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -20,7 +20,7 @@ export async function GET() {
     const response = await axios.post(
       `https://${region}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
       null,
-      { headers }
+      { headers },
     );
 
     const token = response.data;
@@ -30,14 +30,17 @@ export async function GET() {
         token,
         region,
       }),
-      { status: 200 }
+      { status: 200 },
     );
   } catch (err) {
-    console.error("Error fetching Azure speech token:", err.response?.data || err.message);
+    console.error(
+      "Error fetching Azure speech token:",
+      err.response?.data || err.message,
+    );
 
     return new Response(
       JSON.stringify({ error: "Failed to fetch speech token" }),
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

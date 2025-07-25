@@ -1,6 +1,6 @@
 import React from "react";
 import { Accordion, AccordionItem } from "@heroui/accordion";
-import { faq } from "@/app/lib/landing/definitions";
+import { faq } from "@/app/lib/definitions";
 
 const FAQ = () => {
   return (
@@ -14,7 +14,7 @@ const FAQ = () => {
           <h1 className="text-center text-2xl font-bold md:text-4xl xl:text-5xl">
             Frequently Asked Questions
           </h1>
-          <div className="text-sm font-light text-blue-500 max-md:px-4 md:text-lg">
+          <div className="md:text-md text-sm font-light text-blue-500 max-md:px-4 xl:text-lg">
             <Accordion
               variant="shadow"
               selectionMode="multiple"
@@ -37,7 +37,7 @@ const FAQ = () => {
               <Accordion
                 selectionMode="multiple"
                 variant="shadow"
-                className="text-sm md:text-lg"
+                className="md:text-md text-sm xl:text-lg"
               >
                 {faq.map((item, index) => {
                   if (index % 2 === 0) {
@@ -45,7 +45,7 @@ const FAQ = () => {
                       <AccordionItem
                         key={index}
                         title={
-                          <span className="text-sm text-blue-400 md:text-lg">
+                          <span className="md:text-md text-sm text-blue-400 xl:text-lg">
                             {item.question}
                           </span>
                         }
@@ -60,7 +60,7 @@ const FAQ = () => {
               <Accordion
                 selectionMode="multiple"
                 variant="shadow"
-                className="text-sm md:text-xl"
+                className="md:text-md text-sm xl:text-lg"
               >
                 {faq.map((item, index) => {
                   if (index % 2 !== 0) {
@@ -68,7 +68,7 @@ const FAQ = () => {
                       <AccordionItem
                         key={index}
                         title={
-                          <span className="text-sm text-blue-400 md:text-lg">
+                          <span className="md:text-md text-sm text-blue-400 xl:text-lg">
                             {item.question}
                           </span>
                         }

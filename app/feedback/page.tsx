@@ -16,10 +16,10 @@ import React, { useState } from "react";
 import NavBar from "../ui/landing/NavBar";
 import { feedback } from "../lib/definitions";
 import { pushFeedback } from "../api/(crud-supabase)/definitions";
-import { footer } from "../lib/landing/definitions";
+import { footer } from "../lib/definitions";
 
 export default function Home() {
-  const [navOpen, setNavOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [feedbackSent, setFeedbackSent] = useState(false);
 
@@ -33,9 +33,9 @@ export default function Home() {
 
   return (
     <>
-      <NavBar navOpen={navOpen} setNavOpen={setNavOpen} />
+      <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-      <main className={`${navOpen && "hidden"}`}>
+      <main className={`${menuOpen && "hidden"}`}>
         <div className="mx-auto h-[70vh]">
           <section>
             <div className="mx-auto w-full max-md:p-6 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
@@ -43,7 +43,7 @@ export default function Home() {
                 Yes, I know it is <i>far</i> from perfect, but I will highly
                 appreciate your feedback :)
               </h1>
-              <div className="md:text-md text-sm xl:text-lg">
+              <div className="md:text-md text-sm lg:text-lg">
                 <p className="text-md py-2 text-justify text-blue-500">
                   {feedback.paragraph1}
                 </p>
@@ -56,7 +56,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
-            <div className="h-full lg:grid lg:grid-cols-2">
+            <div className="h-full xl:grid xl:grid-cols-2">
               <div className="bg-blue-500 p-6 md:p-8 lg:p-12">
                 <div className={`${feedbackSent && "hidden"}`}>
                   <p className="text-md md:text-md pb-4 text-white lg:text-lg xl:text-xl">
@@ -105,7 +105,7 @@ export default function Home() {
                     ... or email me directly
                   </p>
                   <img
-                    src="/feedbacks/placeholder.webp"
+                    src="/feedbacks/mail.webp"
                     alt="placeholder"
                     className="h-[360px] w-full rounded-xl object-cover shadow-2xl"
                   />
@@ -115,7 +115,7 @@ export default function Home() {
                       (window.location.href = `mailto:${feedback.email}`)
                     }
                   >
-                    Send me @
+                    Send me an @
                   </button>
                 </div>
               </div>

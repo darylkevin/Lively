@@ -40,16 +40,12 @@ export const pushLogs = async (
   return;
 };
 
-export const pushFeedback = async (
-  feedback: string,
-) => {
-  const { data, error } = await supabase
-    .from("feedbacks")    
-    .insert([
-      {
-        feedback: feedback,
-      },
-    ]);
+export const pushFeedback = async (feedback: string) => {
+  const { data, error } = await supabase.from("feedbacks").insert([
+    {
+      feedback: feedback,
+    },
+  ]);
 
   if (error) {
     console.log(error.message);

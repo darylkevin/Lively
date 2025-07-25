@@ -1,4 +1,4 @@
-import { cards } from "@/app/lib/landing/definitions";
+import { cards } from "@/app/lib/definitions";
 import React from "react";
 
 const SubHero = () => {

@@ -49,7 +49,7 @@ export const languages = [
   { language: "Thai", short: "th-TH" },
   { language: "Turkish", short: "tr-TR" },
   { language: "Ukrainian", short: "uk-UA" },
-  { language: "Vietnamese", short: "vi-VN" }
+  { language: "Vietnamese", short: "vi-VN" },
 ];
 
 export const speechSynthesisLanguages = {
@@ -103,6 +103,5 @@ export const speechSynthesisLanguages = {
   "gu-IN": "gu-IN",
   "sw-KE": "sw-KE",
   "ps-AF": "ps-AF",
-  "sq-AL": "sq-AL"
+  "sq-AL": "sq-AL",
 };
-

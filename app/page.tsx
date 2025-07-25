@@ -22,13 +22,13 @@ import FAQ from "./ui/landing/FAQ";
 import Footer from "./ui/landing/Footer";
 
 export default function Home() {
-  const [navOpen, setNavOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
-      <NavBar navOpen={navOpen} setNavOpen={setNavOpen} />
+      <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-      <main className={`${navOpen && "hidden"}`}>
+      <main className={`${menuOpen && "hidden"}`}>
         <Hero />
         <SubHero />
         <Features />

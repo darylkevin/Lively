@@ -1,4 +1,4 @@
-import { footer } from "@/app/lib/landing/definitions";
+import { footer } from "@/app/lib/definitions";
 import React from "react";
 
 const Footer = () => {
