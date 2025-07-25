@@ -121,6 +121,6 @@ The text-to-speech (TTS) functionality is currently handled by `react-speech-kit
 
 Contributions are welcome! Please feel free to open an issue to report bugs or suggest features.
 
-If you have any specific feedback or wish to get in touch privately, you can reach me at **xx@xx.com**.
+If you have any specific feedback or wish to get in touch privately, you can reach me at **dkevin77@connect.hku.hk**.
 
 Cheers!
