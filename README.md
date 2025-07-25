@@ -1,8 +1,6 @@
 Created by Daryl Kevin \
-Sunday, February 16 2025 \
+Sunday, July 25 2025 \
 Hong Kong
-
----
 
 <img src="public/logo/lively-brand.png" alt="Lively Image" width="200" />
 
