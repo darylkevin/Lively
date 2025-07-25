@@ -1,8 +1,19 @@
-# Lively 1.0 🎤💬
+<img src="public/logo/lively-brand.png" alt="Lively Image" width="200" />
 
 Thank you for checking out Lively! If you are interested to know more about this project, you have come to the right place.
 Below is a quick overview on how to run Lively locally. Contributions and feedback are welcome!
 See the project live here:
+
+<div className="flex gap-4">
+  <video width="320" height="240" controls className="flex-1">
+    <source src="public/demo/landing-page.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <video width="320" height="240" controls className="flex-1">
+    <source src="public/demo/lively-demo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 **[Live Demo](https://lively-one.vercel.app/)**
 
