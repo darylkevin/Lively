@@ -150,8 +150,10 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   }, [activeTab]);
 
   useEffect(() => {
-    if (transcript) {
+    if (transcript && targetLanguages.length > 0) {
       fetchTranslation();
+    } else {
+      handleResetAll();
     }
   }, [transcript, targetLanguages]);
 
