@@ -105,11 +105,9 @@ export default function Home() {
                   <p className="text-md md:text-md pb-4 text-white lg:text-lg xl:text-xl">
                     ... or email me directly
                   </p>
-                  <Image
-                    src="/feedbacks/mail.webp"
-                    alt="placeholder"
+                  <img
+                    src="/feedback/mail.webp"
                     width={1024}
-                    height={768}
                     className="h-[360px] w-full rounded-xl object-cover shadow-2xl"
                   />
                   <button
