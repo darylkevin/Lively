@@ -17,6 +17,7 @@ import NavBar from "../ui/landing/NavBar";
 import { feedback } from "../lib/definitions";
 import { pushFeedback } from "../api/(crud-supabase)/definitions";
 import { footer } from "../lib/definitions";
+import Image from "next/image";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -104,9 +105,11 @@ export default function Home() {
                   <p className="text-md md:text-md pb-4 text-white lg:text-lg xl:text-xl">
                     ... or email me directly
                   </p>
-                  <img
+                  <Image
                     src="/feedbacks/mail.webp"
                     alt="placeholder"
+                    width={1024}
+                    height={768}
                     className="h-[360px] w-full rounded-xl object-cover shadow-2xl"
                   />
                   <button

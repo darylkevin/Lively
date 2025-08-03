@@ -1,5 +1,6 @@
 import { cards } from "@/app/lib/definitions";
 import React from "react";
+import Image from "next/image";
 
 const SubHero = () => {
   return (
@@ -24,9 +25,12 @@ const SubHero = () => {
                 key={index}
                 className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-2xl lg:min-w-[25vw] lg:max-w-[25vw]"
               >
-                <img
+                <Image
                   src={card.imageSrc}
                   alt={card.alt}
+                  width={1024}
+                  height={768}
+                  priority
                   className="mb-4 h-full rounded-t-3xl object-cover lg:h-56 xl:h-64"
                 />
                 <div className="px-4 pb-2">
@@ -46,9 +50,12 @@ const SubHero = () => {
                 key={index}
                 className="mx-4 mb-6 flex h-96 min-w-80 max-w-80 flex-shrink-0 flex-col text-wrap rounded-3xl bg-white shadow-lg lg:min-w-[25vw] lg:max-w-[25vw]"
               >
-                <img
+                <Image
                   src={card.imageSrc}
                   alt={card.alt}
+                  width={1024}
+                  height={768}
+                  priority
                   className="mb-4 h-full rounded-t-3xl object-cover lg:h-56 xl:h-64"
                 />
                 <div className="px-4 pb-2">

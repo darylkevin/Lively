@@ -1,12 +1,16 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const Hero = () => {
   return (
     <div className="relative h-[70vh] bg-cover bg-center">
-      <img
+      <Image
         src="/hero/blue_waves_flow_background_1407.jpg"
         alt="A scenic landscape with a river and mountains at sunset"
+        width={3840}
+        height={2160}
+        priority
         className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50"
       />
       <section className="mx-auto grid h-full grid-cols-4 md:max-w-screen-md md:grid-cols-3 lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
@@ -39,11 +43,6 @@ const Hero = () => {
             </svg>
           </Link>
         </div>
-        {/* <img
-          alt="hero-animation"
-          src="/logo/hero.gif"
-          className="col-span-1 hidden md:block lg:hidden xl:block 2xl:block"
-        /> */}
       </section>
     </div>
   );

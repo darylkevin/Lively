@@ -1,5 +1,6 @@
 import { features } from "@/app/lib/definitions";
 import React from "react";
+import Image from "next/image";
 
 const Features = () => {
   return (
@@ -8,9 +9,12 @@ const Features = () => {
         {features.map((feature, index) => (
           <div key={index}>
             <div className="flex flex-col justify-center lg:hidden">
-              <img
+              <Image
                 src={feature.imageSrc}
                 alt={feature.title}
+                width={1920}
+                height={1080}
+                priority
                 className="mx-auto mb-4 object-cover shadow-lg lg:rounded-br-3xl lg:rounded-tr-3xl"
               />
               <div className="mx-auto flex flex-col justify-center text-left max-md:px-4 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl 2xl:max-w-screen-2xl">
@@ -31,9 +35,11 @@ const Features = () => {
             <div className="flex justify-center pt-8 max-lg:hidden max-lg:flex-col lg:grid lg:grid-cols-7 lg:gap-16">
               {index % 2 === 0 ? (
                 <>
-                  <img
+                  <Image
                     src={feature.imageSrc}
                     alt={feature.title}
+                    width={1920}
+                    height={1080}
                     className="mx-auto mb-4 h-64 w-full object-cover shadow-lg lg:col-span-3 lg:h-full lg:rounded-br-3xl lg:rounded-tr-3xl"
                   />
                   <div className="mx-auto flex flex-col justify-center text-left max-md:px-4 md:max-w-screen-md lg:col-span-4 lg:mr-36 lg:max-w-screen-lg xl:mr-48 xl:max-w-screen-xl 2xl:max-w-screen-2xl">
@@ -67,9 +73,12 @@ const Features = () => {
                       {feature.description2}
                     </p>
                   </div>
-                  <img
+                  <Image
                     src={feature.imageSrc}
                     alt={feature.title}
+                    width={1920}
+                    height={1080}
+                    priority
                     className="mx-auto mb-4 h-64 w-full object-cover shadow-lg lg:col-span-3 lg:h-full lg:rounded-bl-3xl lg:rounded-tl-3xl"
                   />
                 </>
