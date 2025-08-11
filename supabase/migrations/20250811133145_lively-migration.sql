@@ -37,3 +37,26 @@ CREATE TABLE feedbacks (
 CREATE INDEX idx_ip_last_request_day ON ip_api_usage (ip, last_request_day);
 CREATE INDEX idx_global_last_request_day ON global_api_usage (last_request_day);
 
+ALTER TABLE public.ip_api_usage ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Deny ALL access" ON public.ip_api_usage
+    FOR ALL
+    USING (false)
+    WITH CHECK (false);
+
+ALTER TABLE public.global_api_usage ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Deny ALL access" ON public.global_api_usage
+    FOR ALL
+    USING (false)
+    WITH CHECK (false);
+
+ALTER TABLE public.logs ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Deny ALL access" ON public.logs
+    FOR ALL
+    USING (false)
+    WITH CHECK (false);
+
+ALTER TABLE public.feedbacks ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Deny ALL access" ON public.feedbacks
+    FOR ALL
+    USING (false)
+    WITH CHECK (false);

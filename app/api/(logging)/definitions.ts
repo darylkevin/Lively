@@ -1,7 +1,7 @@
 // Logging Format
 // [TIME] [last request day] [LEVEL] - [CLIENT IP] [total chars] - [RemainingGlobal] [RemainingLocal]  [Message]
 
-import { pushLogs } from "../(crud-supabase)/definitions";
+import { pushLogs } from "../lib/definitions";
 
 export const BackendLogger = class BackendLogger {
   constructor(

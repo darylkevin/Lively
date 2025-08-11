@@ -31,7 +31,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
 
   const fetchTranslation = useDebouncedCallback(async () => {
     try {
-      const translated = await axios.post("/api", {
+      const translated = await axios.post("/api/translate", {
         transcript: transcript,
         sourceLanguage: sourceLanguage,
         targetLanguages: targetLanguages.filter((lang) => lang !== ""),

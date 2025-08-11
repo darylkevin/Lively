@@ -8,6 +8,7 @@ import {
   SpeechSynthesisContextProvider,
 } from "../interfaces/interfaces";
 import { speechSynthesisLanguages } from "@/app/lib/languages";
+import RecordingContext from "./RecordingContext";
 
 const SpeechSynthesisContext = createContext<
   SpeechSynthesisContextType | undefined
@@ -18,6 +19,8 @@ export const SpeechSynthesisProvider = ({
 }: SpeechSynthesisContextProvider) => {
   const [activePanel, setActivePanel] = useState("");
   const [voicesReady, setVoicesReady] = useState(false);
+  const { speakerTurns, sourceLanguage, targetLanguages } =
+    useContext(RecordingContext);
   const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
   const { speak, speaking, cancel } = useSpeechSynthesis();
 
@@ -85,10 +88,50 @@ export const SpeechSynthesisProvider = ({
     return;
   };
 
+  const handleSpeakConverse = (text, panelComparator) => {
+    cancel();
+    setActivePanel(panelComparator);
+
+    if (activePanel === panelComparator && speaking) {
+      return;
+    }
+
+    let language;
+
+    if (panelComparator.endsWith("1") && speakerTurns) {
+      language = sourceLanguage;
+    } else if (panelComparator.endsWith("1") && !speakerTurns) {
+      language = targetLanguages[0];
+    } else if (!panelComparator.endsWith("1") && speakerTurns) {
+      language = targetLanguages[0];
+    } else {
+      language = sourceLanguage;
+    }
+
+    let languageCode = speechSynthesisLanguages[language];
+    let localVoices;
+
+    localVoices = voicesRef.current.filter(
+      (v) => v.lang === languageCode && v.name.includes("Microsoft"),
+    );
+
+    if (localVoices.length === 0) {
+      localVoices = voicesRef.current.filter((v) => v.lang === languageCode);
+    }
+
+    speak({
+      text: text,
+      voice: localVoices[0],
+    });
+
+    return;
+  };
+
   return (
     <SpeechSynthesisContext.Provider
       value={{
         handleSpeak,
+        handleSpeakConverse,
         voicesReady, // Can be used for UI feedback
       }}
     >

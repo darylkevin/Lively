@@ -2,6 +2,7 @@ import axios from "axios";
 
 export async function GET() {
   try {
+
     const key = process.env.AZURE_SPEECH_KEY;
     const region = process.env.AZURE_SPEECH_REGION;
 

@@ -1,11 +1,57 @@
-import { feedback } from "@/app/lib/definitions";
-import { getClientIP } from "../(crud-services)/definitions";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import { NextRequest } from "next/server";
 import { BackendLogger } from "../(logging)/definitions";
 import { supabase } from "@/app/api/(crud-supabase)/supabase";
 
-const MAX_LOCAL_CHARS_PER_DAY = process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY;
-const MAX_GLOBAL_CHARS_PER_DAY =
+const BASE_URL = process.env.AZURE_ENDPOINT;
+const LOCATION = process.env.AZURE_LOCATION;
+const AZURE_API_KEY = process.env.AZURE_API_KEY;
+
+export const MAX_LOCAL_CHARS_PER_DAY =
+  process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY;
+export const MAX_GLOBAL_CHARS_PER_DAY =
   process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY;
+
+export const azureTranslationApi = async (
+  transcript,
+  sourceLanguage,
+  targetLanguages,
+) => {
+  try {
+    const response = await axios.post(
+      BASE_URL + "/translate",
+      [
+        {
+          text: transcript,
+        },
+      ],
+      {
+        headers: {
+          "Ocp-Apim-Subscription-Key": AZURE_API_KEY,
+          "Ocp-Apim-Subscription-Region": LOCATION,
+          "Content-type": "application/json",
+          "X-ClientTraceId": uuidv4().toString(),
+        },
+        params: {
+          "api-version": "3.0",
+          from: sourceLanguage,
+          to: targetLanguages.join(","),
+        },
+        responseType: "json",
+      },
+    );
+
+    return response.data[0].translations;
+  } catch (err) {
+    console.error(
+      "Error during Azure Translation API call:",
+      err.message,
+      err.stack,
+    );
+    throw new Error(`Translation API Error: ${err.message}`);
+  }
+};
 
 export const pushLogs = async (
   time: string,
@@ -54,35 +100,22 @@ export const pushFeedback = async (feedback: string) => {
   return;
 };
 
-export const getRemainingGlobalChars = async () => {
-  const today = new Date().toISOString().split("T")[0];
-  const { data, error } = await supabase
-    .from("global_api_usage")
-    .select("*")
-    .eq("last_request_day", today)
-    .maybeSingle();
+export const getClientIp = async (request: Request | NextRequest) => {
+  const realIp = request.headers.get("x-real-ip");
+  const forwardedFor = request.headers.get("x-forwarded-for");
 
-  if (error) {
-    new BackendLogger(
-      "ERROR",
-      "Exception on getRemainingGlobalChars" + error.message,
-      "global",
-      "N/A",
-      "N/A",
-      "N/A",
-    );
-    return;
+  if (realIp) return realIp.split(",")[0].trim();
+  if (forwardedFor) return forwardedFor.split(",")[0].trim();
+
+  if (request.socket?.remoteAddress) {
+    return request.socket.remoteAddress;
   }
 
-  if (data) {
-    return MAX_GLOBAL_CHARS_PER_DAY - data.total_chars;
-  } else {
-    // No data found, return the maximum allowed characters
-    return MAX_GLOBAL_CHARS_PER_DAY;
-  }
+  return null;
 };
 
-export const getRemainingLocalChars = async (ip: string) => {
+export const getRemainingLocalChars = async (request: Request) => {
+  const ip = await getClientIp(request);
   const today = new Date().toISOString().split("T")[0];
   const { data, error } = await supabase
     .from("ip_api_usage")
@@ -111,7 +144,7 @@ export const getRemainingLocalChars = async (ip: string) => {
   }
 };
 
-export const getFromSupabaseGlobal = async () => {
+export const getRemainingGlobalChars = async () => {
   const today = new Date().toISOString().split("T")[0];
   const { data, error } = await supabase
     .from("global_api_usage")
@@ -119,14 +152,10 @@ export const getFromSupabaseGlobal = async () => {
     .eq("last_request_day", today)
     .maybeSingle();
 
-  if (data) {
-    return data;
-  }
-
   if (error) {
     new BackendLogger(
       "ERROR",
-      "Exception on getFromSupabaseGlobal" + error.message,
+      "Exception on getRemainingGlobalChars" + error.message,
       "global",
       "N/A",
       "N/A",
@@ -134,10 +163,17 @@ export const getFromSupabaseGlobal = async () => {
     );
     return;
   }
+
+  if (data) {
+    return MAX_GLOBAL_CHARS_PER_DAY - data.total_chars;
+  } else {
+    // No data found, return the maximum allowed characters
+    return MAX_GLOBAL_CHARS_PER_DAY;
+  }
 };
 
-export const getFromSupabaseLocal = async (request: Request) => {
-  const ip = getClientIP(request);
+export const getLocalUsage = async (request: Request) => {
+  const ip = await getClientIp(request);
   const today = new Date().toISOString().split("T")[0];
   const { data, error } = await supabase
     .from("ip_api_usage")
@@ -153,7 +189,7 @@ export const getFromSupabaseLocal = async (request: Request) => {
   if (error) {
     new BackendLogger(
       "ERROR",
-      "Exception on getFromSupabaseLocal" + error.message,
+      "Exception on getLocalUsage" + error.message,
       "ip",
       "N/A",
       "N/A",
@@ -163,25 +199,22 @@ export const getFromSupabaseLocal = async (request: Request) => {
   }
 };
 
-export const addToSupabaseGlobal = async (requestedChars: number) => {
-  const lastRequestDay = new Date().toISOString().split("T")[0];
-  const lastUpdated = new Date();
-
+export const getGlobalUsage = async () => {
+  const today = new Date().toISOString().split("T")[0];
   const { data, error } = await supabase
     .from("global_api_usage")
-    .insert([
-      {
-        total_chars: requestedChars,
-        last_request_day: lastRequestDay,
-        updated: lastUpdated,
-      },
-    ])
-    .select();
+    .select("*")
+    .eq("last_request_day", today)
+    .maybeSingle();
+
+  if (data) {
+    return data;
+  }
 
   if (error) {
     new BackendLogger(
       "ERROR",
-      "Failed to create: " + error.message,
+      "Exception on getGlobalUsage" + error.message,
       "global",
       "N/A",
       "N/A",
@@ -191,10 +224,7 @@ export const addToSupabaseGlobal = async (requestedChars: number) => {
   }
 };
 
-export const addToSupabaseLocal = async (
-  ip: string,
-  requestedChars: number,
-) => {
+export const addToLocalUsage = async (ip: string, requestedChars: number) => {
   const lastRequestDay = new Date().toISOString().split("T")[0];
   const lastUpdated = new Date();
 
@@ -223,29 +253,25 @@ export const addToSupabaseLocal = async (
   }
 };
 
-export const updateToSupabaseGlobal = async (totalChars: number) => {
-  const last_request_day = new Date().toISOString().split("T")[0];
+export const addToGlobalUsage = async (requestedChars: number) => {
+  const lastRequestDay = new Date().toISOString().split("T")[0];
   const lastUpdated = new Date();
 
   const { data, error } = await supabase
     .from("global_api_usage")
-    .update([
+    .insert([
       {
-        total_chars: totalChars,
+        total_chars: requestedChars,
+        last_request_day: lastRequestDay,
         updated: lastUpdated,
       },
     ])
-    .eq("last_request_day", last_request_day)
     .select();
-
-  if (data.length === 0) {
-    return;
-  }
 
   if (error) {
     new BackendLogger(
       "ERROR",
-      "Failed to update: " + error.message,
+      "Failed to create: " + error.message,
       "global",
       "N/A",
       "N/A",
@@ -255,7 +281,7 @@ export const updateToSupabaseGlobal = async (totalChars: number) => {
   }
 };
 
-export const updateToSupabaseLocal = async (
+export const updateToLocalUsage = async (
   ip: string,
   requestedChars: number,
 ) => {
@@ -285,8 +311,32 @@ export const updateToSupabaseLocal = async (
     );
     return;
   }
+};
 
-  if (data.length === 0) {
+export const updateToGlobalUsage = async (totalChars: number) => {
+  const last_request_day = new Date().toISOString().split("T")[0];
+  const lastUpdated = new Date();
+
+  const { data, error } = await supabase
+    .from("global_api_usage")
+    .update([
+      {
+        total_chars: totalChars,
+        updated: lastUpdated,
+      },
+    ])
+    .eq("last_request_day", last_request_day)
+    .select();
+
+  if (error) {
+    new BackendLogger(
+      "ERROR",
+      "Failed to update: " + error.message,
+      "global",
+      "N/A",
+      "N/A",
+      "N/A",
+    );
     return;
   }
 };

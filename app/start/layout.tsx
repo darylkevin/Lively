@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import RecordingContext from "../ui/contexts/RecordingContext";
 // xs: 320
 // sm: 640
@@ -28,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   );
 
   const pathname = usePathname();
-  const { setActiveTab } = useContext(RecordingContext);
+  const { setActiveTab, handleResetAll } = useContext(RecordingContext);
   const { localUsageQuota, globalUsageQuota } = useContext(UsageContext);
 
   return (

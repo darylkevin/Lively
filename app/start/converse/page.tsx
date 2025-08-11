@@ -40,7 +40,7 @@ export default function Page() {
     handleResetAll,
   } = useContext(RecordingContext);
 
-  const { handleSpeak } = useContext(SpeechSynthesisContext);
+  const { handleSpeakConverse } = useContext(SpeechSynthesisContext);
 
   const [copied, setCopied] = useState(false);
   const [copyId, setCopyId] = useState(null);
@@ -172,11 +172,10 @@ export default function Page() {
               <div
                 className={`${recording && "hidden"} text-blue-400`}
                 onClick={() => {
-                  handleSpeak(
+                  handleSpeakConverse(
                     speakerTurns
                       ? transcript
                       : (translatedText?.[0]?.text ?? ""),
-                    sourceLanguage,
                     "mobile-converse-1",
                   );
                 }}
@@ -302,11 +301,10 @@ export default function Page() {
                 <div
                   className={`${recording && "hidden"} text-blue-400`}
                   onClick={() => {
-                    handleSpeak(
+                    handleSpeakConverse(
                       !speakerTurns
                         ? transcript
                         : (translatedText?.[0]?.text ?? ""),
-                      targetLanguages[0],
                       "mobile-converse-2",
                     );
                   }}
@@ -481,11 +479,10 @@ export default function Page() {
                 <div
                   className={`${recording && "hidden"} text-blue-400`}
                   onClick={() => {
-                    handleSpeak(
+                    handleSpeakConverse(
                       speakerTurns
                         ? transcript
                         : (translatedText?.[0]?.text ?? ""),
-                      sourceLanguage,
                       "desktop-converse-1",
                     );
                   }}
@@ -615,11 +612,10 @@ export default function Page() {
                   <div
                     className={`${recording && "hidden"} text-blue-400`}
                     onClick={() => {
-                      handleSpeak(
+                      handleSpeakConverse(
                         !speakerTurns
                           ? transcript
                           : (translatedText?.[0]?.text ?? ""),
-                        targetLanguages[0],
                         "desktop-converse-2",
                       );
                     }}

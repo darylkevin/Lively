@@ -1,19 +1,8 @@
 "use client";
 
-import {
-  createContext,
-  useEffect,
-  useState,
-  useCallback,
-  useContext,
-} from "react";
-
-import { UsageContextType, UsageProviderProps } from "../interfaces/interfaces";
-import {
-  getRemainingGlobalChars,
-  getRemainingLocalChars,
-} from "@/app/api/(crud-supabase)/definitions";
 import axios from "axios";
+import { createContext, useEffect, useState, useContext } from "react";
+import { UsageContextType, UsageProviderProps } from "../interfaces/interfaces";
 import RecordingContext from "./RecordingContext";
 
 const UsageContext = createContext<UsageContextType | undefined>(undefined);
@@ -24,18 +13,12 @@ export const UsageProvider = ({ children }: UsageProviderProps) => {
   const { activeTab } = useContext(RecordingContext);
 
   useEffect(() => {
-    const getClientIP = async () => {
-      const res = await axios.get("/api");
-      return res;
-    };
-
     const initialFetch = async () => {
-      const clientIP = await getClientIP();
-      const localUsage = await getRemainingLocalChars(clientIP.data.res);
-      const globalUsage = await getRemainingGlobalChars();
+      const remainingLocalUsage = await axios("/api/remaining-local-usage");
+      const remainingGlobalUsage = await axios("/api/remaining-global-usage");
 
-      setLocalUsageQuota(localUsage);
-      setGlobalUsageQuota(globalUsage);
+      setLocalUsageQuota(remainingLocalUsage.data);
+      setGlobalUsageQuota(remainingGlobalUsage.data);
     };
 
     initialFetch();

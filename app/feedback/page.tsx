@@ -12,12 +12,11 @@
 
 "use client";
 
+import axios from "axios";
 import React, { useState } from "react";
 import NavBar from "../ui/landing/NavBar";
 import { feedback } from "../lib/definitions";
-import { pushFeedback } from "../api/(crud-supabase)/definitions";
 import { footer } from "../lib/definitions";
-import Image from "next/image";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,7 +25,9 @@ export default function Home() {
 
   const handleSendFeedback = async () => {
     if (message.trim()) {
-      await pushFeedback(message);
+      await axios.post("/api/feedback", {
+        feedback: message,
+      });
       setFeedbackSent(true);
       setMessage("");
     }
