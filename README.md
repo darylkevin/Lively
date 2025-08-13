@@ -79,7 +79,7 @@ You can deploy Lively locally for development or personal use.
     # Supabase (Optional: for logging, feedback, and usage stats)
     # You can opt-out of the backend if you don't need this functionality.
     NEXT_PUBLIC_SUPABASE_URL=YOUR_SUPABASE_PROJECT_URL
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+    NEXT_SUPABASE_SERVICE_KEY=YOUR_SUPABASE_SERVICE_KEY
 
     # Usage Limits (Optional)
     NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY=10000
