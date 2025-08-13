@@ -119,7 +119,10 @@ export async function POST(request: Request) {
       }
     }
     return NextResponse.json(translation, { status: 200 });
-  } catch (err) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return NextResponse.json({ error: err.message }, { status: 500 });      
+    }
+    return NextResponse.json({ error: "An unknown error occured" }, { status: 500 });
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { languages } from "@/app/lib/languages";
 import {
   Select,
@@ -9,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import RecordingContext from "@/app/ui/contexts/RecordingContext";
-import SpeechSynthesisContext from "@/app/ui/contexts/SpeechSynthesisContext";
+import { useRecordingContext } from "@/app/ui/contexts/RecordingContext";
+import { useSpeechSynthesisContext } from "@/app/ui/contexts/SpeechSynthesisContext";
 
 // xs: 320
 // sm: 640
@@ -26,7 +26,6 @@ import SpeechSynthesisContext from "@/app/ui/contexts/SpeechSynthesisContext";
 
 export default function Page() {
   const {
-    sourceLanguage,
     targetLanguages,
     speakerTurns,
     error,
@@ -38,19 +37,19 @@ export default function Page() {
     setSpeakerTurns,
     handleRecordSpeech,
     handleResetAll,
-  } = useContext(RecordingContext);
+  } = useRecordingContext();
 
-  const { handleSpeakConverse } = useContext(SpeechSynthesisContext);
+  const { handleSpeakConverse } = useSpeechSynthesisContext();
 
   const [copied, setCopied] = useState(false);
-  const [copyId, setCopyId] = useState(null);
+  const [copyId, setCopyId] = useState("");
 
   const [speaker1, setSpeaker1] = useState(languages[0].short);
   const [speaker2, setSpeaker2] = useState(
     languages.length > 1 ? languages[1].short : languages[0].short,
   );
 
-  const handleCopyToClipboard = (text, id) => {
+  const handleCopyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopyId(id);
     setCopied(true);

@@ -9,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import RecordingContext from "@/app/ui/contexts/RecordingContext";
-import SpeechSynthesisContext from "@/app/ui/contexts/SpeechSynthesisContext";
+import RecordingContext, { useRecordingContext } from "@/app/ui/contexts/RecordingContext";
+import SpeechSynthesisContext, { useSpeechSynthesisContext } from "@/app/ui/contexts/SpeechSynthesisContext";
 
 // xs: 320
 // sm: 640
@@ -36,29 +36,29 @@ export default function Page() {
     setTargetLanguages,
     handleRecordSpeech,
     handleResetAll,
-  } = useContext(RecordingContext);
+  } = useRecordingContext();
 
-  const { handleSpeak } = useContext(SpeechSynthesisContext);
+  const { handleSpeak } = useSpeechSynthesisContext();
 
   const [copied, setCopied] = useState(false);
-  const [copyId, setCopyId] = useState(null);
+  const [copyId, setCopyId] = useState("");
 
   const handleAddMoreLanguage = () => {
     setTargetLanguages([...targetLanguages, ""]);
     return;
   };
 
-  const handleTargetLanguageChange = (language, i) => {
+  const handleTargetLanguageChange = (language: string, i: number) => {
     const currTargetLanguages = [...targetLanguages];
     currTargetLanguages[i] = language;
     setTargetLanguages(currTargetLanguages);
   };
 
-  const handleTargetLanguageDeletion = (index) => {
+  const handleTargetLanguageDeletion = (index: number) => {
     setTargetLanguages(targetLanguages.filter((_, i) => i !== index));
   };
 
-  const handleCopyToClipboard = (text, id) => {
+  const handleCopyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopyId(id);
     setCopied(true);

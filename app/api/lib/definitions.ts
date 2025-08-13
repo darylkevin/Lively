@@ -9,14 +9,14 @@ const LOCATION = process.env.AZURE_LOCATION;
 const AZURE_API_KEY = process.env.AZURE_API_KEY;
 
 export const MAX_LOCAL_CHARS_PER_DAY =
-  process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY;
+  Number(process.env.NEXT_PUBLIC_MAX_LOCAL_CHARS_PER_DAY);
 export const MAX_GLOBAL_CHARS_PER_DAY =
-  process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY;
+  Number(process.env.NEXT_PUBLIC_MAX_GLOBAL_CHARS_PER_DAY);
 
 export const azureTranslationApi = async (
-  transcript,
-  sourceLanguage,
-  targetLanguages,
+  transcript: string,
+  sourceLanguage: string,
+  targetLanguages: string[],
 ) => {
   try {
     const response = await axios.post(
@@ -43,13 +43,16 @@ export const azureTranslationApi = async (
     );
 
     return response.data[0].translations;
-  } catch (err) {
-    console.error(
-      "Error during Azure Translation API call:",
-      err.message,
-      err.stack,
-    );
-    throw new Error(`Translation API Error: ${err.message}`);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(
+        "Error during Azure Translation API call:",
+        err.message,
+        err.stack,
+      );
+      throw new Error(`Translation API Error: ${err.message}`);      
+    }
+    throw new Error("Translation API Error: An unknown error occured");
   }
 };
 
@@ -107,11 +110,7 @@ export const getClientIp = async (request: Request | NextRequest) => {
   if (realIp) return realIp.split(",")[0].trim();
   if (forwardedFor) return forwardedFor.split(",")[0].trim();
 
-  if (request.socket?.remoteAddress) {
-    return request.socket.remoteAddress;
-  }
-
-  return null;
+  return "unknown";
 };
 
 export const getRemainingLocalChars = async (request: Request) => {
@@ -128,12 +127,12 @@ export const getRemainingLocalChars = async (request: Request) => {
     new BackendLogger(
       "ERROR",
       "Exception on getRemainingLocalChars" + error.message,
-      ip,
-      "N/A",
-      "N/A",
-      "N/A",
+      ip ?? "unknown",
+      0,
+      0,
+      0,
     );
-    return;
+    return 0;
   }
 
   if (data) {
@@ -157,11 +156,11 @@ export const getRemainingGlobalChars = async () => {
       "ERROR",
       "Exception on getRemainingGlobalChars" + error.message,
       "global",
-      "N/A",
-      "N/A",
-      "N/A",
+      0,
+      0,
+      0,
     );
-    return;
+    return 0;
   }
 
   if (data) {
@@ -191,9 +190,9 @@ export const getLocalUsage = async (request: Request) => {
       "ERROR",
       "Exception on getLocalUsage" + error.message,
       "ip",
-      "N/A",
-      "N/A",
-      "N/A",
+      0,
+      0,
+      0,
     );
     return;
   }
@@ -216,9 +215,9 @@ export const getGlobalUsage = async () => {
       "ERROR",
       "Exception on getGlobalUsage" + error.message,
       "global",
-      "N/A",
-      "N/A",
-      "N/A",
+      0,
+      0,
+      0,
     );
     return;
   }
@@ -245,9 +244,9 @@ export const addToLocalUsage = async (ip: string, requestedChars: number) => {
       "ERROR",
       "Failed to create: " + error.message,
       "ip",
-      "N/A",
-      "N/A",
-      "N/A",
+      0,
+      0,
+      0,
     );
     return;
   }
@@ -273,9 +272,9 @@ export const addToGlobalUsage = async (requestedChars: number) => {
       "ERROR",
       "Failed to create: " + error.message,
       "global",
-      "N/A",
-      "N/A",
-      "N/A",
+      0,
+      0,
+      0,
     );
     return;
   }
@@ -305,9 +304,9 @@ export const updateToLocalUsage = async (
       "ERROR",
       "Failed to update: " + error.message,
       ip,
-      "N/A",
-      "N/A",
-      "N/A",
+      0,
+      0,
+      0,
     );
     return;
   }
@@ -333,9 +332,9 @@ export const updateToGlobalUsage = async (totalChars: number) => {
       "ERROR",
       "Failed to update: " + error.message,
       "global",
-      "N/A",
-      "N/A",
-      "N/A",
+      0,
+      0,
+      0,
     );
     return;
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useEffect, useState, useCallback, useRef } from "react";
+import { createContext, useEffect, useState, useCallback, useRef, useContext } from "react";
 import { useDebouncedCallback } from "use-debounce";
 import { languages } from "@/app/lib/languages";
 
@@ -15,6 +15,14 @@ const RecordingContext = createContext<RecordingContextType | undefined>(
   undefined,
 );
 
+export const useRecordingContext = () => {
+  const context = useContext(RecordingContext);
+  if (!context) {
+    throw new Error("useRecordingContext must be used within a RecordingProvider");
+  }
+  return context;
+}
+
 export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   const [activeTab, setActiveTab] = useState("");
   const [sourceLanguage, setSourceLanguage] = useState(languages[0].short);
@@ -23,7 +31,7 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
   );
   const [recording, setRecording] = useState(false);
   const [speakerTurns, setSpeakerTurns] = useState(true);
-  const [translatedText, setTranslatedText] = useState([]);
+  const [translatedText, setTranslatedText] = useState<({text: string})[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const [transcript, setTranscript] = useState("");
@@ -38,13 +46,14 @@ export const RecordingProvider = ({ children }: RecordingProviderProps) => {
       });
       setTranslatedText(translated.data);
       setError(null);
-    } catch (err) {
-      if (err.response.data.error) {
-        setError(err.response.data.error);
-      } else {
+    } catch (err: unknown) {
+      if (err instanceof Error) {
         setError(err.message);
+        setRecording(false);
       }
-      setRecording(false);
+      else {
+        setError("An unknown error occured");
+      }
     }
   }, 300);
 

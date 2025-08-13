@@ -4,13 +4,20 @@
 import { pushLogs } from "../lib/definitions";
 
 export const BackendLogger = class BackendLogger {
+  level: string;
+  message: string;
+  clientIp: string;
+  requestedChars: number;
+  remainingGlobal: number;
+  remainingLocal: number;
+  
   constructor(
-    level,
-    message,
-    clientIp,
-    requestedChars,
-    remainingGlobal,
-    remainingLocal,
+    level: string,
+    message: string,
+    clientIp: string,
+    requestedChars: number,
+    remainingGlobal: number,
+    remainingLocal: number,
   ) {
     this.level = level;
     this.message = message;

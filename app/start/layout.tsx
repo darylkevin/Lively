@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext } from "react";
-import RecordingContext from "../ui/contexts/RecordingContext";
+import RecordingContext, { useRecordingContext } from "../ui/contexts/RecordingContext";
 // xs: 320
 // sm: 640
 // md: 768
@@ -17,7 +17,7 @@ import RecordingContext from "../ui/contexts/RecordingContext";
 import { navs, links } from "../lib/definitions";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import UsageContext from "../ui/contexts/UsageContext";
+import { useUsageContext } from "../ui/contexts/UsageContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const MAX_LOCAL_CHARS_PER_DAY = Number(
@@ -28,8 +28,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   );
 
   const pathname = usePathname();
-  const { setActiveTab, handleResetAll } = useContext(RecordingContext);
-  const { localUsageQuota, globalUsageQuota } = useContext(UsageContext);
+  const { setActiveTab } = useRecordingContext();
+  const { localUsageQuota, globalUsageQuota } = useUsageContext();
 
   return (
     <>

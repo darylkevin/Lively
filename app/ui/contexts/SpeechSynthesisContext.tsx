@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+// @ts-ignore
 import { useSpeechSynthesis } from "react-speech-kit";
 
 import {
@@ -8,11 +9,19 @@ import {
   SpeechSynthesisContextProvider,
 } from "../interfaces/interfaces";
 import { speechSynthesisLanguages } from "@/app/lib/languages";
-import RecordingContext from "./RecordingContext";
+import RecordingContext, { useRecordingContext } from "./RecordingContext";
 
 const SpeechSynthesisContext = createContext<
   SpeechSynthesisContextType | undefined
 >(undefined);
+
+export const useSpeechSynthesisContext = () => {
+  const context = useContext(SpeechSynthesisContext);
+  if (!context) {
+    throw new Error("useSpeechSynthesisContext must be used within a RecordingProvider");
+  }
+  return context;
+}
 
 export const SpeechSynthesisProvider = ({
   children,
@@ -20,7 +29,7 @@ export const SpeechSynthesisProvider = ({
   const [activePanel, setActivePanel] = useState("");
   const [voicesReady, setVoicesReady] = useState(false);
   const { speakerTurns, sourceLanguage, targetLanguages } =
-    useContext(RecordingContext);
+    useRecordingContext();
   const voicesRef = useRef<SpeechSynthesisVoice[]>([]);
   const { speak, speaking, cancel } = useSpeechSynthesis();
 
@@ -61,7 +70,7 @@ export const SpeechSynthesisProvider = ({
     };
   }, []);
 
-  const handleSpeak = (text, language, panelComparator) => {
+  const handleSpeak = (text: string, language: string, panelComparator: string) => {
     cancel();
     setActivePanel(panelComparator);
 
@@ -69,7 +78,7 @@ export const SpeechSynthesisProvider = ({
       return;
     }
 
-    let languageCode = speechSynthesisLanguages[language];
+    let languageCode = speechSynthesisLanguages[language as keyof typeof speechSynthesisLanguages];
     let localVoices;
 
     localVoices = voicesRef.current.filter(
@@ -88,7 +97,7 @@ export const SpeechSynthesisProvider = ({
     return;
   };
 
-  const handleSpeakConverse = (text, panelComparator) => {
+  const handleSpeakConverse = (text: string, panelComparator: string) => {
     cancel();
     setActivePanel(panelComparator);
 
@@ -108,7 +117,7 @@ export const SpeechSynthesisProvider = ({
       language = sourceLanguage;
     }
 
-    let languageCode = speechSynthesisLanguages[language];
+    let languageCode = speechSynthesisLanguages[language as keyof typeof speechSynthesisLanguages];
     let localVoices;
 
     localVoices = voicesRef.current.filter(

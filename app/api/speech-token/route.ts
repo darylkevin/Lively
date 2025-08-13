@@ -33,14 +33,20 @@ export async function GET() {
       }),
       { status: 200 },
     );
-  } catch (err) {
-    console.error(
-      "Error fetching Azure speech token:",
-      err.response?.data || err.message,
-    );
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(
+        "Error fetching Azure speech token:",
+        err.message,
+      );
 
+      return new Response(
+        JSON.stringify({ error: `Failed to fetch speech token: ${err.message}` }),
+        { status: 500 },
+      );
+    }
     return new Response(
-      JSON.stringify({ error: "Failed to fetch speech token" }),
+      JSON.stringify({ error: "An unknown error occured" }),
       { status: 500 },
     );
   }

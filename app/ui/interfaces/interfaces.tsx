@@ -13,7 +13,7 @@ export interface RecordingContextType {
   recording: boolean;
   speakerTurns: boolean;
   transcript: string;
-  translatedText: string[];
+  translatedText: { text: string }[];
   error: string | null;
   setError: Dispatch<SetStateAction<string | null>>;
   setTranscript: Dispatch<SetStateAction<string>>;
@@ -29,14 +29,17 @@ export interface RecordingContextType {
 export interface UsageContextType {
   localUsageQuota: number;
   globalUsageQuota: number;
-  setLocalUsageQuota: Dispatch<SetStateAction<number | null>>;
-  setGlobalUsageQuota: Dispatch<SetStateAction<number | null>>;
+  setLocalUsageQuota: Dispatch<SetStateAction<number>>;
+  setGlobalUsageQuota: Dispatch<SetStateAction<number>>;
 }
 
 export interface SpeechSynthesisContextType {
-  beginSpeaking: (text: string, language: string) => void;
-  isSpeaking: boolean;
-  setIsSpeaking: Dispatch<SetStateAction<boolean>>;
+  handleSpeak: (text: string, language: string, panelComparator: string) => void;
+  handleSpeakConverse: (
+    text: string,
+    panelComparator: string
+  ) => void;
+  voicesReady: boolean;
 }
 
 export interface ThemeProviderProps {

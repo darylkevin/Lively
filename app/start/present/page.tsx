@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useContext, useRef } from "react";
+import { useState, useRef } from "react";
 import { languages } from "@/app/lib/languages";
 import {
   Select,
@@ -9,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import RecordingContext from "@/app/ui/contexts/RecordingContext";
-import SpeechSynthesisContext from "@/app/ui/contexts/SpeechSynthesisContext";
+import { useRecordingContext } from "@/app/ui/contexts/RecordingContext";
+import { useSpeechSynthesisContext } from "@/app/ui/contexts/SpeechSynthesisContext";
 
 import { pdfjs, Document, Page as PdfPage } from "react-pdf"; // Required imports for react-pdf
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -31,30 +31,28 @@ export default function Page() {
   const {
     sourceLanguage,
     targetLanguages,
-    speakerTurns,
     error,
     recording,
     translatedText,
     setSourceLanguage,
     setTargetLanguages,
-    setSpeakerTurns,
     handleRecordSpeech,
     handleResetAll,
-  } = useContext(RecordingContext);
+  } = useRecordingContext();
 
-  const { handleSpeak } = useContext(SpeechSynthesisContext);
+  const { handleSpeak } = useSpeechSynthesisContext();
 
-  const [pdfFile, setPdfFile] = useState("");
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfScale, setPdfScale] = useState(1);
-  const [numPages, setNumPages] = useState();
+  const [numPages, setNumPages] = useState<number | undefined>();
   const [isDragging, setIsDragging] = useState(false);
   const dropRef = useRef(null);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [copied, setCopied] = useState(false);
-  const [copyId, setCopyId] = useState(null);
+  const [copyId, setCopyId] = useState("");
 
-  const handleTargetLanguageChange = (language, i) => {
+  const handleTargetLanguageChange = (language: string, i: number) => {
     const currTargetLanguages = [...targetLanguages];
     currTargetLanguages[i] = language;
     setTargetLanguages(currTargetLanguages);
@@ -65,11 +63,11 @@ export default function Page() {
     return;
   };
 
-  const handleTargetLanguageDeletion = (index) => {
+  const handleTargetLanguageDeletion = (index: number) => {
     setTargetLanguages(targetLanguages.filter((_, i) => i !== index));
   };
 
-  const handleCopyToClipboard = (text, id) => {
+  const handleCopyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopyId(id);
     setCopied(true);
@@ -77,7 +75,7 @@ export default function Page() {
     setTimeout(() => setCopied(false), 1000);
   };
 
-  const handleFile = (file) => {
+  const handleFile = (file: File) => {
     if (file && file.type === "application/pdf") {
       setPdfFile(file);
     } else {
@@ -85,24 +83,24 @@ export default function Page() {
     }
   };
 
-  const handleDragEnter = (e) => {
+  const handleDragEnter = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(true);
   };
 
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
@@ -111,19 +109,23 @@ export default function Page() {
     handleFile(file);
   };
 
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    handleFile(file);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFile(file);
+    }
   };
 
   const handleClick = () => {
     if (!pdfFile) {
-      inputRef.current.click();
+      if (inputRef.current) {
+        inputRef.current.click();
+      }
     }
   };
 
   const handlePDFReset = () => {
-    setPdfFile("");
+    setPdfFile(null);
     setPdfScale(1);
     setNumPages(undefined);
   };
