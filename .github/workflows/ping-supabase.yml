@@ -16,9 +16,37 @@ jobs:
           SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
-          ENDPOINT="$SUPABASE_URL/rest/v1/ip_api_usage"
+          ENDPOINT="$SUPABASE_URL/rest/v1/logs"
 
-          curl -G "$ENDPOINT" \
+          MIN_VALUES=$(curl -s -G "$SUPABASE_URL/rest/v1/logs" \
             -H "apikey: $SUPABASE_ANON_KEY" \
-            -d "select=*" \
-            -d "limit=10"
+            -d "select=remaining_global,remaining_local" \
+            -d "last_request_day=eq.$(date +%Y-%m-%d)" \
+            -d "order=remaining_global.asc.nullslast" \
+            -d "limit=1")
+
+          REMAINING_GLOBAL=$(echo $MIN_VALUES | jq -r '.[0].remaining_global // 0')
+          REMAINING_LOCAL=$(echo $MIN_VALUES | jq -r '.[0].remaining_local // 0')
+
+          if [ "$REMAINING_GLOBAL" = "null" ]; then
+            REMAINING_GLOBAL=100000
+          fi
+          
+          if [ "$REMAINING_LOCAL" = "null" ]; then
+            REMAINING_LOCAL=10000
+          fi
+
+          curl -X POST "$ENDPOINT" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Content-Type: application/json" \
+            -H "Prefer: return=minimal" \
+            -d '{
+              "time": "'$(date -u +"%Y-%m-%dT%H:%M:%S.%3NZ")'",
+              "last_request_day": "'$(date +%Y-%m-%d)'",
+              "level": "DEBUG",
+              "message": "PING test",
+              "ip": "::1",
+              "requested_chars": 0,
+              "remaining_global": '"$REMAINING_GLOBAL"',
+              "remaining_local": '"$REMAINING_LOCAL"'
+            }'
