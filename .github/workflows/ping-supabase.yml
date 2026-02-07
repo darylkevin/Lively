@@ -47,6 +47,6 @@ jobs:
               "message": "PING test",
               "ip": "::1",
               "requested_chars": 0,
-              "remaining_global": '"$REMAINING_GLOBAL"',
-              "remaining_local": '"$REMAINING_LOCAL"'
+              "remaining_global": $REMAINING_GLOBAL,
+              "remaining_local": $REMAINING_LOCAL
             }'
